@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Yomogi&display=swap');
+
+*{font-family:'PT Sans',sans-serif!important;}
+
+body{
+    background: url('../img/fundo.jpg')no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.loguin-form {
+    margin: 20px;
+    min-width: 300px;
+    position: relative;
+}
+
+.dropdown-loguin {
+    background: #ffffffc9;
+}
+
+nav{
+    font-family: 'PT Sans'!important;
+    padding:4px 0!important;
+}
+
+nav.bg-light{
+    background-color: #ffffffad!important;
+}
+
+nav li{
+    margin-right:20px!important;
+}
+
+.form-group{
+    margin-bottom: 25px;
+}
+
+.btn-logo{
+    outline: none;
+    color: #0c0c0c;
+    background-color: #ffffffab;
+    border-color: transparent;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    font-size: 22px;
+    padding: 0px 12px;
+    height: 54px;
+    border-radius: 0;
+}
+
+nav a{
+    color:black!important;
+}
+
+nav a:hover{
+    opacity:0.6;
+}
