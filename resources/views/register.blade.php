@@ -1,8 +1,13 @@
 @extends('layouts.master')
 @section('conteudo')
 
+@if(Request::getPathInfo() == '/register/error')
+    Ocorreu um erro!
+@endif
+
 <h3>Ingressar na plataforma</h3>
-<form method="post">
+<form method="post" action="/register/complete">
+@csrf
   <div class="form-group">
     <label for="nome">Nome</label> 
     <input id="nome" name="nome" type="text" required="required" class="form-control">

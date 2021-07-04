@@ -3,7 +3,7 @@
 *{font-family:'PT Sans',sans-serif!important;}
 
 body{
-    background: url('../img/fundo.jpg')no-repeat;
+    background: url('../img/fundo.jpg')no-repeat!important;
     background-size: cover;
     background-attachment: fixed;
 }

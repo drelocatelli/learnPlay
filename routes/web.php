@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', function () { return view('index'); });
 
-Route::get('register', function () {
-    return view('register');
+//------------------------------- Registro
+Route::group(['prefix' => 'register'], function(){
+    Route::match(['get','post'], '/', function(){ return view('register'); });
+    Route::match(['get','post'], '/error', function(){ return view('register'); });
+    Route::match(['post'], '/complete', function(){ return view('register_complete'); });
 });
 
 //Route::group(['prefix' => 'cliente'], function(){
 //    $controller = ClienteController::class;
+
