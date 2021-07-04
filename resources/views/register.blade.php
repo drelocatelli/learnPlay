@@ -17,11 +17,12 @@
 
 @if(Request::getPathInfo() == '/register/success')
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-  Você foi cadastrado na plataforma!
+  <b>Sucesso:</b> Você foi cadastrado na plataforma!
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @else
 <h3>Ingressar na plataforma</h3>
+<br>
 <form method="post" action="/register/complete">
 @csrf
   <div class="form-group">

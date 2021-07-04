@@ -9,6 +9,8 @@
     <title>LearnPlay</title>
 </head>
 <body>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="/" title="Learn Play">
@@ -29,17 +31,18 @@
           </a>
           <ul class="dropdown-menu dropdown-loguin" aria-labelledby="navbarDropdownMenuLink">
             <div class="loguin-form">
-            <form method="post">
+            <form method="post" action="/loguin">
+              @csrf
               <div class="form-group">
                 <label for="email">E-mail</label> 
-                <input id="email" name="email" type="email" required="required" class="form-control">
+                <input id="email" name="email" type="text" required="required" class="form-control">
               </div>
               <div class="form-group">
                 <label for="senha">Senha</label> 
                 <input id="senha" name="senha" type="password" required="required" class="form-control">
               </div> 
               <div class="form-group">
-                <button name="submit" type="submit" class="btn btn-primary">Entrar</button>
+                <button name="submit" type="submit" class="btn btn-primary" name="entrar">Entrar</button>
               </div>
             </form>
             </div>

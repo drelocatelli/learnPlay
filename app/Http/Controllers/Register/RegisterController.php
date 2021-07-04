@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 use App\Models\User;
 
 class RegisterController extends Controller {
+
+    public static function loguin($data){
+
+        if (User::select('email','senha')->where(['email' => $data['email'], 'senha' => password_verify($data['senha'], PASSWORD_BCRYPT)])->exists() ){
+            return true;
+        }
+        
+
+    }
+    
     public static function create($mail, $name, $password) {
         if(empty($mail) || empty($name) || empty($password)){
             header("Location: error");
@@ -18,7 +28,7 @@ class RegisterController extends Controller {
         $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
         $name = filter_var($name, FILTER_SANITIZE_STRIPPED);
         $password = filter_var($password, FILTER_SANITIZE_STRIPPED);
-        $password = bcrypt($password);
+        $password = password_hash($password, PASSWORD_BCRYPT);
 
         // if user exists
         if (User::where('email', $mail)->exists()){
