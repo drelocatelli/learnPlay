@@ -8,5 +8,3 @@ Também disponível em versão mobile.
 ![image](https://user-images.githubusercontent.com/32282846/124358379-62be2b80-dbf6-11eb-8a8f-f8cdf3f215f1.png)
 
 ![Captura de tela de 2021-07-02 21-01-06](https://user-images.githubusercontent.com/32282846/124358427-9dc05f00-dbf6-11eb-8fbb-0d9d02222e34.png)
-
-![Captura de tela de 2021-07-02 21-01-06](https://user-images.githubusercontent.com/32282846/124358427-9dc05f00-dbf6-11eb-8fbb-0d9d02222e34.png)
