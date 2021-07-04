@@ -12,9 +12,12 @@ class RegisterController extends Controller
             header("Location: error");
             die();
         }
-        $mail = 
-        print $mail.'<br>';
-        print $name.'<br>';
-        print $password;
+
+        $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
+        $name = filter_var($name, FILTER_SANITIZE_STRIPPED);
+        $password = filter_var($password, FILTER_SANITIZE_STRIPPED);
+        
+        
+        
     }
 }
