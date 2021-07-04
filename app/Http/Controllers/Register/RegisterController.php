@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 
 class RegisterController extends Controller {
-    public static function createUser($mail, $name, $password) {
+    public static function create($mail, $name, $password) {
         if(empty($mail) || empty($name) || empty($password)){
             header("Location: error");
             return false;
