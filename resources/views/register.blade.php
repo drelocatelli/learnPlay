@@ -17,9 +17,15 @@
 
 @if(Request::getPathInfo() == '/register/success')
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <b>Sucesso:</b> Você foi cadastrado na plataforma!
+  <b>Sucesso:</b> Você foi cadastrado na plataforma! Faça o loguin para continuar.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+<script>
+  let loguinDropdown = document.querySelector('nav ul.dropdown-loguin');
+  loguinDropdown.classList.add('show');
+  loguinDropdown.querySelector('input[name=email]').focus();
+
+</script>
 @else
 <h3>Ingressar na plataforma</h3>
 <br>
