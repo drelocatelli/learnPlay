@@ -8,6 +8,19 @@
   </div>
 @endif
 
+@if(Request::getPathInfo() == '/register/error/user_exists')
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <b>Erro:</b> Já foi cadastrado um usuário com este e-mail. Tente novamente!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if(Request::getPathInfo() == '/register/success')
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  Você foi cadastrado na plataforma!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@else
 <h3>Ingressar na plataforma</h3>
 <form method="post" action="/register/complete">
 @csrf
@@ -27,4 +40,5 @@
     <button name="submit" type="submit" class="btn btn-primary">Ingressar</button>
   </div>
 </form>
+@endif
 @endsection

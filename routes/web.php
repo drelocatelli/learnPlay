@@ -19,7 +19,9 @@ Route::get('/', function () { return view('index'); });
 Route::group(['prefix' => 'register'], function(){
     Route::match(['get','post'], '/', function(){ return view('register'); });
     Route::match(['get','post'], '/error', function(){ return view('register'); });
+    Route::match(['get'], '/error/user_exists', function(){ return view('register'); });
     Route::match(['post'], '/complete', function(){ return view('register_complete'); });
+    Route::match(['get'], '/success', function(){ return view('register'); });
 });
 
 //Route::group(['prefix' => 'cliente'], function(){
