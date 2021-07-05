@@ -20,16 +20,16 @@ class RegisterController extends Controller {
 
         $credentials = $request->validate([
             'nome' => 'required',
-            'email' => 'required|exists:user',
+            'email' => 'required|unique:user',
             'senha' => 'required'
         ]);
 
         $credentials['senha'] = password_hash($credentials['senha'], PASSWORD_BCRYPT);
 
-        if (Auth::attempt($credentials)) {
-            print 'sucesso';
+        if(User::create($credentials)){
+            return redirect()->route('register.success');
         }else{
-            print 'erro';
+            return redirect()->route('register.error');
         }
 
     }

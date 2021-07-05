@@ -9,16 +9,17 @@ class AuthController extends Controller {
 
     public function authenticate(Request $request) {
 
-        $validated = $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|exists:user',
             'senha' => 'required'
         ]);
-            
-        if (!Auth::attempt($validated)) {
-            return redirect(route('register-error'));
-        }
 
-        return redirect(route('register-success'));
+        
+        dd(password_verify($credentials['senha'], PASSWORD_BCRYPT));            
+        // if (!Auth::attempt($credentials)) {
+        //     return redirect(route('register.error'));
+        // }
+
     }
 
 }

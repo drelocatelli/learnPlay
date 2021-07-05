@@ -42,7 +42,7 @@
                 <input id="senha" name="senha" type="password" required="required" class="form-control">
               </div> 
               <div class="form-group">
-                <button name="submit" type="submit" class="btn btn-primary" name="entrar">Entrar</button>
+                <button type="submit" class="btn btn-primary" name="entrar">Entrar</button>
               </div>
             </form>
             </div>

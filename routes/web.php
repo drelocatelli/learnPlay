@@ -23,8 +23,8 @@ Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 //------------------------------- Registro
 Route::group(['prefix' => 'register'], function(){
     $controller = RegisterController::class;
-    Route::match(['get','post'], '/', [$controller, 'index']);
-    Route::post('/', [$controller, 'register'])->name('register');
-    Route::match(['get','post'], '/error', [$controller, 'error'])->name('register-error');
-    Route::match(['get','post'], '/success', [$controller, 'success'])->name('register-success');
+    Route::get('/', [$controller, 'index']);
+    Route::post('/complete', [$controller, 'register'])->name('register');
+    Route::get('/error', [$controller, 'error'])->name('register.error');
+    Route::get('/success', [$controller, 'success'])->name('register.success');
 });
