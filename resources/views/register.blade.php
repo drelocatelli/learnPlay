@@ -1,14 +1,14 @@
 @extends('layouts.master')
 @section('conteudo')
 
-@if(route('register-error'))
+@if(Request::getPathInfo() == '/register/error')
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
     Ocorreu um erro inesperado, tente novamente!
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 @endif
 
-@if(route('register-success'))
+@if(Request::getPathInfo() == '/register/success')
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <b>Sucesso:</b> Você foi cadastrado na plataforma! Faça o loguin para continuar.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
