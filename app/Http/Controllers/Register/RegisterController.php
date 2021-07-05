@@ -28,9 +28,10 @@ class RegisterController extends Controller {
 
         if (!Auth::attempt($validated)) {
             return redirect(route('register-error'));
+        }else{
+            return redirect(route('register-success'));
         }
 
-        return redirect(route('register-success'));
     }
 
     public function error(){

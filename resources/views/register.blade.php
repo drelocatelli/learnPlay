@@ -1,21 +1,14 @@
 @extends('layouts.master')
 @section('conteudo')
 
-@if(Request::getPathInfo() == '/register/error')
+@if(route('register-error'))
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
     Ocorreu um erro inesperado, tente novamente!
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 @endif
 
-@if(Request::getPathInfo() == '/register/error/user_exists')
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <b>Erro:</b> Já foi cadastrado um usuário com este e-mail. Tente novamente!
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
-
-@if(Request::getPathInfo() == '/register/success')
+@if(route('register-success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <b>Sucesso:</b> Você foi cadastrado na plataforma! Faça o loguin para continuar.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
