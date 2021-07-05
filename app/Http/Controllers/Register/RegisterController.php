@@ -27,10 +27,10 @@ class RegisterController extends Controller {
         $validated['senha'] = password_hash($validated['senha'], PASSWORD_BCRYPT);
 
         if (!Auth::attempt($validated)) {
-            return redirect('/error');
+            return redirect(route('register-error'));
         }
 
-        return redirect('/success');
+        return redirect(route('register-success'));
     }
 
     public function error(){
