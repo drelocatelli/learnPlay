@@ -1,6 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&family=Yomogi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
-*{font-family:'PT Sans',sans-serif!important;}
+*,body{font-family: 'Raleway', sans-serif;}
+
+h1,h2,h3,h4{
+    font-weight: bold;
+}
 
 .error-msg {
     /* background: #f8d7da; */
@@ -11,10 +15,57 @@
     color: #c2202d;
 }
 
+.card{
+    background-color: #fdf9f9;
+    border-color: transparent;
+}
+
+.btn{
+    display: inline-block;
+    height: 38px;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: 4px;
+    color:white;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-color:transparent!important;
+}
+
+.btn:hover{
+    color:white;
+}
+
+.btn-primary{
+    opacity:0.9;
+    background-color: #16a0cc;
+    border-color:transparent;
+}
+
+.btn-primary:hover{
+    background-color: #16a0cc;
+    opacity:0.8;
+    border-color:transparent;
+}
+
+.form-control:focus, .btn:focus{
+    box-shadow: none!important;
+    border-color:#d2b3b7;
+}
+
 body{
-    background: url('../img/fundo.jpg')no-repeat!important;
+    background: url('../img/bg.png')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-attachment: fixed;
 }
 
 .loguin-form {
@@ -28,7 +79,6 @@ body{
 }
 
 nav{
-    font-family: 'PT Sans'!important;
     padding:4px 0!important;
 }
 
@@ -44,18 +94,15 @@ nav li{
     margin-bottom: 25px;
 }
 
-.btn-logo{
-    outline: none;
-    color: #0c0c0c;
-    background-color: #ffffffab;
-    border-color: transparent;
-    position: absolute;
-    box-sizing: border-box;
-    top: 0;
-    font-size: 22px;
-    padding: 0px 12px;
-    height: 54px;
-    border-radius: 0;
+.alert {
+    position: relative;
+    padding: 5px 15px;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+}
+
+.logo{
+    font-family: sans-serif;
 }
 
 nav a{

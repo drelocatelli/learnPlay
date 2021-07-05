@@ -17,6 +17,7 @@ class AuthController extends Controller {
         }
     }
 
+
     public function authenticate(Request $request) {
 
         $credentials = $request->validate([
@@ -35,10 +36,12 @@ class AuthController extends Controller {
 
     }
 
+
     public function logout(){
         Auth::logout();
         return redirect()->route('homepage');
     }
+
 
     public function dashboard(){
         if(!Auth::check()){

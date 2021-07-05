@@ -13,8 +13,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="/" title="Learn Play">
-        <button class="btn btn-logo">Learn Play</button>
+    <a class="navbar-brand logo" href="/" title="Learn Play">
+        Learn Play
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@
               @csrf
                 @if($errors->has('email') or $errors->has('senha'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <b>E-mail e senha não correspondem.</b>
+                        <b>E-mail e senha inválidos.</b>
                   </div>
                 @endif
               <div class="form-group">

@@ -1,3 +1,7 @@
-{{Auth::user()}}
+@include('layouts.painel')
+@section('conteudo')
+    {{Auth::user()}}
 
-<a href="{{route('login.logout')}}">sair</a>
+
+
+@endsection
