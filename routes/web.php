@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Register\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () { return view('index'); });
 
 //------------------------------- Loguin
-Route::post('/loguin', function(){ return view('loguin'); });
+Route::post('/login', [RegisterController::class, 'authenticate'])->name('post-login');
 
 //------------------------------- Registro
 Route::group(['prefix' => 'register'], function(){
