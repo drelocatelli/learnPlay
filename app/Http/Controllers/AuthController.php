@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller {
 
+    public function authenticate(Request $request) {
 
-    public function authenticate(AuthRequest $request) {
-        
-        
+        $validated = $request->validate([
+            'email' => 'required|exists:user',
+            'password' => 'required'
+        ]);
+            
         if (!Auth::attempt($validated)) {
-            abort(404);
+            return redirect('/login/error');
         }
 
-        return redirect('/dashboard');
+        return redirect('/login');
     }
+
 }

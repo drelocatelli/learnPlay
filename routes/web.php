@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Register\RegisterController;
 
 /*
@@ -17,17 +18,12 @@ use App\Http\Controllers\Register\RegisterController;
 Route::get('/', function () { return view('index'); });
 
 //------------------------------- Loguin
-Route::post('/login', [RegisterController::class, 'authenticate'])->name('post-login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('form-login');
 
 //------------------------------- Registro
 Route::group(['prefix' => 'register'], function(){
-    Route::match(['get','post'], '/', function(){ return view('register'); });
-    Route::match(['get','post'], '/error', function(){ return view('register'); });
-    Route::match(['get','post'], '/error/user_exists', function(){ return view('register'); });
-    Route::match(['post'], '/complete', function(){ return view('register_complete'); });
-    Route::match(['get','post'], '/success', function(){ return view('register'); });
+    $controller = RegisterController::class;
+    Route::match(['get','post'], '/', [$controller, 'register'])->name('form-register');
+    Route::match(['get','post'], '/error', [$controller, 'error']);
+    Route::match(['get','post'], '/success', [$controller, 'success']);
 });
-
-//Route::group(['prefix' => 'cliente'], function(){
-//    $controller = ClienteController::class;
-
