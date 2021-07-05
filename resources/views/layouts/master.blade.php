@@ -16,7 +16,7 @@
     <a class="navbar-brand" href="/" title="Learn Play">
         <button class="btn btn-logo">Learn Play</button>
     </a>
-   
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,18 +29,31 @@
           <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Fazer login
           </a>
-          <ul class="dropdown-menu dropdown-loguin" aria-labelledby="navbarDropdownMenuLink">
+          <ul class="dropdown-menu dropdown-loguin
+          @if($errors->has('email') or $errors->has('senha'))
+            {{'show'}}
+          @endif
+          " aria-labelledby="navbarDropdownMenuLink">
             <div class="loguin-form">
             <form method="post" action="{{ route('login') }}">
               @csrf
+                @if($errors->has('email') or $errors->has('senha'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <b>E-mail e senha não correspondem.</b>
+                  </div>
+                @endif
               <div class="form-group">
-                <label for="email">E-mail</label> 
-                <input id="email" name="email" type="text" required="required" class="form-control">
+                <label for="email2">E-mail</label>
+                <input id="email2" name="email" type="text" required="required" class="form-control"
+                @if($errors->has('email') or $errors->has('senha'))
+                    {{'autofocus'}}
+                @endif
+                >
               </div>
               <div class="form-group">
-                <label for="senha">Senha</label> 
-                <input id="senha" name="senha" type="password" required="required" class="form-control">
-              </div> 
+                <label for="senha2">Senha</label>
+                <input id="senha2" name="senha" type="password" required="required" class="form-control">
+              </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary" name="entrar">Entrar</button>
               </div>
@@ -64,9 +77,9 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        
+
     </script>
 </body>
 </html>
