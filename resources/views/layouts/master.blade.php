@@ -27,11 +27,11 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Fazer loguin
+            Fazer login
           </a>
           <ul class="dropdown-menu dropdown-loguin" aria-labelledby="navbarDropdownMenuLink">
             <div class="loguin-form">
-            <form method="post" action="{{ route('form-login') }}">
+            <form method="post" action="{{ route('login') }}">
               @csrf
               <div class="form-group">
                 <label for="email">E-mail</label> 

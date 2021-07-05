@@ -29,7 +29,7 @@
 @else
 <h3>Ingressar na plataforma</h3>
 <br>
-<form method="post" action="{{ route('form-register') }}">
+<form method="post" action="{{ route('register') }}">
 @csrf
   <div class="form-group">
     <label for="nome">Nome</label> 

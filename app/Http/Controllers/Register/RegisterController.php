@@ -5,15 +5,32 @@ namespace App\Http\Controllers\Register;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\User;
 
 class RegisterController extends Controller {
-    
+
+    public function index(){
+        return view('register');
+
+    }
 
     public function register(Request $request){
 
-        dd($request->all());
-        return view('register');
+        $validated = $request->validate([
+            'nome' => 'required|',
+            'email' => 'required|exists:user',
+            'senha' => 'required'
+        ]);
+
+        $validated['senha'] = password_hash($validated['senha'], PASSWORD_BCRYPT);
+
+        if (!Auth::attempt($validated)) {
+            return redirect('/error');
+        }
+
+        return redirect('/success');
     }
 
     public function error(){

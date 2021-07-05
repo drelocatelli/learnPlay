@@ -18,12 +18,13 @@ use App\Http\Controllers\Register\RegisterController;
 Route::get('/', function () { return view('index'); });
 
 //------------------------------- Loguin
-Route::post('/login', [AuthController::class, 'authenticate'])->name('form-login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 
 //------------------------------- Registro
 Route::group(['prefix' => 'register'], function(){
     $controller = RegisterController::class;
-    Route::match(['get','post'], '/', [$controller, 'register'])->name('form-register');
-    Route::match(['get','post'], '/error', [$controller, 'error']);
-    Route::match(['get','post'], '/success', [$controller, 'success']);
+    Route::match(['get','post'], '/', [$controller, 'index']);
+    Route::post('/', [$controller, 'register'])->name('register');
+    Route::match(['get','post'], '/error', [$controller, 'error'])->name('register-error');
+    Route::match(['get','post'], '/success', [$controller, 'success'])->name('register-success');
 });

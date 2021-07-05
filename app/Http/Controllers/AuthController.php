@@ -11,14 +11,14 @@ class AuthController extends Controller {
 
         $validated = $request->validate([
             'email' => 'required|exists:user',
-            'password' => 'required'
+            'senha' => 'required'
         ]);
             
         if (!Auth::attempt($validated)) {
-            return redirect('/login/error');
+            return redirect(route('register-error'));
         }
 
-        return redirect('/login');
+        return redirect(route('register-success'));
     }
 
 }
