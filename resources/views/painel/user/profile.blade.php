@@ -1,7 +1,5 @@
 @extends('layouts.painel')
 @section('conteudo')
-
-    <h3>Dashboard</h3>
-
+    <h3>Perfil de {{$user}}</h3>
 
 @endsection

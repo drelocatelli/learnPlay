@@ -13,7 +13,37 @@
 <body>
 
     <div class="container">
-        <a href="{{route('login.logout')}}">sair</a>
+
+        <nav>
+            <ul class="nav justify-content-start" style="float:left;">
+                <li class="nav-item">
+                    <a href="{{route('user.profile', Auth::User()->nome)}}" class="nav-link" title="Meu perfil">
+                        <img src="
+                            @if(Auth::User()->photo === null)
+                                {{ asset('img/userimg/default.png')}}
+                            @else
+                                {!! asset("img/userimg/". Auth::User()->photo) !!}
+                            @endif
+                        " class="profile-photo photo">
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" title="Configurações"><i class="fas fa-user-edit"></i></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('login.logout')}}" class="nav-link">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </li>
+              </ul>
+        </nav>
+        <div style="clear:both;"></div>
         @yield('conteudo')
     </div>
 
