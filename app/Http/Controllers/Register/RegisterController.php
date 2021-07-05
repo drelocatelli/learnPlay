@@ -18,18 +18,18 @@ class RegisterController extends Controller {
 
     public function register(Request $request){
 
-        $validated = $request->validate([
-            'nome' => 'required|',
+        $credentials = $request->validate([
+            'nome' => 'required',
             'email' => 'required|exists:user',
             'senha' => 'required'
         ]);
 
-        $validated['senha'] = password_hash($validated['senha'], PASSWORD_BCRYPT);
+        $credentials['senha'] = password_hash($credentials['senha'], PASSWORD_BCRYPT);
 
-        if (!Auth::attempt($validated)) {
-            return redirect(route('register-error'));
+        if (Auth::attempt($credentials)) {
+            print 'sucesso';
         }else{
-            return redirect(route('register-success'));
+            print 'erro';
         }
 
     }
