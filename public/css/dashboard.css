@@ -9,8 +9,29 @@
     width: 50px;
     background: white;
     border-radius: 35px;
-    box-shadow: 1px 2px 4px #c396a8;
+    /* box-shadow: 1px 2px 4px #c396a8; */
     padding: 3px;
+}
+
+.toggle-sidebar {
+    z-index: 111111111111111111;
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    color: black;
+    font-size: 20px;
+}
+
+.sidebar{
+    /* background:transparent!important; */
+    top:0;
+    position:fixed;
+    min-height: 100%;
+    z-index:1;
+}
+
+.sidebar li a:hover{
+    background-color: #a9fd0d;
 }
 
 .container {
@@ -21,6 +42,15 @@
     box-shadow: 0px 3px 5px #b1acac;
     margin-top:35px;
     padding:35px 25px;
+}
+
+nav {
+    padding: 4px 0!important;
+    background: #ffffff80;
+    padding: 15px 30px !important;
+    border-radius: 9px;
+    box-shadow: 0px 3px 3px #00000005;
+    margin-bottom: 40px;
 }
 
 nav li{
