@@ -66,7 +66,7 @@
                     <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
-                    <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->count()}}</span></a>
+                    <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span id="notification_count" style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->where('status','1')->count()}}</span></a>
                     <ul class="dropdown-menu notify-dropdown">
                         @foreach(Auth::user()->alerts as $alert)
                             <li id="notification" data-id="{{$alert->id}}" data-status="{{$alert->status}}" onclick="notifyToggle({{$alert->id}}, {{$alert->status}})">
@@ -102,6 +102,18 @@
 
                             function notifyToggle(id, status){
                                 notification_style(id)
+
+                                let notificationCount = document.querySelector('span#notification_count')
+                                notificationLiEl.forEach((i)=>{
+                                    if(i.dataset.id == id){
+                                        if(i.dataset.status == '0'){
+                                            notificationCount.innerText = parseInt(notificationCount.innerText) + 1
+                                        }else if(i.dataset.status == '1'){
+                                            notificationCount.innerText = parseInt(notificationCount.innerText) - 1
+                                        }
+                                    }
+                                })
+
                                 $.ajax({
                                     type: "PUT",
                                     url: '/user/notifyToggle/'+id,
