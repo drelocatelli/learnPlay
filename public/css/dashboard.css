@@ -15,7 +15,7 @@
 
 .notify-dropdown li{
     background:#f9f9f9;
-    cursor:context-menu;
+    cursor:pointer;
     padding:5px;
 
 }

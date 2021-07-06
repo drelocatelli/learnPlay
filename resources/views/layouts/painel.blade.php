@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <title>LearnPlay</title>
 </head>
@@ -59,16 +61,57 @@
                     </a>
                 </li>
             </ul>
-            <ul class="nav justify-content-end">
+            <ul id="notification" class="nav justify-content-end">
                 <li class="nav-item">
                     <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
                     <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->count()}}</span></a>
                     <ul class="dropdown-menu notify-dropdown">
-                        @foreach(Auth::user()->alerts as $alerts)
-                        <li>{{$alerts->alert}}</li>
+                        @foreach(Auth::user()->alerts as $alert)
+                            <li id="notification" data-id="{{$alert->id}}" data-status="{{$alert->status}}" onclick="notifyToggle({{$alert->id}}, {{$alert->status}})">
+                                {{$alert->alert}}
+                            </li>
                         @endforeach
+                        <script>
+
+                            $('#notification').on('hide.bs.dropdown', function (e) {
+                                if (e.clickEvent) {
+                                e.preventDefault();
+                                }
+                            });
+                            var notificationLiEl = document.querySelectorAll('li#notification');
+                            notificationLiEl.forEach((i)=>{
+                                notification_style(i.dataset.id)
+                            })
+
+                            function notification_style(id){
+                                notificationLiEl.forEach((i)=>{
+                                    if(i.dataset.id == id){
+                                        if(i.dataset.status == '0'){
+                                            i.style = window.getComputedStyle(i)
+                                            i.dataset.status = '1';
+                                        }else if(i.dataset.status == '1'){
+                                            i.dataset.status = '0';
+                                            i.style.color = '#3c1f23';
+                                            i.style.fontWeight = 'bold';
+                                        }
+                                    }
+                                })
+                            }
+
+                            function notifyToggle(id, status){
+                                notification_style(id)
+                                $.ajax({
+                                    type: "PUT",
+                                    url: '/user/notifyToggle/'+id,
+                                    data: {_token: '{{csrf_token()}}'},
+                                    // success: function (data) {
+                                    //     console.log(data);
+                                    // },
+                                });
+                            }
+                        </script>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -105,7 +148,6 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
     </script>

@@ -13,6 +13,6 @@ class UserAlert extends Model
     protected $table = 'user_alert';
     public $timestamps = false;
 
-    protected $fillable = ['id_user', 'alert'];
+    protected $fillable = ['id_user', 'alert', 'status'];
 
 }
