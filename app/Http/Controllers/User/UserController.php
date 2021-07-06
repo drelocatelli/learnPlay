@@ -10,11 +10,13 @@ class UserController extends Controller
 {
 
     public function user($user){
-        if(!Auth::check()){
-            return redirect()->route('homepage');
-        }
 
         return view('painel.user.profile', compact('user'));
+
+    }
+
+    public function dashboard(){
+        return view('painel.dashboard');
     }
 
 }

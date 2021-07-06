@@ -16,7 +16,7 @@
 
         <ul class="nav nav-pills flex-column mb-auto mt-5">
           <li class="nav-item">
-            <a href="#" class="nav-link link-dark">
+            <a href="{{route('dashboard')}}" class="nav-link link-dark">
               Home
             </a>
           </li>
@@ -48,12 +48,12 @@
         <nav>
             <ul class="nav justify-content-start" style="float:left;">
                 <li class="nav-item">
-                    <a href="{{route('user.profile', Auth::User()->nome)}}" class="nav-link" title="Meu perfil">
+                    <a href="{{route('user.profile', Auth::user()->nome)}}" class="nav-link" title="Meu perfil">
                         <img src="
-                            @if(Auth::User()->photo === null)
+                            @if(Auth::user()->photo === null)
                                 {{ asset('img/userimg/default.png')}}
                             @else
-                                {!! asset("img/userimg/". Auth::User()->photo) !!}
+                                {!! asset("img/userimg/". Auth::user()->photo) !!}
                             @endif
                         " class="profile-photo photo">
                     </a>
@@ -63,8 +63,13 @@
                 <li class="nav-item">
                     <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-bell"></i> &nbsp;<span style="font-family:sans-serif; font-size:18px;">0</span></a>
+                <li class="nav-item dropdown dnotify-dropdown">
+                    <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->count()}}</span></a>
+                    <ul class="dropdown-menu notify-dropdown">
+                        @foreach(Auth::user()->alerts as $alerts)
+                        <li>{{$alerts->alert}}</li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link" title="Configurações"><i class="fas fa-user-edit"></i></a>

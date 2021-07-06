@@ -16,7 +16,7 @@ use App\Http\Controllers\User\UserController;
 |
 */
 //------------------------------- Basic
-Route::get('/', [AuthController::class, 'homepage'])->name('homepage');
+Route::get('/', [AuthController::class, 'homepage'])->name('homepage')->middleware('guest');
 
 //------------------------------- Loguin
 Route::group(['prefix' => '/login'], function(){
@@ -35,13 +35,14 @@ Route::group(['prefix' => '/register'], function(){
 });
 
 //------------------------------- Dashboard
-Route::group(['prefix' => '/dashboard'], function(){
-    $controller = AuthController::class;
+Route::prefix('dashboard')->middleware('auth')->group(function(){
+    $controller = UserController::class;
     Route::get('/', [$controller, 'dashboard'])->name('dashboard');
 });
 
 //------------------------------- Dashboard User
-Route::group(['prefix' => '/user/'], function(){
+Route::prefix('user')->middleware('auth')->group(function(){
+// Route::group(['prefix' => '/user/'], function(){
     $controller = UserController::class;
     Route::get('{user}', [$controller, 'user'])->name('user.profile');
 });

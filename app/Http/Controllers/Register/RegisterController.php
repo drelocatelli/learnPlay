@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\User\UserAlert;
 
 class RegisterController extends Controller {
 
@@ -26,7 +27,11 @@ class RegisterController extends Controller {
 
         $credentials['senha'] = password_hash($credentials['senha'], PASSWORD_BCRYPT);
 
-        if(User::create($credentials)){
+        $user = User::create($credentials);
+        $userAlert = UserAlert::create(['id_user' => $user->id, 'alert' => 'Bem vindo a plataforma! =)']);;
+
+
+        if($user && $userAlert){
             return redirect()->route('register.success');
         }else{
             return redirect()->route('register.error');
@@ -41,5 +46,5 @@ class RegisterController extends Controller {
     public function success(){
         return view('register');
     }
-    
+
 }

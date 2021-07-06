@@ -10,28 +10,26 @@ use App\Models\User;
 class AuthController extends Controller {
 
     public function homepage(){
-        if(!Auth::check()){
-            return view('index');
-        }else{
-            return redirect()->route('dashboard');
-        }
+
+        return view('index');
+
     }
 
 
     public function authenticate(Request $request) {
 
         $credentials = $request->validate([
-            'email' => 'required|exists:user',
-            'senha' => 'required'
+            'email_login' => 'required|exists:user,email',
+            'senha_login' => 'required'
         ]);
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::where('email', $credentials['email_login'])->first();
 
-        if(Hash::check($credentials['senha'], $user->senha)){
+        if(Hash::check($credentials['senha_login'], $user->senha)){
             Auth::login($user);
             return redirect(route('dashboard'));
         }else{
-            return redirect()->back()->withErrors($credentials);
+            return redirect()->back()->withErrors($credentials)->withInput();
         }
 
     }
@@ -42,13 +40,5 @@ class AuthController extends Controller {
         return redirect()->route('homepage');
     }
 
-
-    public function dashboard(){
-        if(!Auth::check()){
-            return redirect()->route('homepage');
-        }
-
-        return view('painel.dashboard');
-    }
 
 }

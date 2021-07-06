@@ -30,29 +30,29 @@
             Fazer login
           </a>
           <ul class="dropdown-menu dropdown-loguin
-          @if($errors->has('email') or $errors->has('senha'))
+          @if(($errors->has('email_login') or $errors->has('senha_login')))
             {{'show'}}
           @endif
           " aria-labelledby="navbarDropdownMenuLink">
             <div class="loguin-form">
             <form method="post" action="{{ route('login') }}">
               @csrf
-                @if($errors->has('email') or $errors->has('senha'))
+              @if(($errors->has('email_login') or $errors->has('senha_login')))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <b>E-mail e senha inválidos.</b>
                   </div>
                 @endif
               <div class="form-group">
                 <label for="email2">E-mail</label>
-                <input id="email2" name="email" type="text" required="required" class="form-control"
-                @if($errors->has('email') or $errors->has('senha'))
+                <input id="email2" name="email_login" type="text" required="required" class="form-control"
+                @if(($errors->has('email_login') or $errors->has('senha_login')))
                     {{'autofocus'}}
                 @endif
                 >
               </div>
               <div class="form-group">
                 <label for="senha2">Senha</label>
-                <input id="senha2" name="senha" type="password" required="required" class="form-control">
+                <input id="senha2" name="senha_login" type="password" required="required" class="form-control">
               </div>
               <div class="form-group">
                 <button type="submit" class="btn btn-primary" name="entrar">Entrar</button>
