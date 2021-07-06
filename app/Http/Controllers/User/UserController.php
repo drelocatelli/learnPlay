@@ -12,10 +12,18 @@ use App\Models\User\UserAlert;
 class UserController extends Controller
 {
 
-    public function user($user){
+    public function user($user, $id){
+        $find = User::where(['nome' => $user, 'id' => $id])->first();
+        if((bool) $find){
+            return view('painel.user.profile', compact('user'));
+        }else{
+            return view('painel.user.profile', ['user' => 'Usuário não existe']);
+        }
 
-        return view('painel.user.profile', compact('user'));
+    }
 
+    public function settings(){
+        return view('painel.user.settings');
     }
 
     public function dashboard(){
@@ -23,14 +31,9 @@ class UserController extends Controller
     }
 
     public function notifyToggle($id){
-        $notify = UserAlert::where('id', $id)->where('id_user', Auth::user()->id)->first();
-        if($notify->status == 0){
-            $notify->update(['status' => '1']);
-            return $notify;
-        }else if($notify->status == 1){
-            $notify->update(['status' => '0']);
-            return $notify;
-        }
+
+        User::notifyToggle($id);
+
     }
 
 }

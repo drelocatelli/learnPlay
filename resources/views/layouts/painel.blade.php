@@ -19,7 +19,7 @@
         <ul class="nav nav-pills flex-column mb-auto mt-5">
           <li class="nav-item">
             <a href="{{route('dashboard')}}" class="nav-link link-dark">
-              Dashboard
+                <b>Dashboard</b>
             </a>
           </li>
           <li>
@@ -50,7 +50,7 @@
         <nav>
             <ul class="nav justify-content-start" style="float:left;">
                 <li class="nav-item">
-                    <a href="{{route('user.profile', Auth::user()->nome)}}" class="nav-link" title="Meu perfil">
+                    <a href="{{route('user.profile', [Auth::user()->nome, Auth::user()->id])}}" class="nav-link" title="Meu perfil">
                         <img src="
                             @if(Auth::user()->photo === null)
                                 {{ asset('img/userimg/default.png')}}
@@ -132,7 +132,7 @@
                                     url: route,
                                     data: {_token: '{{csrf_token()}}'},
                                     // success: function (data) {
-                                    //     console.log(data);
+                                        // console.log(data);
                                     // },
                                 });
                             }
@@ -140,7 +140,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" title="Configurações"><i class="fas fa-user-edit"></i></a>
+                    <a href="{{route('user.settings')}}" class="nav-link" title="Configurações"><i class="fas fa-user-edit"></i></a>
                 </li>
 
                 <li class="nav-item">

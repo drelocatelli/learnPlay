@@ -21,6 +21,17 @@ class User extends Authenticatable {
 
     }
 
+    public static function notifyToggle($id){
+        $notify = UserAlert::where('id', $id)->where('id_user', Auth::user()->id)->first();
+        if($notify->status == 0){
+            $notify->update(['status' => '1']);
+            return $notify;
+        }else if($notify->status == 1){
+            $notify->update(['status' => '0']);
+            return $notify;
+        }
+    }
+
     public function notification(){
 
         $notify = $this->alerts()->where('id_user', Auth::user()->id)->orderByDesc('id')->get();

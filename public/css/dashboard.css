@@ -33,6 +33,13 @@
 .dnotify-dropdown{
 }
 
+.profile-photo.setting {
+    height: 150px;
+    background: white;
+    border-radius: 50%;
+    padding: 8px;
+}
+
 .photo{
     width: 50px;
     background: white;

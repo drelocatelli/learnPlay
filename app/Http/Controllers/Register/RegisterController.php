@@ -26,6 +26,7 @@ class RegisterController extends Controller {
         ]);
 
         $credentials['senha'] = password_hash($credentials['senha'], PASSWORD_BCRYPT);
+        $credentials['nome'] = ucfirst($credentials['nome']);
 
         $user = User::create($credentials);
         $userAlert = UserAlert::create(['id_user' => $user->id, 'alert' => 'Bem vindo a plataforma! =)']);;

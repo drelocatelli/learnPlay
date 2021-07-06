@@ -43,8 +43,9 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
 //------------------------------- Dashboard User
 Route::prefix('user')->middleware('auth')->group(function(){
     $controller = UserController::class;
-    Route::get('{user}', [$controller, 'user'])->name('user.profile');
-    Route::put('/notifyToggle/{id}', [$controller, 'notifyToggle'])->name('user.notifyToggle');
+    Route::match(['get', 'post'], '/settings', [$controller, 'settings'])->name('user.settings');
+    Route::get('{user}_{id?}', [$controller, 'user'])->name('user.profile');
+    Route::put('/notify/{id}', [$controller, 'notifyToggle'])->name('user.notifyToggle');
 });
 
 
