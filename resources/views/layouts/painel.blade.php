@@ -69,7 +69,7 @@
                     <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span id="notification_count" style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->where('status','1')->count()}}</span></a>
                     <ul class="dropdown-menu notify-dropdown">
                         @foreach(Auth::user()->alerts as $alert)
-                            <li id="notification" data-id="{{$alert->id}}" data-status="{{$alert->status}}" onclick="notifyToggle({{$alert->id}}, {{$alert->status}})">
+                            <li id="notification" data-id="{{$alert->id}}" data-status="{{$alert->status}}" onclick="notifyToggle('{{route('user.notifyToggle', $alert->id)}}', {{$alert->id}}, {{$alert->status}})">
                                 {{$alert->alert}}
                             </li>
                         @endforeach
@@ -100,7 +100,7 @@
                                 })
                             }
 
-                            function notifyToggle(id, status){
+                            function notifyToggle(route, id, status){
                                 notification_style(id)
 
                                 let notificationCount = document.querySelector('span#notification_count')
@@ -116,7 +116,7 @@
 
                                 $.ajax({
                                     type: "PUT",
-                                    url: '/user/notifyToggle/'+id,
+                                    url: route,
                                     data: {_token: '{{csrf_token()}}'},
                                     // success: function (data) {
                                     //     console.log(data);
