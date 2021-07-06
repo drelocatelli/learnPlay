@@ -19,27 +19,27 @@
         <ul class="nav nav-pills flex-column mb-auto mt-5">
           <li class="nav-item">
             <a href="{{route('dashboard')}}" class="nav-link link-dark">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
               Dashboard
             </a>
           </li>
           <li>
             <a href="#" class="nav-link link-dark">
-              Orders
+              Procurar <b>artigos</b>
             </a>
           </li>
           <li>
             <a href="#" class="nav-link link-dark">
-              Products
+              Procurar <b>aulas</b>
             </a>
           </li>
           <li>
             <a href="#" class="nav-link link-dark">
-              Customers
+              Procurar <b>grupos de estudo</b>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              Procurar <b>materiais</b>
             </a>
           </li>
         </ul>
@@ -60,6 +60,8 @@
                         " class="profile-photo photo">
                     </a>
                 </li>
+                <li class="nav-item"><a href="/" class="nav-link">LearnPlay</a></li>
+
             </ul>
             <ul id="notification" class="nav justify-content-end">
                 <li class="nav-item">
