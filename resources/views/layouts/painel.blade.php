@@ -68,7 +68,7 @@
                 <li class="nav-item dropdown dnotify-dropdown">
                     <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span id="notification_count" style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->where('status','1')->count()}}</span></a>
                     <ul class="dropdown-menu notify-dropdown">
-                        @foreach(Auth::user()->alerts as $alert)
+                        @foreach(Auth::user()->notification() as $alert)
                             <li id="notification" data-id="{{$alert->id}}" data-status="{{$alert->status}}" onclick="notifyToggle('{{route('user.notifyToggle', $alert->id)}}', {{$alert->id}}, {{$alert->status}})">
                                 {{$alert->alert}}
                             </li>

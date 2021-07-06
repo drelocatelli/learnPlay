@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User\UserAlert;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable {
     use HasFactory;
@@ -17,6 +18,14 @@ class User extends Authenticatable {
     public function alerts(){
 
         return $this->hasMany(UserAlert::class, 'id_user');
+
+    }
+
+    public function notification(){
+
+        $notify = $this->alerts()->where('id_user', Auth::user()->id)->orderByDesc('id')->limit(10)->get();
+
+        return $notify;
 
     }
 
