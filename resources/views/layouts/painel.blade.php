@@ -66,7 +66,7 @@
                     <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
-                    <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span id="notification_count" style="font-family:sans-serif; font-size:18px;">{{Auth::user()->alerts->where('status','1')->count()}}</span></a>
+                    <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span id="notification_count" style="font-family:sans-serif; font-size:18px;">0</span></a>
                     <ul class="dropdown-menu notify-dropdown">
                         @foreach(Auth::user()->notification() as $alert)
                             <li id="notification" data-id="{{$alert->id}}" data-status="{{$alert->status}}" onclick="notifyToggle('{{route('user.notifyToggle', $alert->id)}}', {{$alert->id}}, {{$alert->status}})">
@@ -74,13 +74,24 @@
                             </li>
                         @endforeach
                         <script>
+                            var notificationLiEl = document.querySelectorAll('li#notification');
+                            var notificationCount = document.querySelector('span#notification_count')
+
+
+                            function countNotifications(){
+                                let num = 0;
+                                notificationLiEl.forEach((i)=>{
+                                    let count = parseInt(i.dataset.status);
+                                    num += count;
+                                });
+                                notificationCount.innerText = (num)
+                            }countNotifications()
 
                             $('#notification').on('hide.bs.dropdown', function (e) {
                                 if (e.clickEvent) {
                                 e.preventDefault();
                                 }
                             });
-                            var notificationLiEl = document.querySelectorAll('li#notification');
                             notificationLiEl.forEach((i)=>{
                                 notification_style(i.dataset.id)
                             })
@@ -95,6 +106,7 @@
                                             i.dataset.status = '0';
                                             i.style.color = '#3c1f23';
                                             i.style.fontWeight = 'bold';
+                                            i.style.background = 'rgb(233, 233, 233)';
                                         }
                                     }
                                 })
@@ -103,7 +115,6 @@
                             function notifyToggle(route, id, status){
                                 notification_style(id)
 
-                                let notificationCount = document.querySelector('span#notification_count')
                                 notificationLiEl.forEach((i)=>{
                                     if(i.dataset.id == id){
                                         if(i.dataset.status == '0'){

@@ -14,17 +14,23 @@
 }
 
 .notify-dropdown li{
+    user-select: none;
     background:#f9f9f9;
     cursor:pointer;
-    padding:5px;
+    padding:5px 12px;
+    transition:background 0.3s;
+    border-bottom:1px solid #ccc;
+}
 
+.notify-dropdown li:last-child{
+    border:none;
+}
+
+.dropdown-menu{
+    padding: 0 !important;
 }
 
 .dnotify-dropdown{
-}
-
-.notify-dropdown li:hover{
-    background:rgb(233, 233, 233);
 }
 
 .photo{
