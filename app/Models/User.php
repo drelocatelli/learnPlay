@@ -17,13 +17,13 @@ class User extends Authenticatable {
 
     public function alerts(){
 
-        return $this->hasMany(UserAlert::class, 'id_user');
+        return $this->hasMany(UserAlert::class, 'id_user')->limit(10);
 
     }
 
     public function notification(){
 
-        $notify = $this->alerts()->where('id_user', Auth::user()->id)->orderByDesc('id')->limit(10)->get();
+        $notify = $this->alerts()->where('id_user', Auth::user()->id)->orderByDesc('id')->get();
 
         return $notify;
 
