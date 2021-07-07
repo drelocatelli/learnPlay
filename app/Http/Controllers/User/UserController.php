@@ -22,8 +22,29 @@ class UserController extends Controller
 
     }
 
+    public function changePhoto(Request $request){
+        // trocar imagem
+
+        if($request->hasfile('photo')){
+            $request->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
+            ]);
+
+            $extension = $request->photo->extension();
+            $name = Auth::user()->nome.'_'.Auth::user()->id.'_'.'.'.'png';
+            $request->photo->move(public_path('img/userimg'), $name);
+
+            // muda foto de perfil no banco
+            User::where('id', Auth::user()->id)->update(['photo' => $name]);
+            return back();
+        }
+
+
+    }
+
     public function settings(){
         return view('painel.user.settings');
+
     }
 
     public function dashboard(){
