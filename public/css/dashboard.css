@@ -51,6 +51,7 @@ a {
     margin-bottom: -12px;
     position: relative;
     top: -9px;
+    max-width: 44px;
 }
 
 .toggle-sidebar {

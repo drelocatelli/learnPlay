@@ -162,12 +162,25 @@
 
     </div>
     <script>
+        let menu = document.querySelector('.sidebar')
+
+
+        function menuOptions(){
+            if(localStorage.getItem('menu') == 'true'){
+                menu.style.display = "block"
+            }else{
+                menu.style.display = "none"
+            }
+        }menuOptions()
+
         function showMenu(){
-            let menu = document.querySelector('.sidebar')
             if(menu.style.display == 'block'){
                 menu.style.display = "none"
+                localStorage.setItem('menu',false);
             }else{
                 menu.style.display = "block"
+                localStorage.setItem('menu',true);
+
             }
         }
     </script>
