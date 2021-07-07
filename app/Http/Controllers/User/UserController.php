@@ -15,7 +15,7 @@ class UserController extends Controller
     public function user($user, $id){
         $find = User::where(['nome' => $user, 'id' => $id])->first();
         if((bool) $find){
-            return view('painel.user.profile', compact('user'));
+            return view('painel.user.profile', compact('user', 'id', 'find'));
         }else{
             return view('painel.user.profile', ['user' => 'Usuário não existe']);
         }
@@ -27,7 +27,7 @@ class UserController extends Controller
 
         if($request->hasfile('photo')){
             $request->validate([
-                'photo' => 'required|image|mimes:jpeg,png,jpg,svg,bmp',
+                'photo' => 'required|image|mimes:jpeg,png,jpg,svg,bmp,webp,jfif',
             ]);
 
             $extension = $request->photo->extension();

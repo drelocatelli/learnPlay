@@ -46,9 +46,12 @@
       </div>
 
     <div class="container">
-
         <nav>
             <ul class="nav justify-content-start" style="float:left;">
+                <li class="nav-item"><a href="/" class="nav-link"><b>LearnPlay</b></a></li>
+
+            </ul>
+            <ul id="notification" class="nav justify-content-end">
                 <li class="nav-item">
                     <a href="{{route('user.profile', [Auth::user()->nome, Auth::user()->id])}}" class="nav-link" title="Meu perfil">
                         <img src="
@@ -60,10 +63,6 @@
                         " class="profile-photo photo">
                     </a>
                 </li>
-                <li class="nav-item"><a href="/" class="nav-link">LearnPlay</a></li>
-
-            </ul>
-            <ul id="notification" class="nav justify-content-end">
                 <li class="nav-item">
                     <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
                 </li>

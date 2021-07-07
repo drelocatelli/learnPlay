@@ -1,5 +1,11 @@
 @import "https://pro.fontawesome.com/releases/v5.10.0/css/all.css";
 
+a {
+    color: var(--bs-blue);
+    text-decoration: underline;
+    text-decoration: none;
+}
+
 .profile-photo{
     position: relative;
     top: -12px;
@@ -37,12 +43,14 @@
     padding: 8px;
 }
 
-.photo{
-    width: 50px;
-    background: white;
+.photo {
+    height: 44px;
+    border: 2px solid #9db1b7;
     border-radius: 35px;
-    /* box-shadow: 1px 2px 4px #c396a8; */
     padding: 3px;
+    margin-bottom: -12px;
+    position: relative;
+    top: -9px;
 }
 
 .toggle-sidebar {
@@ -74,6 +82,7 @@
 
 .content-section .card img{
     height: 140px;
+    padding:5px 10px;
 }
 
 .sidebar{
