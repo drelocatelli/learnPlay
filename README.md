@@ -5,6 +5,8 @@ Restrinja cursos, crie bootcamps, compartilhe materiais e/ou crie artigos longos
 
 Também disponível em versão mobile.
 
-![image](https://user-images.githubusercontent.com/32282846/124358379-62be2b80-dbf6-11eb-8a8f-f8cdf3f215f1.png)
+![1625619424919](https://user-images.githubusercontent.com/32282846/124801796-a1712000-df2d-11eb-87fe-c127f6b4afec.png)
+![1625594741761](https://user-images.githubusercontent.com/32282846/124801803-a33ae380-df2d-11eb-90fd-7fd2c8677699.png)
+
 
 [LearnPlay.sql](https://drive.google.com/drive/folders/15AquuA67SBJrJE-H11rWwds76vpiCKas?usp=sharing)
