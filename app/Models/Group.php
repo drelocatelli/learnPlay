@@ -12,6 +12,6 @@ class Group extends Model
     protected $table = 'group';
     public $timestamps = false;
 
-    protected $fillable = ['title', 'description', 'thumbnail'];
+    protected $fillable = ['title', 'description', 'thumbnail', 'visibility'];
 
 }

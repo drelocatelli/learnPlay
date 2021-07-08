@@ -70,6 +70,11 @@ a {
     border-radius: 6px;
 }
 
+.card-img-top.group{
+    height: 214px!important;
+    width: 370px!important;
+}
+
 .content-section {
     display: flex;
     flex-direction: column;
@@ -77,8 +82,24 @@ a {
     align-items: center;
 }
 
+table.group-list{
+    padding:5px 25px!important;
+}
+
+table.group-list tr{
+    border-bottom: 1px solid #ccc;
+}
+
+table.group-list tr:last-child{
+    border-bottom:none;
+}
+
 .content-section .card{
     margin-right: 80px;
+}
+
+.card-group{
+    width:100%;
 }
 
 .content-section .card:last-child{

@@ -5,27 +5,47 @@
 
     <hr>
     <section class="content-section">
-        @foreach (Auth::user()->group_users as $groupUser)
-            @foreach (Auth::user()->groups($groupUser->id) as $group)
-                    <div class="card-group d-flex flex-wrap group-card">
-                        <div class="card rounded" style="width: 14rem;">
-                            <img src="" class="card-img-top">
-                            <div class="card-body">
-                            <center>
-                            <h5 class="card-title">{{ $group->title }}</h5>
-                            <span>
-                                {{ substr($group->description, 0, 150) }}
-                                @if(strlen($group->description) >= 150)
+        @if(Auth::user()->groups->count() >= 1)
+        <h4>Você participa de {{Auth::user()->groups->count()}} grupo(s).</h4><br>
+            <table class="bg-light group-list rounded" width="100%">
+                @foreach (Auth::user()->groups as $group)
+                    <tr>
+                        <td>
+                            <img src="
+                            @if($group->thumbnail == null)
+                                {{ asset('img/community.svg')}}
+                            @else
+                                {!! asset('img/groups/'. $group->thumbnail) !!}
+                            @endif
+                            " style="width: 15rem; height: 15rem;">
+                        </td>
+                        <td valign="top" align="left">
+                            <br>
+                            <h5>{{ $group->title }}</h5> <br>
+                            <span style="display: block; min-height: 100px;">
+                                {{ substr($group->description, 0, 400) }}
+                                @if(strlen($group->description) >= 400)
                                     ...
                                 @endif
-                            </span><br><br>
-                            <b>{{$groupUser->count()}} membro(s)</b>
-                            <br><br>
-                                <a href="" class="btn btn-primary">visualizar</a>
-                            </center>
+                            </span>
+                            <br>
+                            <span>
+                                Entrou em: {{$group->timestamp }} ··· <b>{{Auth::user()->groups($group->id)->count()}} membro(s)</b>
+                            </span>
+                            <br>
+                            <div style="float:right; margin-right:24px;">
+                                @if($group->admin == 'true')
+                                    Administrador &nbsp; &nbsp;
+                                @endif
+                                <a href="" class="btn btn-primary">Acessar grupo</a>
                             </div>
-                        </div>
+                            <br><br>
+                        </td>
+                    </tr>
                 @endforeach
-        @endforeach
+            </table>
+            @else
+            <h4>Você não participa de nenhum grupo.</h4>
+        @endif
     </section>
 @endsection
