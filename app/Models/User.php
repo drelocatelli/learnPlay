@@ -35,7 +35,7 @@ class User extends Authenticatable {
         if($id === null){
             return $groups->where('id_user', Auth::user()->id);
         }else{
-            return $groups->where('id_grupo', $id)->where('id_user', Auth::user()->id);
+            return $this->group_users($id);
         }
 
     }

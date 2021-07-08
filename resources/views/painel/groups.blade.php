@@ -18,6 +18,7 @@
         <h4>Você participa de {{Auth::user()->groups->count()}} grupo(s).</h4><br>
             <table class="group-list rounded" width="100%">
                 @foreach (Auth::user()->groups as $group)
+                {{$group}}
                     <tr>
                         <td>
                             <img src="
