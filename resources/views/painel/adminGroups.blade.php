@@ -5,6 +5,7 @@
 
     <hr>
     <section class="content-section">
+        @if(Auth::user()->management_groups->count() >= 1)
         <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link " aria-current="page" href="{{route('dashboard.groups')}}" >Todos os grupos</a>
@@ -12,10 +13,11 @@
             <li class="nav-item">
               <a class="nav-link disabled" href="#" aria-disabled="true">Grupos que gerencio</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" aria-current="page" href="#" aria-disabled="true">Você gerencia {{Auth::user()->management_groups->count()}} grupo(s).</a>
+            </li>
           </ul>
-          <br><br>
-        @if(Auth::user()->management_groups->count() >= 1)
-        <h4>Você gerencia {{Auth::user()->management_groups->count()}} grupo(s).</h4><br>
+
             <table class="group-list rounded" width="100%">
                 @foreach (Auth::user()->management_groups as $group)
                     <tr>
@@ -43,6 +45,12 @@
                             </span>
                             <br>
                             <div style="float:right; margin-right:24px;">
+                                @if($group->visibility == 'public')
+                                    <i title="público" class="fas fa-eye"></i>
+                                @else
+                                    <i title="restringido à membros" class="fas fa-eye-slash"></i>
+                                @endif
+                                &nbsp;&nbsp;
                                 @if($group->admin == 'true')
                                     <button class="btn btn-danger">Administrador</button> &nbsp;
                                 @endif
