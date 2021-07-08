@@ -43,6 +43,10 @@ a {
     padding: 8px;
 }
 
+.group-card {
+    width: 25rem;
+}
+
 .photo {
     height: 44px;
     border: 2px solid #9db1b7;

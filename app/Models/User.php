@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User\UserAlert;
+use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable {
@@ -21,6 +22,20 @@ class User extends Authenticatable {
 
     }
 
+    public function groups($id_group){
+        $groups = Group::where('id', $id_group);
+
+        return $groups->orderByDesc('id')->get();
+    }
+
+    public function group_users(){
+
+        $group_users = $this->hasMany(GroupUsers::class, 'id_user');
+
+        return $group_users->orderByDesc('id');
+
+    }
+
     public static function notifyToggle($id){
         $notify = UserAlert::where('id', $id)->where('id_user', Auth::user()->id)->first();
         if($notify->status == 0){
@@ -34,7 +49,7 @@ class User extends Authenticatable {
 
     public function notification(){
 
-        $notify = $this->alerts()->where('id_user', Auth::user()->id)->orderByDesc('id')->get();
+        $notify = $this->alerts()->orderByDesc('id')->get();
 
         return $notify;
 

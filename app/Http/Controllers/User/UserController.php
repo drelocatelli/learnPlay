@@ -51,6 +51,22 @@ class UserController extends Controller
         return view('painel.dashboard');
     }
 
+    public function groups(){
+        return view('painel.groups');
+    }
+
+    public function class(){
+        return view('painel.class');
+    }
+
+    public function articles(){
+        return view('painel.articles');
+    }
+
+    public function content(){
+        return view('painel.content');
+    }
+
     public function notifyToggle($id){
 
         User::notifyToggle($id);
