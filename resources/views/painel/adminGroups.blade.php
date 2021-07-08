@@ -39,7 +39,7 @@
                             </span>
                             <br>
                             <span>
-                                Entrou em: {{$group->timestamp }} ··· <b>{{Auth::user()->groups($group->id)->count()}} membro(s)</b>
+                                Entrou em: {{$group->timestamp }} | <b>{{Auth::user()->groups($group->id)->count()}} membro(s)</b>
                             </span>
                             <br>
                             <div style="float:right; margin-right:24px;">

@@ -11,7 +11,7 @@
                 <img src="{{ asset('img/community.svg') }}" class="card-img-top">
                 <div class="card-body">
                 <center>
-                <h5 class="card-title">Meus grupos de estudo</h5><br>
+                <h5 class="card-title">Meus grupos de estudo</h5><br><br>
                     <a href="{{route('dashboard.groups')}}" class="btn btn-primary">visualizar</a>
                 </center>
                 </div>
