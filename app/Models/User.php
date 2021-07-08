@@ -22,19 +22,27 @@ class User extends Authenticatable {
 
     }
 
+    public function group_users($id){
+        $groupUsers = GroupUsers::where('id_grupo', $id);
+
+        return $groupUsers;
+    }
+
     public function groups($id = null){
+        $groupUsers = $this->hasMany(GroupUsers::class, 'id_user');
+        $groups = $groupUsers->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id');
 
         if($id === null){
-            $groupUsers = $this->hasMany(GroupUsers::class, 'id_user');
-            $groups = $groupUsers->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id');
-            return $groups;
-
+            return $groups->where('id_user', Auth::user()->id);
         }else{
-            $groupUsers = GroupUsers::where('id_grupo', $id);
-
-            return $groupUsers;
+            return $groups->where('id_grupo', $id)->where('id_user', Auth::user()->id);
         }
 
+    }
+
+    public function management_groups(){
+
+        return $this->groups()->where('admin', 'true');
 
     }
 

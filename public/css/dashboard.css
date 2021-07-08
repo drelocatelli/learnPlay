@@ -86,7 +86,25 @@ table.group-list{
     padding:5px 25px!important;
 }
 
+section .nav-tabs {
+    border-bottom: 1px solid #ffffff;
+    background: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+section .nav-tabs a{
+    color:black;
+}
+
+section .nav-tabs a:hover{
+    color:black;
+    background:#a9fd0d;
+}
+
 table.group-list tr{
+    background-color: white;
+    border-radius: 5px;
     border-bottom: 1px solid #ccc;
 }
 

@@ -7,17 +7,17 @@
     <section class="content-section">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link disabled" aria-current="page" href="#" aria-disabled="true">Todos os grupos</a>
+              <a class="nav-link " aria-current="page" href="{{route('dashboard.groups')}}" >Todos os grupos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('dashboard.groups.admin')}}">Grupos que gerencio</a>
+              <a class="nav-link disabled" href="#" aria-disabled="true">Grupos que gerencio</a>
             </li>
           </ul>
           <br><br>
-        @if(Auth::user()->groups->count() >= 1)
-        <h4>Você participa de {{Auth::user()->groups->count()}} grupo(s).</h4><br>
+        @if(Auth::user()->management_groups->count() >= 1)
+        <h4>Você participa de {{Auth::user()->management_groups->count()}} grupo(s).</h4><br>
             <table class="group-list rounded" width="100%">
-                @foreach (Auth::user()->groups as $group)
+                @foreach (Auth::user()->management_groups as $group)
                     <tr>
                         <td>
                             <img src="

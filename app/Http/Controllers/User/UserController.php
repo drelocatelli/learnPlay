@@ -22,6 +22,10 @@ class UserController extends Controller
 
     }
 
+    public function groups_admin(){
+        return view('painel.adminGroups');
+    }
+
     public function changePhoto(Request $request){
         // trocar imagem
 
@@ -31,7 +35,7 @@ class UserController extends Controller
             ]);
 
             $extension = $request->photo->extension();
-            $name = Auth::user()->nome.'_'.Auth::user()->id.'_'.'.'.'png';
+            $name = Auth::user()->nome.'_'.Auth::user()->id.'.'.'png';
             $request->photo->move(public_path('img/userimg'), $name);
 
             // muda foto de perfil no banco
