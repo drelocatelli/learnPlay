@@ -75,6 +75,25 @@ a {
     width: 370px!important;
 }
 
+.btn-group-sm>.btn, .btn-sm{
+    padding: 0 10px!important;
+}
+
+.post, .aside{
+    vertical-align: top;
+    display:inline-block;
+}
+
+.post{
+    width:60%;
+    margin-right:35px;
+}
+
+.aside{
+    float:right;
+    width:30%;
+}
+
 .content-section {
     display: flex;
     flex-direction: column;
@@ -145,9 +164,18 @@ table.group-list tr:last-child{
     background-color: #a9fd0d;
 }
 
+.aside h4{
+    margin-top:15px;
+    text-align: left;
+}
+.aside{
+    text-align:center;
+}
+
 .container {
     background-color: #f9f9f991;
     width: 100%;
+    word-wrap: break-word;
     min-height: 700px;
     border-radius: 5px;
     box-shadow: 0px 3px 5px #b1acac;

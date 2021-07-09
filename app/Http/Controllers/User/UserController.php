@@ -46,6 +46,10 @@ class UserController extends Controller
 
     }
 
+    public function group_page($title, $id){
+        return view('painel.groupPage', compact('title', 'id'));
+    }
+
     public function settings(){
         return view('painel.user.settings');
 

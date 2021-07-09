@@ -47,6 +47,7 @@ Route::prefix('user')->middleware('auth')->group(function(){
 Route::prefix('dashboard')->middleware('auth')->group(function(){
     $controller = UserController::class;
     Route::get('/', [$controller, 'dashboard'])->name('dashboard');
+    Route::get('group/page/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
     Route::get('my/groups', [$controller, 'groups'])->name('dashboard.groups');
     Route::get('my/groups/management', [$controller, 'groups_admin'])->name('dashboard.groups.admin');
     Route::get('my/class', [$controller, 'class'])->name('dashboard.class');

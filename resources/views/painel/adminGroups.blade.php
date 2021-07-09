@@ -54,7 +54,7 @@
                                 @if($group->admin == 'true')
                                     <button class="btn btn-danger">Administrador</button> &nbsp;
                                 @endif
-                                <a href="" class="btn btn-primary">Acessar grupo</a>
+                                <a href="{{route('dashboard.groups.page', [urlencode($group->title), $group->id])}}" class="btn btn-primary">Acessar grupo</a>
                             </div>
                             <br><br>
                         </td>

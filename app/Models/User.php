@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User\UserAlert;
 use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable {
     use HasFactory;
@@ -28,6 +29,13 @@ class User extends Authenticatable {
         return $groupUsers;
     }
 
+    public function group_admin(){
+        $id = request()->id;
+        $groupAdmin = GroupUsers::where('id_grupo', $id)->where('admin', 'true')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');;
+
+        return $groupAdmin->get();
+    }
+
     public function groups($id = null){
         $groupUsers = $this->hasMany(GroupUsers::class, 'id_user');
         $groups = $groupUsers->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id');
@@ -37,6 +45,16 @@ class User extends Authenticatable {
         }else{
             return $this->group_users($id);
         }
+
+    }
+
+    public function group_page(){
+        $id = request()->id;
+        $title = urldecode(request()->title);
+
+        $group_page = $this->groups($id)->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id')->where('group.title', $title);
+
+        return $group_page->first();
 
     }
 
