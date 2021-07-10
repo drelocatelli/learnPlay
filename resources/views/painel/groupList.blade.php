@@ -5,7 +5,8 @@
     <br>
     <table class="group-list rounded" width="100%">
         @foreach (Auth::user()->get_all_groups() as $group)
-            @if(!Auth::user()->get_all_group_users($group->id)->where('id_user', '<>', Auth()->user()->id)->first())
+
+            @if(!Auth::user()->get_all_group_users($group->id)->where('id_user', '=', Auth::user()->id)->first())
             <tr>
                 <td width="15rem">
                     <img src="
