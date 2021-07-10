@@ -88,7 +88,7 @@ class User extends Authenticatable {
     public function group_article(){
 
         $group_article = $this->get_group()->join('group_article', 'group_article.id_group', '=', 'group.id');
-        $group_article = $group_article->join('user', 'group_article.id_user', '=', 'user.id');
+        $group_article = $group_article->join('user', 'group_article.id_user', '=', 'user.id')->orderBy('group_article.id','DESC');
         $group_article = $group_article->get();
 
         return $group_article;
