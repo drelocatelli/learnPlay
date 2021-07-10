@@ -33,7 +33,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="{{route('dashboard.groups.public')}}" class="nav-link link-dark">
               Procurar <b>grupos de estudo</b>
             </a>
           </li>

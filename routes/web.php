@@ -58,7 +58,10 @@ Route::prefix('user')->middleware('auth')->group(function(){
 //------------------------------- Dashboard group
 Route::prefix('dashboard')->middleware('auth')->group(function(){
     $controller = UserController::class;
-    Route::get('group/page/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
-    Route::get('group/page/{title?}/{id}/leave', [$controller, 'group_leave'])->name('dashboard.groups.leave');
-    Route::get('group/page/{title?}/{id}/enter', [$controller, 'group_enter'])->name('dashboard.groups.enter');
+    Route::get('group/list', [$controller, 'group_public'])->name('dashboard.groups.public');
+    Route::get('group/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
+    Route::post('group/{title?}/{id}/post', [$controller, 'group_post'])->name('dashboard.groups.post');
+    Route::get('group/{id}/delete/postId/{id_article}', [$controller, 'group_post_delete'])->name('dashboard.groups.postDelete');
+    Route::get('group/{title?}/{id}/leave', [$controller, 'group_leave'])->name('dashboard.groups.leave');
+    Route::get('group/{title?}/{id}/enter', [$controller, 'group_enter'])->name('dashboard.groups.enter');
 });

@@ -47,6 +47,18 @@ a {
     width: 25rem;
 }
 
+.pagination{
+    margin-top:24px;
+}
+
+.pagination div:first-child{
+    display:none;
+}
+
+.pagination svg{
+    height: 10px;
+}
+
 .user-list{
     background: #ffffffa8;
     border-radius: 12px;

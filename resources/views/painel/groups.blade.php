@@ -21,7 +21,7 @@
             <table class="group-list rounded" width="100%">
                 @foreach (Auth::user()->groups as $group)
                     <tr>
-                        <td>
+                        <td width="15rem">
                             <img src="
                             @if($group->thumbnail == null)
                                 {{ asset('img/community.svg')}}

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\User\UserAlert;
+use App\Models\GroupUsers;
+use App\Models\GroupArticles;
 
 class UserController extends Controller
 {
@@ -44,6 +46,51 @@ class UserController extends Controller
         }
 
 
+    }
+
+    public function verify_userInGroup($id_group){
+        return GroupUsers::join('group', 'group.id', '=', 'group_users.id_grupo')
+                        ->where('group_users.id_user', Auth::user()->id)
+                        ->where('group.id', $id_group)
+                        ->first();
+    }
+
+    public function group_post_delete(Request $request){
+
+        $verifyUser = $this->verify_userInGroup($request->id);
+
+        if($verifyUser){
+            return GroupArticles::deleteArticle([
+                'id_group' => $request->id,
+                'id_user' => Auth::user()->id,
+                'id_post' => $request->id_article
+            ]);
+        }
+
+        return redirect()->back();
+
+    }
+
+
+    public function group_post(Request $request){
+
+        $verifyUser = $this->verify_userInGroup($request->id_group);
+
+        if($verifyUser){
+            GroupArticles::newArticle([
+                'id_group' => $request->id_group,
+                'id_user' => Auth::user()->id,
+                'body' => $request->body
+            ]);
+
+        }
+
+        return back();
+
+    }
+
+    public function group_public(){
+        return view('painel.groupList');
     }
 
     public function group_page($title, $id){
