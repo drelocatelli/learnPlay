@@ -6,13 +6,15 @@
     <div class="container">
     @php
         $group_page = Auth::user()->group_page();
-        $group_users = Auth::user()->get_group_users()->all();
+        $group_users = Auth::user()->get_group_all_users();
         $group_users_id = [];
-        $userInGroup = array_key_exists(Auth::user()->id, $group_users_id);
     @endphp
     @foreach ($group_users as $group_user)
-        @php array_push($group_users_id, $group_user->id_user); @endphp
+        @php
+            array_push($group_users_id, $group_user->id_user);
+        @endphp
     @endforeach
+    @php $userInGroup = array_key_exists(Auth::user()->id, $group_users_id); @endphp
 
         @if($group_page->visibility == 'public' or $userInGroup)
 
@@ -69,7 +71,14 @@
                             </div>
                         @endforeach
                     @else
-                        Entre no grupo para ver o conteúdo.
+                        <center>
+                            <div class="discussion-post bg-light p-2 rounded">
+                                <br>
+                                Entre no grupo para ver o conteúdo.
+                                <br><br>
+                                <a href="" class="btn btn-success mb-3">entrar no grupo</a>
+                            </div>
+                        </center>
                     @endif
 
                     </div>
@@ -117,12 +126,9 @@
                             @else
                             Nenhum membro.
                             @endif
-                        <hr>
-                        <br>
+                        <br><br>
                         @if($userInGroup)
                             <a href="#" class="btn btn-danger">sair do grupo</a>
-                        @else
-                            <a href="" class="btn btn-success">entrar no grupo</a>
                         @endif
 
                     </div>

@@ -29,6 +29,13 @@ class User extends Authenticatable {
         return $groupUsers;
     }
 
+    public function get_group_all_users(){
+        $id = request()->id;
+        $groupUsers = GroupUsers::where('id_grupo', $id)->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
+
+        return $groupUsers->get();
+    }
+
     public function get_group_users(){
         $id = request()->id;
         $groupUsers = GroupUsers::where('id_grupo', $id)->where('admin','false')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
