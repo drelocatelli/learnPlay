@@ -29,9 +29,44 @@ class User extends Authenticatable {
         return $groupUsers;
     }
 
+    public function leave_group($id_group){
+        $group = Group::where('id', $id_group)->first();
+        $result = GroupUsers::where('id_grupo', $id_group)
+        ->where('id_user', Auth::user()->id)
+        ->first();
+
+        if($result){
+            $result->delete();
+        }
+
+        if($group->visibility == "public"){
+            return back();
+        }else{
+            return redirect()->route('dashboard.groups');
+        }
+
+    }
+
+    public function enter_group($id_group){
+        $result = Group::where('id', $id_group)->first();
+        $group_user = GroupUsers::where('id_grupo', $result->id);
+
+        if($result){
+            $group_user->insert([
+                'id_grupo' => $result->id,
+                'id_user' => Auth::user()->id
+            ]);
+        }
+
+        return back();
+
+    }
+
     public function get_group_all_users(){
         $id = request()->id;
-        $groupUsers = GroupUsers::where('id_grupo', $id)->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
+        $groupUsers = GroupUsers::where('id_grupo', $id)
+                    ->join('user', 'group_users.id_user', '=', 'user.id')
+                    ->orderBy('group_users.id', 'ASC');
 
         return $groupUsers->get();
     }

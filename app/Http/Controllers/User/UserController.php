@@ -50,6 +50,16 @@ class UserController extends Controller
         return view('painel.groupPage', compact('title', 'id'));
     }
 
+    public function group_leave($title, $id){
+        $user = new User();
+        return $user->leave_group($id);
+    }
+
+    public function group_enter($title, $id){
+        $user = new User();
+        return $user->enter_group($id);
+    }
+
     public function settings(){
         return view('painel.user.settings');
 

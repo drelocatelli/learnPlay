@@ -34,6 +34,17 @@ Route::group(['prefix' => '/register'], function(){
     Route::get('/success', [$controller, 'success'])->name('register.success');
 });
 
+//------------------------------- Dashboard
+Route::prefix('dashboard')->middleware('auth')->group(function(){
+    $controller = UserController::class;
+    Route::get('/', [$controller, 'dashboard'])->name('dashboard');
+    Route::get('my/groups', [$controller, 'groups'])->name('dashboard.groups');
+    Route::get('my/groups/management', [$controller, 'groups_admin'])->name('dashboard.groups.admin');
+    Route::get('my/class', [$controller, 'class'])->name('dashboard.class');
+    Route::get('my/articles', [$controller, 'articles'])->name('dashboard.articles');
+    Route::get('my/content', [$controller, 'content'])->name('dashboard.content');
+});
+
 //------------------------------- Dashboard User
 Route::prefix('user')->middleware('auth')->group(function(){
     $controller = UserController::class;
@@ -43,14 +54,11 @@ Route::prefix('user')->middleware('auth')->group(function(){
     Route::put('/notify/{id}', [$controller, 'notifyToggle'])->name('user.notifyToggle');
 });
 
-//------------------------------- Dashboard
+
+//------------------------------- Dashboard group
 Route::prefix('dashboard')->middleware('auth')->group(function(){
     $controller = UserController::class;
-    Route::get('/', [$controller, 'dashboard'])->name('dashboard');
     Route::get('group/page/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
-    Route::get('my/groups', [$controller, 'groups'])->name('dashboard.groups');
-    Route::get('my/groups/management', [$controller, 'groups_admin'])->name('dashboard.groups.admin');
-    Route::get('my/class', [$controller, 'class'])->name('dashboard.class');
-    Route::get('my/articles', [$controller, 'articles'])->name('dashboard.articles');
-    Route::get('my/content', [$controller, 'content'])->name('dashboard.content');
+    Route::get('group/page/{title?}/{id}/leave', [$controller, 'group_leave'])->name('dashboard.groups.leave');
+    Route::get('group/page/{title?}/{id}/enter', [$controller, 'group_enter'])->name('dashboard.groups.enter');
 });

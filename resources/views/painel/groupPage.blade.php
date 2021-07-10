@@ -14,7 +14,8 @@
             array_push($group_users_id, $group_user->id_user);
         @endphp
     @endforeach
-    @php $userInGroup = array_key_exists(Auth::user()->id, $group_users_id); @endphp
+    @php $userInGroup = in_array(Auth::user()->id, $group_users_id); @endphp
+
 
         @if($group_page->visibility == 'public' or $userInGroup)
 
@@ -76,7 +77,7 @@
                                 <br>
                                 Entre no grupo para ver o conteúdo.
                                 <br><br>
-                                <a href="" class="btn btn-success mb-3">entrar no grupo</a>
+                                <a href="{{route('dashboard.groups.enter', [$title, $id])}}" class="btn btn-success mb-3">entrar no grupo</a>
                             </div>
                         </center>
                     @endif
@@ -128,7 +129,7 @@
                             @endif
                         <br><br>
                         @if($userInGroup)
-                            <a href="#" class="btn btn-danger">sair do grupo</a>
+                            <a href="{{route('dashboard.groups.leave', [$title, $id])}}" class="btn btn-danger">sair do grupo</a>
                         @endif
 
                     </div>
