@@ -47,6 +47,17 @@ a {
     width: 25rem;
 }
 
+.user-list{
+    background: #ffffffa8;
+    border-radius: 12px;
+    padding: 6px 7px;
+    min-height: 36px;
+    font-size: 14px;
+    margin-bottom:3px;
+    display: inline-block;
+    color:#3a3a3a;
+}
+
 .photo {
     height: 44px;
     border: 2px solid #9db1b7;
@@ -56,6 +67,10 @@ a {
     position: relative;
     top: -9px;
     max-width: 44px;
+}
+
+.photo-default{
+    border-radius:50%;
 }
 
 .toggle-sidebar {

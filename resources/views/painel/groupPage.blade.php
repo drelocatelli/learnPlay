@@ -18,20 +18,88 @@
                         {{urldecode($title)}}</h4>
                     <hr>
                     <h5><i class="fas fa-graduation-cap"></i>&nbsp; Aulas</h5>
-                    <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
-
+                    <hr>
+                    <div class="discussion bg-light p-2" style="border-radius:15px!important;"><br>
+                        <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <br>
+                                <div style="float:right;">
+                                    <button type="submit" class="btn btn-info">Postar</button>
+                                </div>
+                                <div style="clear:both;"></div>
+                              </div>
+                        </form>
+                    </div>
+                    <br><br>
+                    <h6>Total: {{Auth::user()->group_article()->count()}}</h6>
+                    @foreach (Auth::user()->group_article() as $group_article)
+                        <br>
+                        <div class="discussion-post bg-light p-2 rounded">
+                            {{ Auth::user()->emoticon($group_article->body) }}
+                            <hr>
+                            <a href="{{route('user.profile', [$group_article->nome, $group_article->id])}}" class="user-list">
+                                <img src="
+                                 @if($group_article->photo === null)
+                                    {{ asset('img/userimg/default.png')}}
+                                @else
+                                    {!! asset("img/userimg/". $group_article->photo) !!}
+                                @endif
+                                    " height="25px" width="25px" class="photo-default">&nbsp; {{$group_article->nome}}
+                            </a>&nbsp;
+                            |&nbsp; {{$group_article->timestamp}} &nbsp;|&nbsp; <a href=""><i class="far fa-comment-dots"></i> comentários (0)</a>
+                            @if(Auth::user()->id == $group_article->id_user)
+                                <div style="float:right;">
+                                    <a href="" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>
+                                </div>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
                 <div class="aside">
-                    <h4>Descrição</h4>
+                    <h4>Sobre o grupo</h4>
                     <hr>
+                    <img src="
+                    @if($group_page->thumbnail == null)
+                        {{ asset('img/community.svg')}}
+                    @else
+                        {!! asset('img/groups/'. $group_page->thumbnail) !!}
+                    @endif
+                    " class="img-thumbnail bg-transparent">
+                    <br><br>
                         {{Auth::user()->group_page()->description}}
+                    <br><br>
                     <h4>Administradores</h4>
                     <hr>
-                        @foreach (Auth::user()->group_admin() as $group_user)
-                            <a href="{{route('user.profile', [$group_user->nome, $group_user->id])}}">{{$group_user->nome}}</a><br>
+                        @foreach (Auth::user()->group_admin() as $group_admin)
+                            <a href="{{route('user.profile', [$group_admin->nome, $group_admin->id])}}" class="user-list">
+                                <img src="
+                                 @if($group_admin->photo === null)
+                                    {{ asset('img/userimg/default.png')}}
+                                @else
+                                    {!! asset("img/userimg/". $group_admin->photo) !!}
+                                @endif
+                                    " height="25px" width="25px" class="photo-default"> {{$group_admin->nome}}
+                            </a>&nbsp;
+                        @endforeach
+                    <h4>Membros</h4>
+                    <hr>
+                        @foreach (Auth::user()->get_group_users() as $group_user)
+                            <a href="{{route('user.profile', [$group_user->nome, $group_user->id])}}" class="user-list">
+                                <img src="
+                                 @if($group_user->photo === null)
+                                    {{ asset('img/userimg/default.png')}}
+                                @else
+                                    {!! asset("img/userimg/". $group_user->photo) !!}
+                                @endif
+                                " height="25px" width="25px" class="photo-default">
+                                {{$group_user->nome}}
+                            </a>&nbsp;
                         @endforeach
                     <hr>
-                    terminar entrar no grupo / sair do grupo
+                    terminar entrar no grupo / sair do grupo| editar visibility dos grupos privados
+                    <br>
                     <a href="#" class="btn btn-danger">sair do grupo</a>
 
                 </div>

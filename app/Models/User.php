@@ -29,11 +29,26 @@ class User extends Authenticatable {
         return $groupUsers;
     }
 
+    public function get_group_users(){
+        $id = request()->id;
+        $groupUsers = GroupUsers::where('id_grupo', $id)->where('admin','false')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
+
+        return $groupUsers->get();
+    }
+
     public function group_admin(){
         $id = request()->id;
-        $groupAdmin = GroupUsers::where('id_grupo', $id)->where('admin', 'true')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');;
+        $groupAdmin = GroupUsers::where('id_grupo', $id)->where('admin', 'true')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
 
         return $groupAdmin->get();
+    }
+
+    public function get_group(){
+        $groupUsers = $this->hasMany(GroupUsers::class, 'id_user');
+        $groups = $groupUsers->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id');
+
+        return $groups->where('group.id', request()->id);
+
     }
 
     public function groups($id = null){
@@ -56,6 +71,27 @@ class User extends Authenticatable {
 
         return $group_page->first();
 
+    }
+
+    public function emoticon($transform){
+
+        $emoticon = array();
+        $emoticon[1] = ['=D',':D','><','xD','T_T',':P', ':b',':(',':\'(','>.>', '<.<','merda',':3',':o',':O','puta','putaria','desgraça','vagabunda'];
+        $emoticon[2] = ['😄','😄','😆','😆','😭','😜', '😜','😔','🥲','👀', '👀','💩','😮','😮','🤬','🤬','🤬','🤬'];
+
+        $transform = str_replace($emoticon[1], $emoticon[2], $transform);
+
+        return $transform;
+
+    }
+
+    public function group_article(){
+
+        $group_article = $this->get_group()->join('group_article', 'group_article.id_group', '=', 'group.id');
+        $group_article = $group_article->join('user', 'group_article.id_user', '=', 'user.id');
+        $group_article = $group_article->get();
+
+        return $group_article;
     }
 
     public function management_groups(){

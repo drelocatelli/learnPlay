@@ -19,7 +19,7 @@
         <ul class="nav nav-pills flex-column mb-auto mt-5">
           <li class="nav-item">
             <a href="{{route('dashboard')}}" class="nav-link link-dark">
-                <b>Dashboard</b>
+                <b>Meu conteúdo</b>
             </a>
           </li>
           <li>
