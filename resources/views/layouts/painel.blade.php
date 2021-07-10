@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/vivify.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -45,10 +47,10 @@
         </ul>
       </div>
 
-    <div class="container">
-        <nav>
-            <ul class="nav justify-content-start" style="float:left;">
-                <li class="nav-item"><a href="/" class="nav-link"><b>LearnPlay</b></a></li>
+    <div class="container vivify swoopInBottom" style="animation-duration: 0.3s; ">
+        <nav class="">
+            <ul class="nav justify-content-start " style="float:left;">
+                <li class="nav-item"><a href="/" class="nav-link vivify popIn"><b>LearnPlay</b></a></li>
 
             </ul>
             <ul id="notification" class="nav justify-content-end">
@@ -60,7 +62,7 @@
                             @else
                                 {!! asset("img/userimg/". Auth::user()->photo) !!}
                             @endif
-                        " class="profile-photo photo">
+                        " class="profile-photo photo vivify popIn">
                     </a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
@@ -71,68 +73,7 @@
                                 {{$alert->alert}}
                             </li>
                         @endforeach
-                        <script>
-                            var notificationLiEl = document.querySelectorAll('li#notification');
-                            var notificationCount = document.querySelector('span#notification_count')
 
-
-                            function countNotifications(){
-                                let num = 0;
-                                notificationLiEl.forEach((i)=>{
-                                    let count = parseInt(i.dataset.status);
-                                    num += count;
-                                });
-                                notificationCount.innerText = (num)
-                            }countNotifications()
-
-                            $('#notification').on('hide.bs.dropdown', function (e) {
-                                if (e.clickEvent) {
-                                e.preventDefault();
-                                }
-                            });
-                            notificationLiEl.forEach((i)=>{
-                                notification_style(i.dataset.id)
-                            })
-
-                            function notification_style(id){
-                                notificationLiEl.forEach((i)=>{
-                                    if(i.dataset.id == id){
-                                        if(i.dataset.status == '0'){
-                                            i.style = window.getComputedStyle(i)
-                                            i.dataset.status = '1';
-                                        }else if(i.dataset.status == '1'){
-                                            i.dataset.status = '0';
-                                            i.style.color = '#3c1f23';
-                                            i.style.fontWeight = 'bold';
-                                            i.style.background = 'rgb(233, 233, 233)';
-                                        }
-                                    }
-                                })
-                            }
-
-                            function notifyToggle(route, id, status){
-                                notification_style(id)
-
-                                notificationLiEl.forEach((i)=>{
-                                    if(i.dataset.id == id){
-                                        if(i.dataset.status == '0'){
-                                            notificationCount.innerText = parseInt(notificationCount.innerText) + 1
-                                        }else if(i.dataset.status == '1'){
-                                            notificationCount.innerText = parseInt(notificationCount.innerText) - 1
-                                        }
-                                    }
-                                })
-
-                                $.ajax({
-                                    type: "PUT",
-                                    url: route,
-                                    data: {_token: '{{csrf_token()}}'},
-                                    // success: function (data) {
-                                        // console.log(data);
-                                    // },
-                                });
-                            }
-                        </script>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -158,6 +99,90 @@
 
 
     </div>
+    <script>
+        var notificationLiEl = document.querySelectorAll('li#notification');
+        var notificationCount = document.querySelector('span#notification_count')
+
+        function bounceNotification(){
+            if(parseInt(document.querySelector("#notification_count").innerText) >= 1){
+                    let notificationIcon = (notificationCount.offsetParent.childNodes[1].querySelector('i'))
+                    notificationIcon.classList.add('animate__animated', 'animate__tada');
+                    notificationIcon.style.setProperty('--animate-duration', '1s');
+                    setTimeout(()=>{
+                        notificationIcon.classList.remove('animate__animated', 'animate__tada')
+                    },1200)
+                }
+        }
+
+
+        window.onload = function(){
+            bounceNotification()
+
+            setInterval(function(){
+                bounceNotification()
+            }, 2800)
+
+        }
+
+        function countNotifications(){
+
+            let num = 0;
+            notificationLiEl.forEach((i)=>{
+                let count = parseInt(i.dataset.status);
+                num += count;
+            });
+            notificationCount.innerText = (num)
+        }countNotifications()
+
+        $('#notification').on('hide.bs.dropdown', function (e) {
+            if (e.clickEvent) {
+            e.preventDefault();
+            }
+        });
+        notificationLiEl.forEach((i)=>{
+            notification_style(i.dataset.id)
+        })
+
+        function notification_style(id){
+            notificationLiEl.forEach((i)=>{
+                if(i.dataset.id == id){
+                    if(i.dataset.status == '0'){
+                        i.style = window.getComputedStyle(i)
+                        i.dataset.status = '1';
+                    }else if(i.dataset.status == '1'){
+                        i.dataset.status = '0';
+                        i.style.color = '#3c1f23';
+                        i.style.fontWeight = 'bold';
+                        i.style.background = 'rgb(233, 233, 233)';
+                    }
+                }
+            })
+
+        }
+
+        function notifyToggle(route, id, status){
+            notification_style(id)
+
+            notificationLiEl.forEach((i)=>{
+                if(i.dataset.id == id){
+                    if(i.dataset.status == '0'){
+                        notificationCount.innerText = parseInt(notificationCount.innerText) + 1
+                    }else if(i.dataset.status == '1'){
+                        notificationCount.innerText = parseInt(notificationCount.innerText) - 1
+                    }
+                }
+            })
+
+            $.ajax({
+                type: "PUT",
+                url: route,
+                data: {_token: '{{csrf_token()}}'},
+                // success: function (data) {
+                    // console.log(data);
+                // },
+            });
+        }
+    </script>
     <script>
         let menu = document.querySelector('.sidebar')
 
