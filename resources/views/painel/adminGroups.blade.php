@@ -1,11 +1,14 @@
 @extends('layouts.painel')
 @section('conteudo')
 
+<div class="position-relative mb-5 d-flex flex-row-reverse float-right">
+    <a href="#" class="btn btn-danger"><i class="fas fa-plus"></i>&nbsp; Criar novo grupo</a>
+</div>
+
     <h3>Meus grupos de estudo</h3>
 
     <hr>
     <section class="content-section">
-        @if(Auth::user()->management_groups->count() >= 1)
         <ul class="nav nav-tabs">
             <li class="nav-item">
               <a class="nav-link " aria-current="page" href="{{route('dashboard.groups')}}" >Todos os grupos</a>
@@ -17,7 +20,9 @@
                 <a class="nav-link disabled" aria-current="page" href="#" aria-disabled="true">Você gerencia {{Auth::user()->management_groups->count()}} grupo(s).</a>
             </li>
           </ul>
+          <br>
 
+        @if(Auth::user()->management_groups->count() >= 1)
             <table class="group-list rounded" width="100%">
                 @foreach (Auth::user()->management_groups as $group)
                     <tr>
@@ -62,7 +67,8 @@
                 @endforeach
             </table>
             @else
-            <h4>Você não gerencia nenhum grupo.</h4>
+            <br>
+            <h4>vazio.</h4>
         @endif
     </section>
 @endsection

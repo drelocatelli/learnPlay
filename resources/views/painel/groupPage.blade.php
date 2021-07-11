@@ -39,7 +39,7 @@
                                 <hr>
                                 <div class="discussion bg-light p-2" style="border-radius:15px!important;"><br>
                                     <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
-                                    <form method="post" action="{{route('dashboard.groups.post', [$title, $id])}}">
+                                    <form name="article" method="post" action="{{route('dashboard.groups.post', [$title, $id])}}">
                                         @csrf
                                         <input type="hidden" name="id_group" value="{{$id}}">
                                         <div class="form-group">
@@ -52,12 +52,25 @@
                                         </div>
                                     </form>
                                 </div>
+                                <script>
+                                    $('form[name=article] textarea').focus(function(e){
+                                        e.currentTarget.onkeypress = function(ev){
+                                            if(ev.ctrlKey && ev.code == 'Enter'){
+                                                $('form[name=article]').submit();
+                                            }
+                                        }
+                                    })
+                                </script>
                                 <br><br>
                                 <h6>Total: {{Auth::user()->group_article()->count()}}</h6>
                                 @foreach (Auth::user()->group_article() as $group_article)
                                     <br>
                                     <div class="discussion-post bg-light p-2 rounded">
-                                        {{ Auth::user()->emoticon($group_article->body) }}
+                                        @php
+                                            $body = nl2br(Auth::user()->emoticon($group_article->body));
+                                            $body = strip_tags(($body),'<br><b>');
+                                            print $body;
+                                        @endphp
                                         <hr>
                                         <a href="{{route('user.profile', [$group_article->nome, $group_article->id])}}" class="user-list">
                                             <img src="

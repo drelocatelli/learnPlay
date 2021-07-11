@@ -105,7 +105,7 @@ class User extends Authenticatable {
     public function get_all_groups(){
 
         return Group::where('visibility','public')
-                    ->paginate(5);
+                    ->paginate(50);
 
     }
 
@@ -134,10 +134,10 @@ class User extends Authenticatable {
     public function emoticon($transform){
 
         $emoticon = array();
-        $emoticon[1] = ['=D',':D','><','xD','T_T',':P', ':b',':(',':\'(','>.>', '<.<','merda','cocô',':3',':o',':O','puta','putaria','desgraça','vagabunda','sexo','buceta','ok','OK','Ok'];
-        $emoticon[2] = ['😄','😄','😆','😆','😭','😜', '😜','😔','🥲','👀', '👀','💩','💩','😮','😮','🤬','🤬','🤬','🤬','🤬','🤬','🤬','👌','👌','👌'];
+        $emoticon[1] = ['=D',':D','><','xD','T_T',':P', ':b',':(',':\'(','>.>', '<.<','merda','cocô','bosta',':3',':o',':O','puta','putaria','desgraça','vagabunda','sexo','buceta','ok','OK','Ok'];
+        $emoticon[2] = ['😄','😄','😆','😆','😭','😜', '😜','😔','🥲','👀', '👀','💩','💩','💩','😮','😮','🤬','🤬','🤬','🤬','🤬','🤬','🤬','👌','👌','👌'];
 
-        $transform = str_replace($emoticon[1], $emoticon[2], $transform);
+        $transform = str_ireplace($emoticon[1], $emoticon[2], $transform);
 
         return $transform;
 

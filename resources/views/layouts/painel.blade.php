@@ -53,7 +53,7 @@
             </ul>
             <ul id="notification" class="nav justify-content-end">
                 <li class="nav-item">
-                    <a href="{{route('user.profile', [Auth::user()->nome, Auth::user()->id])}}" class="nav-link" title="Meu perfil">
+                    <a href="{{route('dashboard')}}" class="nav-link" title="Meu perfil">
                         <img src="
                             @if(Auth::user()->photo === null)
                                 {{ asset('img/userimg/default.png')}}
@@ -62,9 +62,6 @@
                             @endif
                         " class="profile-photo photo">
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link" title="Página inicial"><i class="fas fa-home"></i></a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
                     <a href="javascript:void(0);" class="nav-link " data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i> &nbsp;<span id="notification_count" style="font-family:sans-serif; font-size:18px;">0</span></a>

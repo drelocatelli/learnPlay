@@ -5,8 +5,13 @@
     <br>
     <table class="group-list rounded" width="100%">
         @foreach (Auth::user()->get_all_groups() as $group)
-
-            @if(!Auth::user()->get_all_group_users($group->id)->where('id_user', '=', Auth::user()->id)->first())
+            @php
+                // verifica se nao participa do grupo
+                $verify = !Auth::user()->get_all_group_users($group->id)->where('id_user', '=', Auth::user()->id)->first();
+                // verifica se há Membros
+                $members = Auth::user()->get_all_group_users($group->id)->count();
+            @endphp
+            @if($verify && $members >= 1)
             <tr>
                 <td width="15rem">
                     <img src="
@@ -28,7 +33,7 @@
                     </span>
                     <br>
                     <span>
-                        <b>{{Auth::user()->get_all_group_users($group->id)->count()}} membro(s)</b>
+                        <b>{{$members}} membro(s)</b>
                     </span>
                     <br>
                     <div style="float:right; margin-right:24px;">
