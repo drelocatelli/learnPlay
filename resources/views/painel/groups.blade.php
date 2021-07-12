@@ -1,6 +1,8 @@
 @extends('layouts.painel')
 @section('conteudo')
-
+<div class="position-relative mb-5 d-flex flex-row-reverse float-right">
+    <a href="{{route('dashboard.groups.new')}}" class="btn btn-danger"><i class="fas fa-plus"></i>&nbsp; Criar novo grupo</a>
+</div>
     <h3>Meus grupos de estudo</h3>
 
     <hr>

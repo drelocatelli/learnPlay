@@ -35,8 +35,8 @@
                                     {{urldecode($title)}}</h4>
                                 <hr>
                                 @if($userInGroup)
-                                <h5><i class="fas fa-graduation-cap"></i>&nbsp; Aulas</h5>
-                                <hr>
+                                <a class="btn btn-danger"><i class="fas fa-graduation-cap"></i>&nbsp; Aulas</a>
+                                <br><br>
                                 <div class="discussion bg-light p-2 vivify fadeIn" style="animation-delay: 0.8s; border-radius:15px!important;"><br>
                                     <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
 

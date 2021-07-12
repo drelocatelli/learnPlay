@@ -57,7 +57,7 @@
             @endif
         @endforeach
     </table>
-    @if($groups == '')
+    @if(!$groups)
         <center>
             <h5>Nenhum grupo disponível.</h5>
         </center>
