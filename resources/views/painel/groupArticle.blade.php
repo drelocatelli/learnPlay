@@ -1,5 +1,8 @@
 @extends('layouts.painel')
 @section('conteudo')
+<div class="position-relative mb-5 d-flex flex-row-reverse float-right">
+    <a href="{{route('dashboard.groups.page', [$title, $id])}}" class="btn btn-primary"><i class="fas fa-chevron-left"></i> Voltar pro grupo</a>
+</div>
 <div class="discussion-post bg-light p-2 rounded">
         @php
             $group_article = Auth::user()->getArticle($article, $id);

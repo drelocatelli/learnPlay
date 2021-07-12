@@ -124,8 +124,8 @@ class UserController extends Controller
 
     }
 
-    public function group_comment($id, $article){
-        return view('painel.groupArticle', compact('id', 'article'));
+    public function group_comment($title, $id, $article){
+        return view('painel.groupArticle', compact('title', 'id', 'article'));
     }
 
     public function group_leave($title, $id){
