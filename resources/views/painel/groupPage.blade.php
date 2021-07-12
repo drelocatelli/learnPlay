@@ -67,11 +67,13 @@
                                 @foreach (Auth::user()->group_article() as $group_article)
                                     <br>
                                     <div class="discussion-post bg-light p-2 rounded">
-                                        @php
-                                            $body = nl2br(Auth::user()->emoticon($group_article->body));
-                                            $body = strip_tags(($body),'<br><b>');
-                                            print $body;
-                                        @endphp
+                                        <discuss>
+                                            @php
+                                                $body = nl2br(Auth::user()->emoticon($group_article->body));
+                                                $body = strip_tags(($body),'<br><b>');
+                                                print $body;
+                                            @endphp
+                                        </discuss>
                                         <hr>
                                         <a href="{{route('user.profile', [$group_article->nome, $group_article->id])}}" class="user-list">
                                             <img src="
@@ -165,5 +167,22 @@
     @endif
 
     </div>
+
+    <script>
+        function urlify(text) {
+        var urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gm;
+        text = text.replaceAll('<br>', '')
+        return text.replace(urlRegex, function(url) {
+            return '<br><a href="' + url + '" target="_blank">' + url + '</a>';
+        })
+        }
+
+        document.querySelectorAll('discuss').forEach(function(i){
+            let html = urlify(i.innerHTML);
+
+            i.innerHTML = html;
+        })
+
+    </script>
 
 @endsection

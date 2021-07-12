@@ -78,10 +78,15 @@ class UserController extends Controller
         $verifyUser = $this->verify_userInGroup($request->id_group);
 
         if($verifyUser){
+            $data = $request->validate([
+                'id_group' => 'required|alpha_num',
+                'body' => 'required|string',
+            ]);
+
             GroupArticles::newArticle([
-                'id_group' => $request->id_group,
+                'id_group' => $data['id_group'],
                 'id_user' => Auth::user()->id,
-                'body' => $request->body
+                'body' => $data['body']
             ]);
 
         }
@@ -100,8 +105,15 @@ class UserController extends Controller
 
     public function group_new(Request $request){
 
+
         if($request->POST()){
-            $data = $request->post();
+
+            $data = $request->validate([
+                'title' => 'required',
+                'description' => 'string',
+                'visibility' => 'string'
+            ]);
+
             $newGroup = Group::newGroup($data, Auth::user()->id);
 
             return redirect()->route('dashboard.groups.page', [$newGroup[0], $newGroup[1]]);
