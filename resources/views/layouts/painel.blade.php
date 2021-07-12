@@ -15,7 +15,7 @@
     <title>LearnPlay</title>
 </head>
 <body>
-    <a href="javascript:void(0);" onclick="showMenu()" class="toggle-sidebar"><i class="fas fa-bars"></i></a>
+    <a href="javascript:void(0);" onclick="showMenu()" class="toggle-sidebar vivify rollInLeft" style="animation-duration:1.2s; animation-delay: 0.5s;"><i class="fas fa-bars"></i></a>
     <div class="sidebar  flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; display:none;">
 
         <ul class="nav nav-pills flex-column mb-auto mt-5">
@@ -47,10 +47,10 @@
         </ul>
       </div>
 
-    <div class="container vivify swoopInBottom" style="animation-duration: 0.3s; ">
+    <div class="container vivify swoopInBottom" style="animation-duration: 0.3s; animation-delay:0.3s;">
         <nav class="">
             <ul class="nav justify-content-start " style="float:left;">
-                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.3s; "><b>LearnPlay</b></a></li>
+                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.5s; "><b>LearnPlay</b></a></li>
 
             </ul>
             <ul id="notification" class="nav justify-content-end">
@@ -62,7 +62,7 @@
                             @else
                                 {!! asset("img/userimg/". Auth::user()->photo) !!}
                             @endif
-                        " class="profile-photo photo vivify popIn" style="animation-delay: 0.3s; ">
+                        " class="profile-photo photo vivify popIn" style="animation-delay: 0.5s; ">
                     </a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
@@ -77,11 +77,11 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('user.settings')}}" class="nav-link" title="Configurações"><i class="fas fa-user-edit"></i></a>
+                    <a href="{{route('user.settings')}}" class="nav-link" title="Configurações"><i class="fas fa-cog"></i></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('login.logout')}}" class="nav-link">
+                    <a href="{{route('login.logout')}}" class="nav-link" title="deslogar">
                         <i class="fas fa-times"></i>
                     </a>
                 </li>
@@ -91,7 +91,7 @@
         </nav>
         <div style="clear:both;"></div>
 
-          <div>
+          <div class="vivify fadeIn" style="animation-duration: 0.5s; animation-delay:0.6s;">
             @yield('conteudo')
 
           </div>
@@ -106,10 +106,12 @@
         function bounceNotification(){
             if(parseInt(document.querySelector("#notification_count").innerText) >= 1){
                     let notificationIcon = (notificationCount.offsetParent.childNodes[1].querySelector('i'))
+                    notificationIcon.style = 'transition:text-shadow 0.3s; zoom:105%; text-shadow:0px 0px 14px yellow;'
                     notificationIcon.classList.add('animate__animated', 'animate__tada');
-                    notificationIcon.style.setProperty('--animate-duration', '1s');
+                    notificationIcon.style.setProperty('--animate-duration', '1.2s');
                     setTimeout(()=>{
                         notificationIcon.classList.remove('animate__animated', 'animate__tada')
+                        notificationIcon.style = getComputedStyle(notificationIcon)
                     },1200)
                 }
         }

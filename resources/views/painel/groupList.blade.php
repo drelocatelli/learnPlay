@@ -1,10 +1,13 @@
 @extends('layouts.painel')
 @section('conteudo')
-
+<div class="position-relative mb-5 d-flex flex-row-reverse float-right">
+    <a href="{{route('dashboard.groups.new')}}" class="btn btn-danger"><i class="fas fa-plus"></i>&nbsp; Criar novo grupo</a>
+</div>
     <h3>Procurar grupos de estudo</h3>
     <br>
     <table class="group-list rounded" width="100%">
-        @foreach (Auth::user()->get_all_groups() as $group)
+        @php $groups = Auth::user()->get_all_groups() @endphp
+        @foreach ($groups as $group)
             @php
                 // verifica se nao participa do grupo
                 $verify = !Auth::user()->get_all_group_users($group->id)->where('id_user', '=', Auth::user()->id)->first();
@@ -54,6 +57,11 @@
             @endif
         @endforeach
     </table>
+    @if($groups == '')
+        <center>
+            <h5>Nenhum grupo disponível.</h5>
+        </center>
+    @endif
     <div class="pagination">
         {{ Auth::user()->get_all_groups()->links() }}
     </div>

@@ -25,7 +25,7 @@
                 @if(!empty($group_page))
                         <div class="main">
                             <div class="post">
-                                <h4>
+                                <h4 class="vivify fadeIn" style="animation-delay: 0.8s;">
                                     @if(Auth::user()->group_page()->visibility == 'public')
                                         <i title="público" class="fas fa-eye"></i>
                                     @else
@@ -37,13 +37,14 @@
                                 @if($userInGroup)
                                 <h5><i class="fas fa-graduation-cap"></i>&nbsp; Aulas</h5>
                                 <hr>
-                                <div class="discussion bg-light p-2" style="border-radius:15px!important;"><br>
+                                <div class="discussion bg-light p-2 vivify fadeIn" style="animation-delay: 0.8s; border-radius:15px!important;"><br>
                                     <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
+
                                     <form name="article" method="post" action="{{route('dashboard.groups.post', [$title, $id])}}">
                                         @csrf
                                         <input type="hidden" name="id_group" value="{{$id}}">
                                         <div class="form-group">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="body"></textarea>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="body" required></textarea>
                                             <br>
                                             <div style="float:right;">
                                                 <button type="submit" class="btn btn-info">Postar</button>
@@ -51,6 +52,7 @@
                                             <div style="clear:both;"></div>
                                         </div>
                                     </form>
+
                                 </div>
                                 <script>
                                     $('form[name=article] textarea').focus(function(e){

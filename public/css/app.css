@@ -56,7 +56,7 @@ h1,h2,h3,h4{
 }
 
 .form-control:focus, .btn:focus{
-    box-shadow: none!important;
+    box-shadow:0 0 0 0.19rem rgb(13 110 253 / 9%);
     border-color:#d2b3b7;
 }
 

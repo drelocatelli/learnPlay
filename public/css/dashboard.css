@@ -129,14 +129,23 @@ a {
 }
 
 table.group-list{
+    padding:15px 25px!important;
+}
+section .nav-tabs{
     padding:5px 25px!important;
 }
 
 section .nav-tabs {
-    border-bottom: 1px solid #ffffff;
-    background: white;
+    border-bottom: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.801);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+td{padding:5px!important;}
+
+td img{
+    padding:15px!important;
 }
 
 section .nav-tabs a{
@@ -144,13 +153,13 @@ section .nav-tabs a{
 }
 
 section .nav-tabs a:hover{
-    color:black;
-    background:#a9fd0d;
+    color:rgb(55, 92, 172);
+    border-bottom:1px solid #aaa;
 }
 
-table.group-list tr{
-    background-color: white;
-    border-radius: 5px;
+table.group-list{
+    background-color: rgba(255, 255, 255, 0.801);
+    border-radius: 15px;
     border-bottom: 1px solid #ccc;
 }
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\User\UserAlert;
+use App\Models\Group;
 use App\Models\GroupUsers;
 use App\Models\GroupArticles;
 
@@ -95,6 +96,20 @@ class UserController extends Controller
 
     public function group_page($title, $id){
         return view('painel.groupPage', compact('title', 'id'));
+    }
+
+    public function group_new(Request $request){
+
+        if($request->POST()){
+            $data = $request->post();
+            $newGroup = Group::newGroup($data, Auth::user()->id);
+
+            return redirect()->route('dashboard.groups.page', [$newGroup[0], $newGroup[1]]);
+        }
+
+        return view('painel.groupNew');
+
+
     }
 
     public function group_leave($title, $id){

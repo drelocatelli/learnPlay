@@ -6,6 +6,7 @@
     <hr>
 
     <section class="content-section">
+        <br><br>
         <div class="card-group d-flex flex-wrap">
             <div class="card rounded" style="width: 14rem;">
                 <img src="{{ asset('img/community.svg') }}" class="card-img-top">
