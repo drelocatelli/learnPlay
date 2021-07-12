@@ -35,8 +35,7 @@
                                     {{urldecode($title)}}</h4>
                                 <hr>
                                 @if($userInGroup)
-                                <a class="btn btn-danger"><i class="fas fa-graduation-cap"></i>&nbsp; Aulas</a>
-                                <br><br>
+                                <br>
                                 <div class="discussion bg-light p-2 vivify fadeIn" style="animation-delay: 0.8s; border-radius:15px!important;"><br>
                                     <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
 
@@ -116,6 +115,8 @@
                                 <br><br>
                                     {{Auth::user()->group_page()->description}}
                                 <br><br>
+                                <a class="btn btn-info"><i class="fas fa-photo-video"></i>&nbsp; Verificar aulas</a>
+                                <br><br>
                                 <h4>Administradores</h4>
                                 <hr>
                                     @foreach (Auth::user()->group_admin() as $group_admin)
@@ -147,7 +148,7 @@
                                     @else
                                     Nenhum membro.
                                     @endif
-                                <br><br>
+                                <br><br><br>
                                 @if($userInGroup)
                                     <a href="{{route('dashboard.groups.leave', [$title, $id])}}" class="btn btn-danger">sair do grupo</a>
                                 @endif
