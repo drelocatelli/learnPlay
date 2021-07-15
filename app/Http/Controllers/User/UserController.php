@@ -124,6 +124,10 @@ class UserController extends Controller
 
     }
 
+    public function group_comment($id, $article){
+        return view('painel.groupArticle', compact('id', 'article'));
+    }
+
     public function group_leave($title, $id){
         $user = new User();
         return $user->leave_group($id);

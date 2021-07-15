@@ -50,7 +50,7 @@
     <div class="container vivify swoopInBottom" style="animation-duration: 0.3s; animation-delay:0.3s;">
         <nav class="">
             <ul class="nav justify-content-start " style="float:left;">
-                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.5s; "><b>LearnPlay</b></a></li>
+                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.85s; "><b>LearnPlay</b></a></li>
 
             </ul>
             <ul id="notification" class="nav justify-content-end">
@@ -62,7 +62,7 @@
                             @else
                                 {!! asset("img/userimg/". Auth::user()->photo) !!}
                             @endif
-                        " class="profile-photo photo vivify popIn" style="animation-delay: 0.5s; ">
+                        " class="profile-photo photo vivify popIn" style="animation-delay: 0.85s; ">
                     </a>
                 </li>
                 <li class="nav-item dropdown dnotify-dropdown">
@@ -100,6 +100,7 @@
 
     </div>
     <script>
+
         var notificationLiEl = document.querySelectorAll('li#notification');
         var notificationCount = document.querySelector('span#notification_count')
 
@@ -118,6 +119,7 @@
 
 
         window.onload = function(){
+            $('html,body').scrollTop(0);
             bounceNotification()
 
             setInterval(function(){

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User\UserAlert;
 use App\Models\Group;
+use App\Models\GroupArticles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,16 @@ class User extends Authenticatable {
 
         return $this->hasMany(UserAlert::class, 'id_user')->limit(10);
 
+    }
+
+    public function getArticle($id, $id_group){
+        return GroupArticles::where([
+                'group_article.id' => $id,
+                'group_article.id_group' => $id_group
+            ])
+            ->join('user', 'group_article.id_user', '=', 'user.id')
+            // ->select('*', 'group_article.id as id_article')
+            ->first();
     }
 
     public function group_users($id){

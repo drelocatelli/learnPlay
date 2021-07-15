@@ -60,6 +60,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     $controller = UserController::class;
     Route::get('group/list', [$controller, 'group_public'])->name('dashboard.groups.public');
     Route::match(['post','get'],'group/new', [$controller, 'group_new'])->name('dashboard.groups.new');
+    Route::get('group/{id}/article/{article}', [$controller, 'group_comment'])->name('dashboard.groups.comment');
     Route::get('group/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
     Route::post('group/{title?}/{id}/post', [$controller, 'group_post'])->name('dashboard.groups.post');
     Route::get('group/{id}/delete/postId/{id_article}', [$controller, 'group_post_delete'])->name('dashboard.groups.postDelete');
