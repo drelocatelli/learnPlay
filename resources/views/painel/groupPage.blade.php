@@ -74,7 +74,7 @@
                                                 print $body;
                                             @endphp
                                         </discuss>
-                                        <hr>
+                                        <br>
                                         <a href="{{route('user.profile', [$group_article->nome, $group_article->id])}}" class="user-list">
                                             <img src="
                                             @if($group_article->photo === null)
@@ -84,7 +84,7 @@
                                             @endif
                                                 " height="25px" width="25px" class="photo-default">&nbsp; {{$group_article->nome}}
                                         </a>&nbsp;
-                                        |&nbsp; {{$group_article->timestamp}} &nbsp;|&nbsp; <a href="{{route('dashboard.groups.comment', [$title, $id, $group_article->id_article])}}"><i class="far fa-comment-dots"></i> comentários ({{count(Auth::user()->get_Comment($id, $group_article->id_article))}})</a>
+                                        ·&nbsp; {{$group_article->timestamp}} &nbsp;·&nbsp; <a href="{{route('dashboard.groups.comment', [$title, $id, $group_article->id_article])}}"><i class="far fa-comment-dots"></i> comentários ({{count(Auth::user()->get_Comment($id, $group_article->id_article))}})</a>
                                         @if(Auth::user()->id == $group_article->id_user)
                                             <div style="float:right">
                                                 <a href="{{route('dashboard.groups.postDelete', [$id, $group_article->id_article])}}" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>

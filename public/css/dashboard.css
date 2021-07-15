@@ -63,7 +63,9 @@ discuss {
     padding: 4px 12px;
     max-height: 200px;
     overflow-x: auto;
-    display:block;
+    display: block;
+    border-bottom: 1px dotted #dadada;
+    margin: 5px 4px;
 }
 
 .user-list{

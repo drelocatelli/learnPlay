@@ -15,7 +15,6 @@
         @endphp
     </discuss>
 
-    <hr>
 
     <a href="{{route('user.profile', [$group_article->nome, $group_article->id])}}" class="user-list">
         <img src="
@@ -26,7 +25,7 @@
         @endif
             " height="25px" width="25px" class="photo-default">&nbsp; {{$group_article->nome}}
     </a>&nbsp;
-    |&nbsp; {{$group_article->timestamp}}
+    ·&nbsp; {{$group_article->timestamp}}
     <br><br><br>
 
     <h5>Deixar comentário</h5>
@@ -43,9 +42,9 @@
         </div>
     </form>
 
-    <hr><br>
+    <br>
 
-    <h5>Comentários</h5>
+    <h3>Comentários</h3><br>
     @php $comments = Auth::user()->get_Comment($id, $article); @endphp
 
     @foreach ($comments as $comment)
@@ -57,18 +56,15 @@
             {!! asset("img/userimg/". $comment->photo) !!}
         @endif
             " height="25px" width="25px" class="photo-default">&nbsp; {{$comment->nome}}
-    </a> comentou:&nbsp;
-    <discuss style="display:inline-block; width:100%; background:white;">
+    </a> comentou:&nbsp; · {{$comment->timestamp}}
+    <discuss>
         @php
             $body = nl2br(Auth::user()->emoticon($comment->body));
             $body = strip_tags(($body),'<br><b>');
             print $body;
         @endphp
     </discuss>
-    <hr>
-
-    &nbsp; {{$comment->timestamp}}
-    <br><br><br>
+    <br><br>
     @endforeach
 
 
