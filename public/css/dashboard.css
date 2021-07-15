@@ -59,6 +59,13 @@ a {
     height: 10px;
 }
 
+discuss {
+    padding: 4px 12px;
+    max-height: 200px;
+    overflow-x: auto;
+    display:block;
+}
+
 .user-list{
     background: #ffffffa8;
     border-radius: 12px;

@@ -14,7 +14,9 @@
             print $body;
         @endphp
     </discuss>
+
     <hr>
+
     <a href="{{route('user.profile', [$group_article->nome, $group_article->id])}}" class="user-list">
         <img src="
         @if($group_article->photo === null)
@@ -26,8 +28,9 @@
     </a>&nbsp;
     |&nbsp; {{$group_article->timestamp}}
     <br><br><br>
+
     <h5>Deixar comentário</h5>
-    <form method="post" action="">
+    <form method="post">
         @csrf
         <input type="hidden" name="id_group" value="{{$id}}">
         <div class="form-group">
@@ -39,6 +42,35 @@
             <div style="clear:both;"></div>
         </div>
     </form>
+
     <hr><br>
+
     <h5>Comentários</h5>
+    @php $comments = Auth::user()->get_Comment($id, $article); @endphp
+
+    @foreach ($comments as $comment)
+    <a href="{{route('user.profile', [$comment->nome, $comment->id])}}" class="user-list">
+        <img src="
+        @if($comment->photo === null)
+            {{ asset('img/userimg/default.png')}}
+        @else
+            {!! asset("img/userimg/". $comment->photo) !!}
+        @endif
+            " height="25px" width="25px" class="photo-default">&nbsp; {{$comment->nome}}
+    </a> comentou:&nbsp;
+    <discuss style="display:inline-block; width:100%; background:white;">
+        @php
+            $body = nl2br(Auth::user()->emoticon($comment->body));
+            $body = strip_tags(($body),'<br><b>');
+            print $body;
+        @endphp
+    </discuss>
+    <hr>
+
+    &nbsp; {{$comment->timestamp}}
+    <br><br><br>
+    @endforeach
+
+
+
 @endsection

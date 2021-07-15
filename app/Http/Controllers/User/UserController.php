@@ -124,7 +124,33 @@ class UserController extends Controller
 
     }
 
-    public function group_comment($title, $id, $article){
+    public function group_comment(Request $request){
+
+        $verifyUser = $this->verify_userInGroup($request->id_group);
+
+        $title = $request->title;
+        $id = $request->id;
+        $article = $request->article;
+
+        if($verifyUser && $request->POST()){
+
+            $requests = $request->validate([
+                'id_group' => 'required|alpha_num',
+                'body' => 'required|string'
+            ]);
+
+            $params = [
+                'id_article' => $article,
+                'id_user' => Auth::user()->id,
+            ];
+
+            $data = array_merge($requests, $params);
+
+            GroupArticles::articleRes($data);
+
+            return back();
+        }
+
         return view('painel.groupArticle', compact('title', 'id', 'article'));
     }
 

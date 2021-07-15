@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\User\UserAlert;
 use App\Models\Group;
 use App\Models\GroupArticles;
+use App\Models\GroupArticleComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,18 @@ class User extends Authenticatable {
     public function alerts(){
 
         return $this->hasMany(UserAlert::class, 'id_user')->limit(10);
+
+    }
+
+    public function get_Comment($idGroup, $article){
+
+        return GroupArticleComment::where([
+            'id_group' => $idGroup,
+            'id_article' => $article
+        ])
+        ->join('user', 'user.id', '=', 'id_user')
+        ->orderBy('group_article_comment.id', 'DESC')
+        ->get();
 
     }
 
@@ -165,6 +178,7 @@ class User extends Authenticatable {
 
         return $group_article;
     }
+
 
     public function management_groups(){
 

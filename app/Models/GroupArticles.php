@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\GroupArticleComment;
 
 class GroupArticles extends Model
 {
@@ -13,6 +14,13 @@ class GroupArticles extends Model
     public $timestamps = false;
 
     protected $fillable = ['id_group', 'id_user', 'body'];
+
+    public static function articleRes($data = []){
+
+        $articleRes = GroupArticleComment::create($data);
+
+        return $articleRes;
+    }
 
     public static function newArticle($data = []){
 
