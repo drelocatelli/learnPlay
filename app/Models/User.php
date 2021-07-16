@@ -143,10 +143,10 @@ class User extends Authenticatable {
 
     public function groups($id = null){
         $groupUsers = $this->hasMany(GroupUsers::class, 'id_user');
-        $groups = $groupUsers->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id');
+        $groups = $groupUsers->join('group', 'group_users.id_grupo', '=', 'group.id');
 
         if($id === null){
-            return $groups->where('id_user', Auth::user()->id);
+            return $groups->where('id_user', Auth::user()->id)->orderBy('group_users.timestamp','DESC');
         }else{
             return $this->group_users($id);
         }

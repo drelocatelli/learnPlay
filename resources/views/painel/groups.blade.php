@@ -42,8 +42,9 @@
                                 @endif
                             </span>
                             <br>
+                            @php $date = new DateTime($group->timestamp); $date = $date->format('d/m/Y | H:i'); @endphp
                             <span>
-                                Entrou em: {{$group->timestamp }} | <b>{{Auth::user()->groups($group->id)->count()}} membro(s)</b>
+                                Entrou em: {{$date }} | <b>{{Auth::user()->groups($group->id)->count()}} membro(s)</b>
                             </span>
                             <br>
                             <div style="float:right; margin-right:24px;">

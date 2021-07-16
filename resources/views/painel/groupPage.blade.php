@@ -84,7 +84,8 @@
                                             @endif
                                                 " height="25px" width="25px" class="photo-default">&nbsp; {{$group_article->nome}}
                                         </a>&nbsp;
-                                        ·&nbsp; {{$group_article->timestamp}} &nbsp;·&nbsp; <a href="{{route('dashboard.groups.comment', [$title, $id, $group_article->id_article])}}" title="comentar"><i class="far fa-comment-dots"></i> comentar ({{count(Auth::user()->get_Comment($id, $group_article->id_article))}})</a>
+                                        @php $date = new DateTime($group_article->timestamp); $date = $date->format('d/m/Y | H:i'); @endphp
+                                        ·&nbsp; {{$date}} &nbsp;·&nbsp; <a href="{{route('dashboard.groups.comment', [$title, $id, $group_article->id_article])}}" title="comentar"><i class="far fa-comment-dots"></i> comentar ({{count(Auth::user()->get_Comment($id, $group_article->id_article))}})</a>
                                         @if(Auth::user()->id == $group_article->id_user)
                                             <div style="float:right">
                                                 <a href="{{route('dashboard.groups.postDelete', [$id, $group_article->id_article])}}" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>
