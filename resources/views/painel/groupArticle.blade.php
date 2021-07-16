@@ -25,47 +25,68 @@
         @endif
             " height="25px" width="25px" class="photo-default">&nbsp; {{$group_article->nome}}
     </a>&nbsp;
-    ·&nbsp; {{$group_article->timestamp}}
+    @php $date = new DateTime($group_article->timestamp); $date = $date->format('d/m/Y | H:i'); @endphp
+    ·&nbsp; {{$date}}
     <br><br><br>
 
     <h5>Deixar comentário</h5>
-    <form method="post">
+    <form name="article" method="post">
         @csrf
         <input type="hidden" name="id_group" value="{{$id}}">
         <div class="form-group">
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="body" required></textarea>
             <br>
             <div style="float:right;">
-                <button type="submit" class="btn btn-info">comentar</button>
+                <button type="submit" class="btn btn-info">deixar comentário</button>
             </div>
             <div style="clear:both;"></div>
         </div>
     </form>
 
     <br>
-
-    <h3>Comentários</h3><br>
+    <script>
+        $('form[name=article] textarea').focus(function(e){
+            e.currentTarget.onkeypress = function(ev){
+                if(ev.ctrlKey && ev.code == 'Enter'){
+                    $('form[name=article]').submit();
+                }
+            }
+        })
+    </script>
     @php $comments = Auth::user()->get_Comment($id, $article); @endphp
 
-    @foreach ($comments as $comment)
-    <a href="{{route('user.profile', [$comment->nome, $comment->id])}}" class="user-list">
-        <img src="
-        @if($comment->photo === null)
-            {{ asset('img/userimg/default.png')}}
-        @else
-            {!! asset("img/userimg/". $comment->photo) !!}
-        @endif
-            " height="25px" width="25px" class="photo-default">&nbsp; {{$comment->nome}}
-    </a> comentou:&nbsp; · {{$comment->timestamp}}
-    <discuss>
-        @php
-            $body = nl2br(Auth::user()->emoticon($comment->body));
-            $body = strip_tags(($body),'<br><b>');
-            print $body;
-        @endphp
-    </discuss>
-    <br><br>
-    @endforeach
+    @if($comments->count() > 0)
+
+        &nbsp;<h3>Comentários ({{$comments->count()}})</h3><br>
+
+        @foreach ($comments as $comment)
+        <a href="{{route('user.profile', [$comment->nome, $comment->id])}}" class="user-list">
+            <img src="
+            @if($comment->photo === null)
+                {{ asset('img/userimg/default.png')}}
+            @else
+                {!! asset("img/userimg/". $comment->photo) !!}
+            @endif
+                " height="25px" width="25px" class="photo-default">&nbsp; {{$comment->nome}}
+        </a>
+        @php $date = new DateTime($comment->timestamp); $date = $date->format('d/m/Y | H:i'); @endphp
+        comentou:&nbsp; · {{$date}}
+        <discuss>
+            @php
+                $body = nl2br(Auth::user()->emoticon($comment->body));
+                $body = strip_tags(($body),'<br><b>');
+                print $body;
+            @endphp
+            @if(Auth::user()->id == $comment->id_user)
+                <div style="float:right">
+                    <a href="#" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>
+                </div>
+            @endif
+        </discuss>
+        <br>
+
+        @endforeach
+    @endif
 
 
 
