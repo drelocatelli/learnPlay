@@ -63,7 +63,7 @@
                                     })
                                 </script>
                                 <br><br>
-                                <h6>Total: {{Auth::user()->group_article()->count()}}</h6>
+                                <h6>{{Auth::user()->group_article()->count()}} artigos</h6>
                                 @foreach (Auth::user()->group_article() as $group_article)
                                     <br>
                                     <div class="discussion-post bg-light p-2 rounded">
@@ -84,7 +84,7 @@
                                             @endif
                                                 " height="25px" width="25px" class="photo-default">&nbsp; {{$group_article->nome}}
                                         </a>&nbsp;
-                                        ·&nbsp; {{$group_article->timestamp}} &nbsp;·&nbsp; <a href="{{route('dashboard.groups.comment', [$title, $id, $group_article->id_article])}}"><i class="far fa-comment-dots"></i> comentários ({{count(Auth::user()->get_Comment($id, $group_article->id_article))}})</a>
+                                        ·&nbsp; {{$group_article->timestamp}} &nbsp;·&nbsp; <a href="{{route('dashboard.groups.comment', [$title, $id, $group_article->id_article])}}" title="comentar"><i class="far fa-comment-dots"></i> comentar ({{count(Auth::user()->get_Comment($id, $group_article->id_article))}})</a>
                                         @if(Auth::user()->id == $group_article->id_user)
                                             <div style="float:right">
                                                 <a href="{{route('dashboard.groups.postDelete', [$id, $group_article->id_article])}}" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>

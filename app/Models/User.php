@@ -10,6 +10,7 @@ use App\Models\GroupArticles;
 use App\Models\GroupArticleComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\GroupUse;
 
 class User extends Authenticatable {
     use HasFactory;
@@ -114,6 +115,13 @@ class User extends Authenticatable {
     public function group_admin(){
         $id = request()->id;
         $groupAdmin = GroupUsers::where('id_grupo', $id)->where('admin', 'true')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
+
+        if($groupAdmin->count() == 0){
+            $lastUser = GroupUsers::join('user', 'group_users.id_user', '=', 'user.id')
+                        ->where('group_users.id_grupo', $id)
+                        ->first();
+            GroupUsers::where('id_user', $lastUser->id_user)->update(['admin' => 'true']);
+        }
 
         return $groupAdmin->get();
     }
