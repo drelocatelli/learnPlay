@@ -9,3 +9,5 @@ Também disponível em versão mobile.
 ![1625619424919](https://user-images.githubusercontent.com/32282846/124801796-a1712000-df2d-11eb-87fe-c127f6b4afec.png)
 
 [LearnPlay.sql](https://drive.google.com/drive/folders/15AquuA67SBJrJE-H11rWwds76vpiCKas?usp=sharing)
+
+<a href="https://www.buymeacoffee.com/drelocatelli" title="buy me a coffee"><img src="https://user-images.githubusercontent.com/32282846/126049168-d98c147c-6893-4272-9383-e166d80a8bfa.png"></a>
