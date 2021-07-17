@@ -64,6 +64,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::get('group/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
     Route::post('group/{title?}/{id}/post', [$controller, 'group_post'])->name('dashboard.groups.post');
     Route::get('group/{id}/delete/postId/{id_article}', [$controller, 'group_post_delete'])->name('dashboard.groups.postDelete');
+    Route::get('group/{id}/delete/postId/{id_article}/{id_comment}', [$controller, 'group_post_commentDelete'])->name('dashboard.groups.postcommentDelete');
     Route::get('group/{title?}/{id}/leave', [$controller, 'group_leave'])->name('dashboard.groups.leave');
     Route::get('group/{title?}/{id}/enter', [$controller, 'group_enter'])->name('dashboard.groups.enter');
 });

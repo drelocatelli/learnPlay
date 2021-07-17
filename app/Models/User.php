@@ -34,6 +34,7 @@ class User extends Authenticatable {
         ])
         ->join('user', 'user.id', '=', 'id_user')
         ->orderBy('group_article_comment.id', 'DESC')
+        ->select('*', 'group_article_comment.id as id_comment')
         ->get();
 
     }

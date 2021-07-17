@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\User\UserAlert;
 use App\Models\Group;
 use App\Models\GroupUsers;
+use App\Models\GroupArticleComment;
 use App\Models\GroupArticles;
 
 class UserController extends Controller
@@ -62,6 +63,23 @@ class UserController extends Controller
 
         if($verifyUser){
             return GroupArticles::deleteArticle([
+                'id_group' => $request->id,
+                'id_user' => Auth::user()->id,
+                'id_post' => $request->id_article
+            ]);
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function group_post_commentDelete(Request $request){
+
+        $verifyUser = $this->verify_userInGroup($request->id);
+
+        if($verifyUser){
+            return GroupArticleComment::deleteArticleComment([
+                'id' => $request->id_comment,
                 'id_group' => $request->id,
                 'id_user' => Auth::user()->id,
                 'id_post' => $request->id_article

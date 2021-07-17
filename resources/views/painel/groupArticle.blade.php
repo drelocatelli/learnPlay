@@ -79,7 +79,7 @@
             @endphp
             @if(Auth::user()->id == $comment->id_user)
                 <div style="float:right">
-                    <a href="#" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>
+                    <a href="{{route('dashboard.groups.postcommentDelete', [$id, $article, $comment->id_comment])}}" class="btn btn-danger" title="deletar postagem"><i class="far fa-trash-alt"></i></a>
                 </div>
             @endif
         </discuss>
