@@ -11,7 +11,7 @@ Também disponível em versão mobile.
 ![1625619424919](https://user-images.githubusercontent.com/32282846/124801796-a1712000-df2d-11eb-87fe-c127f6b4afec.png)
 
 
-![Video](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/embed/t7Qw5_3GLPk)
+[Video](https://www.youtube.com/embed/t7Qw5_3GLPk)
 
 [LearnPlay.sql](https://drive.google.com/drive/folders/15AquuA67SBJrJE-H11rWwds76vpiCKas?usp=sharing)
 
