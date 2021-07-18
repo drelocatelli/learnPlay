@@ -20,7 +20,6 @@
                 <a class="nav-link disabled" aria-current="page" href="#" aria-disabled="true">Você gerencia {{Auth::user()->management_groups->count()}} grupo(s).</a>
             </li>
           </ul>
-          <br>
 
         @if(Auth::user()->management_groups->count() >= 1)
             <table class="group-list rounded" width="100%">

@@ -23,6 +23,9 @@
                 @if($group_page->visibility == 'public' or $userInGroup)
 
                 @if(!empty($group_page))
+                @php
+                    $authIsAdmin = Auth::user()->group_isAdmin($id, Auth::user()->id);
+                @endphp
                         <div class="main">
                             <div class="post">
                                 <h4 class="vivify fadeIn" style="animation-delay: 0.8s;">
@@ -32,7 +35,51 @@
                                         <i title="restringido à membros" class="fas fa-eye-slash"></i>
                                     @endif
                                     &nbsp;
-                                    {{urldecode($title)}}</h4>
+                                    <group-title>{{$group_page->title}}</group-title>
+                                    @if($authIsAdmin)
+                                    <!-- Editar titulo do grupo -->
+                                        <div style="float:right;">
+                                            <a href="javascript:void(0);" name="edit_title" class="text-dark" title="editar titulo"><i class="fas fa-pen"></i></a>
+                                        </div>
+                                        <form method="post" action="{{route('dashboard.group.changeTitle', [$title, $id])}}" name="changeGroup_title" style="display:none;">
+                                            @csrf
+                                            <input name="group_title" type="text" class="form-control" style="display: inline; width: 80%;" required>
+                                        </form>
+                                        <script>
+                                            let gpTitleEl = $('group-title')[0];
+                                            let gpTitleFo = $('form[name=changeGroup_title]')[0];
+                                            let gpTitleIn = $('form[name=changeGroup_title] input[name=group_title]')[0];
+                                            $('a[name=edit_title]').click(function(){
+                                                gpTitleFo.style.display = 'inline';
+                                                gpTitleIn.value = gpTitleEl.innerText;
+                                                gpTitleEl.style.display = 'none';
+                                                gpTitleIn.focus();
+
+                                                gpTitleIn.onkeypress = function(event){
+                                                    if(event.key == 'Enter'){
+                                                        event.preventDefault();
+                                                        gpTitleEl.innerText = gpTitleIn.value;
+                                                        gpTitleEl.style.display = 'inline'
+                                                        gpTitleFo.style.display = 'none'
+
+                                                        // send form
+                                                        let UrlGroupTitle = `{{route('dashboard.group.changeTitle', [$title, $id])}}`
+                                                        $.ajax({
+                                                            method: "POST",
+                                                            url: UrlGroupTitle,
+                                                            data: { _token: gpTitleIn.previousElementSibling.value, group_title: gpTitleIn.value }
+                                                        }).done(function(ev){
+                                                            console.log('nome do grupo salvo')
+                                                        })
+
+                                                    }
+                                                }
+                                            })
+
+                                        </script>
+                                        <div style="clear:both;"></div>
+                                    @endif
+                                </h4>
                                 <hr>
                                 @if($userInGroup)
                                 <br>
@@ -108,18 +155,58 @@
                             <div class="aside">
                                 <h4>Sobre o grupo</h4>
                                 <hr>
-                                <img src="
-                                @if($group_page->thumbnail == null)
-                                    {{ asset('img/community.svg')}}
-                                @else
-                                    {!! asset('img/groups/'. $group_page->thumbnail) !!}
+                                <div style="position:relative;">
+                                @if($authIsAdmin)
+                                    <!-- Editar imagem do grupo -->
+                                    <a href="javascript:void(0);" name="change_thumbnail" class="text-dark" style="position: absolute; right: 10px; background: white; padding: 8px 15px; border-radius: 75px; font-size: 12px; border:1px solid #000;" title="editar thumbnail"><i class="fas fa-pen"></i></a>
+                                    <div class="change_group_photo"></div>
+                                    <script>
+                                        $('a[name=change_thumbnail').click(function(){
+                                            $('.change_group_photo').html(`
+                                                <form method="post" enctype="multipart/form-data" style="display:none;">
+                                                    @csrf
+                                                    <input type="file" name="thumbnail">
+                                                </form>
+                                            `)
+                                            $('input[name=thumbnail]').click()
+                                        });
+                                    </script>
                                 @endif
-                                " class="img-thumbnail bg-transparent">
+                                    <img src="
+                                    @if($group_page->thumbnail == null)
+                                        {{ asset('img/community.svg')}}
+                                    @else
+                                        {!! asset('img/groups/'. $group_page->thumbnail) !!}
+                                    @endif
+                                    " class="img-thumbnail bg-transparent">
+                                </div>
                                 <br><br>
+                                <span name="group_description">
                                     {{Auth::user()->group_page()->description}}
+                                </span>
+                                    @if($authIsAdmin)
+                                        <br>
+                                        <!-- Editar descrição do grupo -->
+                                        <a href="javascript:void(0);" name="change_description" class="text-dark" title="editar thumbnail"><i class="fas fa-pen"></i></a>
+                                        <form method="post" name="Groupchange_description" style="display:none;">
+                                            @csrf
+                                            <textarea name="group_description" class="form-control">{{Auth::user()->group_page()->description}}</textarea><br>
+                                            <button type="submit" class="btn btn-warning">salvar</button>
+                                        </form>
+                                        <script>
+                                            let formDescFo = $('form[name=Groupchange_description]')[0];
+                                            let formDescIn = $('form[name=Groupchange_description] textarea[name=group_description]')[0];
+
+                                            $('a[name=change_description]').click(function(e){
+                                                formDescFo.style.display = 'block';
+                                                formDescIn.focus();
+                                            })
+                                        </script>
+                                    @endif
                                 <br><br>
                                 <a class="btn btn-info"><i class="fas fa-photo-video"></i>&nbsp; Verificar aulas</a>
                                 <br><br>
+
                                 <h4>Administradores</h4>
                                 <hr>
                                     @foreach (Auth::user()->group_admin() as $group_admin)

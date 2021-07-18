@@ -57,6 +57,14 @@ class UserController extends Controller
                         ->first();
     }
 
+    public function verify_userAdmin($id_group){
+        return GroupUsers::join('group', 'group.id', '=', 'group_users.id_grupo')
+                        ->where('group_users.id_user', Auth::user()->id)
+                        ->where('group_users.admin', 'true')
+                        ->where('group.id', $id_group)
+                        ->first();
+    }
+
     public function group_post_delete(Request $request){
 
         $verifyUser = $this->verify_userInGroup($request->id);
@@ -117,7 +125,23 @@ class UserController extends Controller
         return view('painel.groupList');
     }
 
-    public function group_page($title, $id){
+    public function group_changeTitle(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin){
+
+            $data = $request->validate([
+                'group_title' => 'required'
+            ]);
+
+            Group::renameGroup($data, $request->id, 'title');
+
+        }
+
+    }
+
+    public function group_page(Request $request, $title, $id){
+
         return view('painel.groupPage', compact('title', 'id'));
     }
 

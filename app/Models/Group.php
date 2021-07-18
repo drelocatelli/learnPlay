@@ -15,6 +15,20 @@ class Group extends Model
 
     protected $fillable = ['title', 'description', 'thumbnail', 'visibility'];
 
+    public static function renameGroup($data = [], $idGroup, $option){
+
+        switch($option){
+            case 'title':
+                return Group::where('id', $idGroup)->update(['title' => $data['group_title']]);
+            break;
+            case 'description':
+                return Group::where('id', $idGroup)->update(['description' => $data['group_description']]);
+            break;
+        }
+
+
+    }
+
     public static function newGroup($data = [], $authUser){
         $newGroup = Group::create($data);
 

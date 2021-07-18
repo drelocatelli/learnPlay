@@ -55,6 +55,22 @@ class User extends Authenticatable {
         return $groupUsers;
     }
 
+    public function group_isAdmin($id, $userId){
+
+        $groupUser = GroupUsers::where([
+                'id_grupo' => $id,
+                'id_user' => $userId
+            ])
+            ->first();
+
+        if($groupUser->admin == "true"){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
     public function leave_group($id_group){
         $group = Group::where('id', $id_group)->first();
         $result = GroupUsers::where('id_grupo', $id_group)

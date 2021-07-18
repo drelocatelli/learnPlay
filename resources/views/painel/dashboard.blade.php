@@ -45,6 +45,23 @@
                 </div>
             </div>
         </div>
+
+        <br><br><br>
+
+        <div class="links vivify pullUp" style="animation-delay:1.3s;">
+            <a href="https://www.buymeacoffee.com/drelocatelli" target="_blank" title="doe para o projeto">
+                <img src="{{asset('img/donate.png')}}" />
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://github.com/drelocatelli/learnPlay" target="_blank" title="Github do projeto">
+                <img src="{{asset('img/github.png')}}" />
+            </a>
+        </div>
+
+
+
+        <br>
+
     </section>
 
 
