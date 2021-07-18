@@ -130,7 +130,7 @@ class UserController extends Controller
 
         if($verifyUserAdmin && $request->hasfile('group_thumbnail')){
                 $data = $request->validate([
-                    'group_thumbnail' => 'required|image|mimes:jpeg,png,jpg,svg,bmp,webp,jfif',
+                    'group_thumbnail' => 'required|image|mimes:gif,jpeg,png,jpg,svg,bmp,webp,jfif',
                 ]);
 
                 $extension = $request->group_thumbnail->extension();

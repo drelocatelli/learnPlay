@@ -283,6 +283,8 @@
                                     </script>
                                             <a href="javascript:void(0);" style="display:none;" name="visibility-public" class="btn btn-primary bg-dark"><i title="público" class="fas fa-eye"></i> Grupo público</a>
                                             <a href="javascript:void(0);" style="display:none;" name="visibility-private" class="btn btn-primary bg-dark"><i title="restringido à membros" class="fas fa-eye-slash"></i> Grupo privado</a>
+                                            <br><br>
+                                            <a href="javascript:void(0);" class="btn btn-success"><i class="fas fa-plus"></i> membros</a>
                                     <script>
                                         let publicBtn = $('a[name=visibility-public]')[0];
                                         let privateBtn = $('a[name=visibility-private]')[0];

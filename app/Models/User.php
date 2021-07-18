@@ -63,7 +63,7 @@ class User extends Authenticatable {
             ])
             ->first();
 
-        if($groupUser->admin == "true"){
+        if($groupUser && $groupUser->admin == "true"){
             return true;
         }else{
             return false;
@@ -183,8 +183,8 @@ class User extends Authenticatable {
     public function emoticon($transform){
 
         $emoticon = array();
-        $emoticon[1] = ['=D',':D','><','xD','T_T',':P', ':b',':(',':\'(','>.>', '<.<','merda','cocô','bosta',':3',':o',':O','puta','putaria','desgraça','vagabunda','sexo','buceta','ok','OK','Ok'];
-        $emoticon[2] = ['😄','😄','😆','😆','😭','😜', '😜','😔','🥲','👀', '👀','💩','💩','💩','😮','😮','🤬','🤬','🤬','🤬','🤬','🤬','🤬','👌','👌','👌'];
+        $emoticon[1] = ['nazismo','=D',':D','><','xD','T_T',':P', ':b',':(',':\'(','>.>', '<.<','merda','cocô','bosta',':3',':o',':O','puta','putaria','desgraça','vagabunda','sexo','buceta','ok','OK','Ok'];
+        $emoticon[2] = ['卐','😄','😄','😆','😆','😭','😜', '😜','😔','🥲','👀', '👀','💩','💩','💩','😮','😮','🤬','🤬','🤬','🤬','🤬','🤬','🤬','👌','👌','👌'];
 
         $transform = str_ireplace($emoticon[1], $emoticon[2], $transform);
 
