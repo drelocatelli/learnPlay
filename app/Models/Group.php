@@ -27,6 +27,9 @@ class Group extends Model
             case 'thumbnail':
                 return Group::where('id', $idGroup)->update(['thumbnail' => $data['group_thumbnail']]);
             break;
+            case 'visibility':
+                return Group::where('id', $idGroup)->update(['visibility' => $data['group_visibility']]);
+            break;
         }
 
 

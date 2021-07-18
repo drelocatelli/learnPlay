@@ -29,12 +29,14 @@
                         <div class="main">
                             <div class="post">
                                 <h4 class="vivify fadeIn" style="animation-delay: 0.8s;">
-                                    @if(Auth::user()->group_page()->visibility == 'public')
-                                        <i title="público" class="fas fa-eye"></i>
-                                    @else
-                                        <i title="restringido à membros" class="fas fa-eye-slash"></i>
-                                    @endif
-                                    &nbsp;
+                                        <div id="groupVisibilityIcons" style="display:inline;">
+                                            @if(Auth::user()->group_page()->visibility == 'public')
+                                                <i name="public-group" title="público" class="fas fa-eye"></i>
+                                            @else
+                                                <i name="private-group" title="restringido à membros" class="fas fa-eye-slash"></i>
+                                            @endif
+                                            &nbsp;
+                                        </div>
                                     <group-title>{{$group_page->title}}</group-title>
                                     @if($authIsAdmin)
                                     <!-- Editar titulo do grupo -->
@@ -215,7 +217,7 @@
                                     @endif
                                     " class="img-thumbnail bg-transparent">
                                 </div>
-                                <br><br>
+                                <br>
                                 <span name="group_description">
                                     @php
                                         $description = nl2br(Auth::user()->group_page()->description);
@@ -223,57 +225,118 @@
                                     @endphp
                                 </span>
                                     @if($authIsAdmin)
-                                        <br>
                                         <!-- Editar descrição do grupo -->
                                         <form method="post" action="{{route('dashboard.group.changeDescription', [$title, $id])}}" name="Groupchange_description" style="display:none;">
                                             @csrf
                                             <textarea name="group_description" class="form-control">{{Auth::user()->group_page()->description}}</textarea><br>
                                             <button type="button" class="btn btn-warning">salvar</button>
                                         </form>
-                                        <a href="javascript:void(0);" name="change_description" class="text-dark" title="editar descrição"><i class="fas fa-pen"></i></a>
 
-                                        <script>
-                                            let formDescFo = $('form[name=Groupchange_description]')[0];
-                                            let formDescToken = $('form[name=Groupchange_description] input[name=_token]')[0];
-                                            let formDescIn = $('form[name=Groupchange_description] textarea[name=group_description]')[0];
-                                            let formDescBtn = $('form[name=Groupchange_description] button[type=button]')[0];
-                                            let description = $('span[name=group_description]')[0]
 
-                                            $('a[name=change_description]').click(function(e){
-                                                formDescFo.style.display = 'block';
-                                                formDescIn.focus();
-                                                formDescIn.onkeypress = function(e){
-                                                    if(e.ctrlKey && e.code == 'Enter'){
-                                                        formDescBtn.click()
-                                                    }
-                                                }
-                                                description.style.display = 'none'
-
-                                                formDescBtn.onclick = function(e){
-                                                    description.innerText = formDescIn.value
-                                                    formDescFo.style.display = 'none';
-                                                    description.style.display = 'block'
-
-                                                    let urlDesc = `{{route('dashboard.group.changeDescription', [$title, $id])}}`;
-
-                                                    $.ajax({
-                                                        method: 'POST',
-                                                        url: urlDesc,
-                                                        data: { _token: formDescToken.value, group_description: formDescIn.value}
-                                                    }).done(function(err){
-                                                        Swal.fire({
-                                                        title: 'Descrição alterada!',
-                                                        icon: 'success',
-                                                        confirmButtonText: 'OK'
-                                                        })
-                                                    })
-
-                                                }
-                                            })
-                                        </script>
                                     @endif
                                 <br><br>
                                 <a class="btn btn-info"><i class="fas fa-photo-video"></i>&nbsp; Verificar aulas</a>
+                                <br>
+                                @if($authIsAdmin)
+                                    <br>
+                                    <h4>Gerenciamento</h4>
+                                    <hr>
+                                    <a href="javascript:void(0);" name="change_description" class="btn btn-warning" title="editar descrição"><i class="fas fa-pen"></i> Mudar descrição</a>
+                                    <script>
+                                        let formDescFo = $('form[name=Groupchange_description]')[0];
+                                        let formDescToken = $('form[name=Groupchange_description] input[name=_token]')[0];
+                                        let formDescIn = $('form[name=Groupchange_description] textarea[name=group_description]')[0];
+                                        let formDescBtn = $('form[name=Groupchange_description] button[type=button]')[0];
+                                        let description = $('span[name=group_description]')[0]
+
+                                        $('a[name=change_description]').click(function(e){
+                                            formDescFo.style.display = 'block';
+                                            formDescIn.focus();
+                                            formDescIn.onkeypress = function(e){
+                                                if(e.ctrlKey && e.code == 'Enter'){
+                                                    formDescBtn.click()
+                                                }
+                                            }
+                                            description.style.display = 'none'
+
+                                            formDescBtn.onclick = function(e){
+                                                description.innerText = formDescIn.value
+                                                formDescFo.style.display = 'none';
+                                                description.style.display = 'block'
+
+                                                let urlDesc = `{{route('dashboard.group.changeDescription', [$title, $id])}}`;
+
+                                                $.ajax({
+                                                    method: 'POST',
+                                                    url: urlDesc,
+                                                    data: { _token: formDescToken.value, group_description: formDescIn.value}
+                                                }).done(function(err){
+                                                    Swal.fire({
+                                                    title: 'Descrição alterada!',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'OK'
+                                                    })
+                                                })
+
+                                            }
+                                        })
+                                    </script>
+                                            <a href="javascript:void(0);" style="display:none;" name="visibility-public" class="btn btn-primary bg-dark"><i title="público" class="fas fa-eye"></i> Grupo público</a>
+                                            <a href="javascript:void(0);" style="display:none;" name="visibility-private" class="btn btn-primary bg-dark"><i title="restringido à membros" class="fas fa-eye-slash"></i> Grupo privado</a>
+                                    <script>
+                                        let publicBtn = $('a[name=visibility-public]')[0];
+                                        let privateBtn = $('a[name=visibility-private]')[0];
+
+                                        let privateIcon = $('i[name=private-group]')[0];
+                                        let publicIcon = $('i[name=public-group]')[0];
+
+
+                                        if(privateIcon){
+                                            privateBtn.style.display = 'inline-block';
+                                        }else if(publicIcon){
+                                            publicBtn.style.display = 'inline-block';
+                                        }
+
+                                        $('#groupVisibilityIcons').remove()
+
+
+                                        let urlChanges = `{{route('dashboard.group.changeVisibility', [$title, $id])}}`
+                                        let token = `{{ csrf_token() }}`
+
+                                        publicBtn.onclick = function(e){
+                                            privateBtn.style.display = 'inline-block';
+                                            publicBtn.style.display = 'none';
+
+                                            $.ajax({
+                                                url: urlChanges,
+                                                method: 'post',
+                                                data: { _token: token, group_visibility: "private" }
+                                            }).done(function() {
+                                                Swal.fire({
+                                                    title: 'grupo privado!',
+                                                    icon: 'info',
+                                                    confirmButtonText: 'OK'
+                                                })
+                                            });
+                                        }
+
+                                        privateBtn.onclick = function(e){
+                                            publicBtn.style.display = 'inline-block';
+                                            privateBtn.style.display = 'none';
+                                            $.ajax({
+                                                url: urlChanges,
+                                                method: 'post',
+                                                data: { _token: token, group_visibility: "public" }
+                                            }).done(function() {
+                                                Swal.fire({
+                                                    title: 'grupo público!',
+                                                    icon: 'info',
+                                                    confirmButtonText: 'OK'
+                                                })
+                                            });
+                                        }
+                                    </script>
+                                @endif
                                 <br><br>
 
                                 <h4>Administradores</h4>

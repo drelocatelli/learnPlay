@@ -147,6 +147,18 @@ class UserController extends Controller
             }
     }
 
+    public function group_changeVisibility(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin){
+            $data = $request->validate([
+                'group_visibility' => 'required'
+            ]);
+
+            return Group::renameGroup($data, $request->id, 'visibility');
+        }
+    }
+
     public function group_changeTitle(Request $request){
         $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
 
