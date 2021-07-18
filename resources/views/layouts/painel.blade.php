@@ -99,6 +99,8 @@
 
 
     </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
 
         var notificationLiEl = document.querySelectorAll('li#notification');

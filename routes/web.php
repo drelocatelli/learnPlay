@@ -63,6 +63,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::match(['get','post'],'group/{title?}/{id}/article/{article}', [$controller, 'group_comment'])->name('dashboard.groups.comment');
     Route::match(['get', 'post'], 'group/{title?}/{id}', [$controller, 'group_page'])->name('dashboard.groups.page');
     Route::match(['get', 'post'], 'group/{title?}/{id}/changeTitle', [$controller, 'group_changeTitle'])->name('dashboard.group.changeTitle');
+    Route::match(['get', 'post'], 'group/{title?}/{id}/changeDescription', [$controller, 'group_changeDescription'])->name('dashboard.group.changeDescription');
+    Route::match(['get', 'post'], 'group/{title?}/{id}/changeThumbnail', [$controller, 'group_changeThumbnail'])->name('dashboard.group.changeThumbnail');
     Route::post('group/{title?}/{id}/post', [$controller, 'group_post'])->name('dashboard.groups.post');
     Route::get('group/{id}/delete/postId/{id_article}', [$controller, 'group_post_delete'])->name('dashboard.groups.postDelete');
     Route::get('group/{id}/delete/postId/{id_article}/{id_comment}', [$controller, 'group_post_commentDelete'])->name('dashboard.groups.postcommentDelete');

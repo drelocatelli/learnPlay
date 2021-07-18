@@ -72,6 +72,12 @@
                                                             console.log('nome do grupo salvo')
                                                         })
 
+                                                        Swal.fire({
+                                                            title: 'Nome do grupo atualizado!',
+                                                            icon: 'success',
+                                                            confirmButtonText: 'OK'
+                                                        })
+
                                                     }
                                                 }
                                             })
@@ -159,16 +165,45 @@
                                 @if($authIsAdmin)
                                     <!-- Editar imagem do grupo -->
                                     <a href="javascript:void(0);" name="change_thumbnail" class="text-dark" style="position: absolute; right: 10px; background: white; padding: 8px 15px; border-radius: 75px; font-size: 12px; border:1px solid #000;" title="editar thumbnail"><i class="fas fa-pen"></i></a>
-                                    <div class="change_group_photo"></div>
+                                    <div class="change_group_photo">
+                                        <form method="post" name="changeThumbPhoto" action="{{route('dashboard.group.changeThumbnail', [$title, $id])}}" enctype="multipart/form-data" style="display:none;">
+                                            @csrf
+                                            <input type="file" name="group_thumbnail">
+                                        </form>
+                                    </div>
                                     <script>
                                         $('a[name=change_thumbnail').click(function(){
-                                            $('.change_group_photo').html(`
-                                                <form method="post" enctype="multipart/form-data" style="display:none;">
-                                                    @csrf
-                                                    <input type="file" name="thumbnail">
-                                                </form>
-                                            `)
-                                            $('input[name=thumbnail]').click()
+                                            let thumbnailIn = $('input[name=group_thumbnail]');
+                                            let thumbnailImg = $('img.img-thumbnail')[0];
+
+                                            thumbnailIn.click()
+                                            thumbnailIn.change(function(e){
+                                                let token = $('form[name=changeThumbPhoto] input[name=_token]')[0].value
+
+                                                let file = (this.files[0]);
+
+                                                let fileName = `{{$title}}`+`_`+`{{$id}}`;
+                                                fileName = fileName.replaceAll('+', '_');
+
+                                                thumbnailImg.src = URL.createObjectURL(this.files[0]);
+                                                let urlThumb = `{{route('dashboard.group.changeThumbnail', [$title, $id])}}`
+                                                let formThumbnail = $('form[name=changeThumbPhoto]')[0];
+                                                let formDataThumbnail = new FormData(formThumbnail);
+                                                $.ajax({
+                                                    type:'post',
+                                                    url: urlThumb,
+                                                    cache: false,
+                                                    contentType: false,
+                                                    processData: false,
+                                                    data: formDataThumbnail
+                                                }).done(function(e){
+                                                    Swal.fire({
+                                                        title: 'Thumbnail alterada!',
+                                                        icon: 'success',
+                                                        confirmButtonText: 'OK'
+                                                    })
+                                                })
+                                            })
                                         });
                                     </script>
                                 @endif
@@ -182,24 +217,58 @@
                                 </div>
                                 <br><br>
                                 <span name="group_description">
-                                    {{Auth::user()->group_page()->description}}
+                                    @php
+                                        $description = nl2br(Auth::user()->group_page()->description);
+                                        print $description;
+                                    @endphp
                                 </span>
                                     @if($authIsAdmin)
                                         <br>
                                         <!-- Editar descrição do grupo -->
-                                        <a href="javascript:void(0);" name="change_description" class="text-dark" title="editar thumbnail"><i class="fas fa-pen"></i></a>
-                                        <form method="post" name="Groupchange_description" style="display:none;">
+                                        <form method="post" action="{{route('dashboard.group.changeDescription', [$title, $id])}}" name="Groupchange_description" style="display:none;">
                                             @csrf
                                             <textarea name="group_description" class="form-control">{{Auth::user()->group_page()->description}}</textarea><br>
-                                            <button type="submit" class="btn btn-warning">salvar</button>
+                                            <button type="button" class="btn btn-warning">salvar</button>
                                         </form>
+                                        <a href="javascript:void(0);" name="change_description" class="text-dark" title="editar descrição"><i class="fas fa-pen"></i></a>
+
                                         <script>
                                             let formDescFo = $('form[name=Groupchange_description]')[0];
+                                            let formDescToken = $('form[name=Groupchange_description] input[name=_token]')[0];
                                             let formDescIn = $('form[name=Groupchange_description] textarea[name=group_description]')[0];
+                                            let formDescBtn = $('form[name=Groupchange_description] button[type=button]')[0];
+                                            let description = $('span[name=group_description]')[0]
 
                                             $('a[name=change_description]').click(function(e){
                                                 formDescFo.style.display = 'block';
                                                 formDescIn.focus();
+                                                formDescIn.onkeypress = function(e){
+                                                    if(e.ctrlKey && e.code == 'Enter'){
+                                                        formDescBtn.click()
+                                                    }
+                                                }
+                                                description.style.display = 'none'
+
+                                                formDescBtn.onclick = function(e){
+                                                    description.innerText = formDescIn.value
+                                                    formDescFo.style.display = 'none';
+                                                    description.style.display = 'block'
+
+                                                    let urlDesc = `{{route('dashboard.group.changeDescription', [$title, $id])}}`;
+
+                                                    $.ajax({
+                                                        method: 'POST',
+                                                        url: urlDesc,
+                                                        data: { _token: formDescToken.value, group_description: formDescIn.value}
+                                                    }).done(function(err){
+                                                        Swal.fire({
+                                                        title: 'Descrição alterada!',
+                                                        icon: 'success',
+                                                        confirmButtonText: 'OK'
+                                                        })
+                                                    })
+
+                                                }
                                             })
                                         </script>
                                     @endif

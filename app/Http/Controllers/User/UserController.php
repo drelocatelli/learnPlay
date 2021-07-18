@@ -125,6 +125,28 @@ class UserController extends Controller
         return view('painel.groupList');
     }
 
+    public function group_changeThumbnail(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin && $request->hasfile('group_thumbnail')){
+                $data = $request->validate([
+                    'group_thumbnail' => 'required|image|mimes:jpeg,png,jpg,svg,bmp,webp,jfif',
+                ]);
+
+                $extension = $request->group_thumbnail->extension();
+                $name = 'groupId_'.$request->id.'.'.'png';
+                $request->group_thumbnail->move(public_path('img/groups'), $name);
+
+                $data = [
+                    'group_thumbnail' => $name
+                ];
+
+                // muda foto thumbnail no banco
+                Group::renameGroup($data, $request->id, 'thumbnail');
+                return back();
+            }
+    }
+
     public function group_changeTitle(Request $request){
         $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
 
@@ -135,6 +157,21 @@ class UserController extends Controller
             ]);
 
             Group::renameGroup($data, $request->id, 'title');
+
+        }
+
+    }
+
+    public function group_changeDescription(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin){
+
+            $data = $request->validate([
+                'group_description' => 'required'
+            ]);
+
+            Group::renameGroup($data, $request->id, 'description');
 
         }
 
