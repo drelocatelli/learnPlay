@@ -14,5 +14,23 @@ class GroupUsers extends Model
 
     protected $fillable = ['id_grupo', 'id_user', 'admin'];
 
+    public static function addMembers($data = [], $groupId, $userAuth){
+
+        foreach($data as $member){
+            $getUserId = User::where('email', $member)->first()->id;
+
+            if($getUserId && $getUserId !== $userAuth){
+                GroupUsers::firstOrCreate([
+                    'id_grupo' => $groupId,
+                    'id_user' => $getUserId
+                ]);
+            }
+
+        }
+
+
+
+    }
+
 
 }

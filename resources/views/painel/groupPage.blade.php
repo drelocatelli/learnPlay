@@ -56,6 +56,7 @@
                                                 gpTitleIn.value = gpTitleEl.innerText;
                                                 gpTitleEl.style.display = 'none';
                                                 gpTitleIn.focus();
+                                                gpTitleIn.select()
 
                                                 gpTitleIn.onkeypress = function(event){
                                                     if(event.key == 'Enter'){
@@ -188,6 +189,7 @@
                                                 fileName = fileName.replaceAll('+', '_');
 
                                                 thumbnailImg.src = URL.createObjectURL(this.files[0]);
+
                                                 let urlThumb = `{{route('dashboard.group.changeThumbnail', [$title, $id])}}`
                                                 let formThumbnail = $('form[name=changeThumbPhoto]')[0];
                                                 let formDataThumbnail = new FormData(formThumbnail);
@@ -202,7 +204,8 @@
                                                     Swal.fire({
                                                         title: 'Thumbnail alterada!',
                                                         icon: 'success',
-                                                        confirmButtonText: 'OK'
+                                                        confirmButtonText: 'OK',
+
                                                     })
                                                 })
                                             })
@@ -284,8 +287,52 @@
                                             <a href="javascript:void(0);" style="display:none;" name="visibility-public" class="btn btn-primary bg-dark"><i title="público" class="fas fa-eye"></i> Grupo público</a>
                                             <a href="javascript:void(0);" style="display:none;" name="visibility-private" class="btn btn-primary bg-dark"><i title="restringido à membros" class="fas fa-eye-slash"></i> Grupo privado</a>
                                             <br><br>
-                                            <a href="javascript:void(0);" class="btn btn-success"><i class="fas fa-plus"></i> membros</a>
+                                            <a href="javascript:void(0);" name="add-members" class="btn btn-success"><i class="fas fa-plus"></i> membros</a>
                                     <script>
+
+                                        // add membership
+                                        $('a[name=add-members]').click(function(e){
+                                            const { value: group_members } = Swal.fire({
+                                                title: 'Adicionar membros',
+                                                input: 'text',
+                                                inputLabel: 'Digite o e-mail, separados por virgula',
+                                                inputPlaceholder: 'example@example.com, test@test.com',
+                                                showCancelButton: true,
+                                                cancelButtonText: 'Cancelar',
+                                            }).then((result)=>{
+                                                if (result.isConfirmed) {
+                                                    let token = `{{ csrf_token() }}`
+                                                    let urlMembers = `{{route('dashboard.group.addMembers', [$title, $id])}}`
+                                                    $.ajax({
+                                                        url: urlMembers,
+                                                        method: 'post',
+                                                        data: { _token: token, group_members: result.value }
+                                                    }).done(function(e) {
+                                                        Swal.fire({
+                                                            title: 'Membros adicionados!',
+                                                            icon: 'info',
+
+                                                            confirmButtonText: 'OK'
+                                                        }).then(()=>{
+                                                            window.location.reload();
+                                                        })
+                                                    }).fail(function(e){
+                                                        console.log(e)
+                                                        Swal.fire({
+                                                            title: 'Oops! ocorreu um erro!',
+                                                            text: `Usuário não encontrado!`,
+                                                            icon: 'error',
+                                                            confirmButtonText: 'Tentar novamente'
+                                                        })
+                                                    });
+                                                }
+
+                                            })
+                                        })
+
+
+                                        // change visibility
+
                                         let publicBtn = $('a[name=visibility-public]')[0];
                                         let privateBtn = $('a[name=visibility-private]')[0];
 

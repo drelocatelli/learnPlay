@@ -71,6 +71,7 @@ class User extends Authenticatable {
 
     }
 
+
     public function leave_group($id_group){
         $group = Group::where('id', $id_group)->first();
         $result = GroupUsers::where('id_grupo', $id_group)

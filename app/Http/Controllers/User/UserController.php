@@ -65,6 +65,20 @@ class UserController extends Controller
                         ->first();
     }
 
+    public function group_addMembers(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin){
+
+            $members = explode(",", $request->group_members);
+            $members = explode(", ", $request->group_members);
+
+            return GroupUsers::addMembers($members, $request->id, Auth::user()->id);
+
+
+        }
+    }
+
     public function group_post_delete(Request $request){
 
         $verifyUser = $this->verify_userInGroup($request->id);
