@@ -269,6 +269,26 @@ class UserController extends Controller
         return $user->enter_group($id);
     }
 
+    public function group_promoteAdmin(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin){
+            GroupUsers::addAdmin($request->id, $request->id_user);
+            return back();
+        }
+
+    }
+
+    public function group_removeMember(Request $request){
+        $verifyUserAdmin = (bool) $this->verify_userAdmin($request->id);
+
+        if($verifyUserAdmin){
+            GroupUsers::removeMember($request->id, $request->id_user);
+            return back();
+        }
+
+    }
+
     public function settings(){
         return view('painel.user.settings');
 

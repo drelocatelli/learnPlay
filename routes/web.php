@@ -67,6 +67,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::match(['get', 'post'], 'group/{title?}/{id}/changeThumbnail', [$controller, 'group_changeThumbnail'])->name('dashboard.group.changeThumbnail');
     Route::match(['get', 'post'], 'group/{title?}/{id}/changeVisibility', [$controller, 'group_changeVisibility'])->name('dashboard.group.changeVisibility');
     Route::match(['get', 'post'], 'group/{title?}/{id}/addMembers', [$controller, 'group_addMembers'])->name('dashboard.group.addMembers');
+    Route::match(['get', 'post'], 'group/{title?}/{id}/promoteAdmin/{id_user}', [$controller, 'group_promoteAdmin'])->name('dashboard.group.promoteAdmin');
+    Route::match(['get', 'post'], 'group/{title?}/{id}/removeMember/{id_user}', [$controller, 'group_removeMember'])->name('dashboard.group.removeMember');
     Route::post('group/{title?}/{id}/post', [$controller, 'group_post'])->name('dashboard.groups.post');
     Route::get('group/{id}/delete/postId/{id_article}', [$controller, 'group_post_delete'])->name('dashboard.groups.postDelete');
     Route::get('group/{id}/delete/postId/{id_article}/{id_comment}', [$controller, 'group_post_commentDelete'])->name('dashboard.groups.postcommentDelete');

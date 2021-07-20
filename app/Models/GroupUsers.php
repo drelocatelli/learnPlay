@@ -28,7 +28,23 @@ class GroupUsers extends Model
 
         }
 
+    }
 
+    public static function addAdmin($groupId, $userAuth){
+
+        return GroupUsers::where([
+            'id_grupo' => $groupId,
+            'id_user' => $userAuth
+        ])->update(['admin' => 'true']);
+
+    }
+
+    public static function removeMember($groupId, $userAuth){
+
+        return GroupUsers::where([
+            'id_grupo' => $groupId,
+            'id_user' => $userAuth
+        ])->delete();
 
     }
 

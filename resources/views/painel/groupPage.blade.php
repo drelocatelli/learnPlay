@@ -404,16 +404,25 @@
                                 <hr>
                                     @if(Auth::user()->get_group_users()->count() >= 1)
                                     @foreach (Auth::user()->get_group_users() as $group_user)
-                                        <a href="{{route('user.profile', [$group_user->nome, $group_user->id])}}" class="user-list">
-                                            <img src="
-                                            @if($group_user->photo === null)
-                                                {{ asset('img/userimg/default.png')}}
-                                            @else
-                                                {!! asset("img/userimg/". $group_user->photo) !!}
+                                        <span class="user-list">
+                                            <a href="{{route('user.profile', [$group_user->nome, $group_user->id])}}" class="text-dark">
+                                                <img src="
+                                                @if($group_user->photo === null)
+                                                    {{ asset('img/userimg/default.png')}}
+                                                @else
+                                                    {!! asset("img/userimg/". $group_user->photo) !!}
+                                                @endif
+                                                " height="25px" width="25px" class="photo-default">
+                                                &nbsp;
+                                                {{$group_user->nome}}
+                                            </a>
+                                            @if($authIsAdmin)
+                                                &nbsp;
+                                                <a href="{{route('dashboard.group.promoteAdmin', [$title, $id, $group_user->id])}}" class="btn btn-warning rounded-circle" title="Promover à administrador"><i class="fas fa-crown"></i></a>
+                                                <a href="{{route('dashboard.group.removeMember', [$title, $id, $group_user->id])}}" class="btn btn-danger rounded-circle" title="Remover membro"><i class="fas fa-minus-circle"></i></a>
                                             @endif
-                                            " height="25px" width="25px" class="photo-default">
-                                            {{$group_user->nome}}
-                                        </a>&nbsp;
+                                        </span>
+                                        &nbsp;&nbsp;
                                     @endforeach
                                     @else
                                     Nenhum membro.
