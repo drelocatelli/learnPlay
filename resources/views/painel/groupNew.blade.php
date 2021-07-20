@@ -5,7 +5,7 @@
 </div>
     <div class="container" style="min-height: auto!important;">
 
-        <h4>Criar novo grupo</h4>
+        <h4>Criar novo grupo de estudos</h4>
         <hr><br>
         <form method="post" action="{{route('dashboard.groups.new')}}">
             @csrf
@@ -22,7 +22,7 @@
                 <label class="form-check-label" for="visibility">Grupo privado</label>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary" style="float:right;">novo grupo</button>
+            <button type="submit" class="btn btn-danger" style="float:right;">criar novo grupo</button>
             <div style="clear: both;"></div>
         </form>
     </div>

@@ -16,9 +16,8 @@
     @endforeach
     @php $userInGroup = in_array(Auth::user()->id, $group_users_id); @endphp
 
-        @if(empty($group_page))
+        @if($group_users->count() == 0 || empty($group_page))
             <h4>Grupo inválido e/ou sem membros disponíveis, impossível ingressar.</h4>
-
         @else
                 @if($group_page->visibility == 'public' or $userInGroup)
 

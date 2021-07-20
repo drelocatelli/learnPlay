@@ -134,6 +134,7 @@ class User extends Authenticatable {
         $id = request()->id;
         $groupAdmin = GroupUsers::where('id_grupo', $id)->where('admin', 'true')->join('user', 'group_users.id_user', '=', 'user.id')->orderBy('group_users.id', 'ASC');
 
+        // poe o ultimo usuário como administrador
         if($groupAdmin->count() == 0){
             $lastUser = GroupUsers::join('user', 'group_users.id_user', '=', 'user.id')
                         ->where('group_users.id_grupo', $id)
@@ -174,6 +175,13 @@ class User extends Authenticatable {
     public function group_page(){
         $id = request()->id;
         $title = urldecode(request()->title);
+
+
+        // deleta se o grupo não haver membros
+        if($this->groups($id)->count() == 0){
+            Group::where('id', $id)->delete();
+            return redirect()->route('dashboard.groups');
+        }
 
         $group_page = $this->groups($id)->join('group', 'group_users.id_grupo', '=', 'group.id')->orderByDesc('group.id');
 

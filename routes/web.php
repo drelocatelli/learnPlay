@@ -50,7 +50,7 @@ Route::prefix('user')->middleware('auth')->group(function(){
     $controller = UserController::class;
     Route::get('/settings', [$controller, 'settings'])->name('user.settings');
     Route::match(['get','post'], '/settings/setPhoto', [$controller, 'changePhoto'])->name('user.changePhoto');
-    Route::get('{user}/{id?}', [$controller, 'user'])->name('user.profile');
+    Route::get('{user?}/{id}', [$controller, 'user'])->name('user.profile');
     Route::put('/notify/{id}', [$controller, 'notifyToggle'])->name('user.notifyToggle');
 });
 
