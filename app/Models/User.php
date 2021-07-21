@@ -29,6 +29,11 @@ class User extends Authenticatable {
         return $this->hasMany(UserAlert::class, 'id_user')->limit(10);
 
     }
+
+    public function getUser($id){
+        return $this->where('id', $id)->first();
+    }
+
     // ---------------------------------------------- CLASS
 
     public function getAllCategories(){
