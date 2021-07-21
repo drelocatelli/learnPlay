@@ -36,7 +36,7 @@
                         </td>
                         <td valign="top" align="left">
                             <br>
-                            <h5>{{ $group->title }}</h5> <br>
+                            <h5><a href="{{route('dashboard.groups.page', [urlencode($group->title), $group->id])}}"> {{ $group->title }} </a></h5> <br>
                             <span style="display: block; min-height: 100px;">
                                 {{ substr($group->description, 0, 400) }}
                                 @if(strlen($group->description) >= 400)
@@ -58,7 +58,6 @@
                                 @if($group->admin == 'true')
                                     <button class="btn btn-danger">Administrador</button> &nbsp;
                                 @endif
-                                <a href="{{route('dashboard.groups.page', [urlencode($group->title), $group->id])}}" class="btn btn-primary">Acessar grupo</a>
                             </div>
                             <br><br>
                         </td>

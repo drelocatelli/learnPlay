@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label for="groupTitle">Título do grupo</label>
-                <input type="text" class="form-control" id="groupTitle" name="title" required>
+                <input type="text" class="form-control" id="groupTitle" name="title"  autofocus required>
             </div>
             <div class="form-group">
                 <label for="groupDescription">Descrição do grupo</label>

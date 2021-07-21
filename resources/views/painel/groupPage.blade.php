@@ -92,7 +92,7 @@
                                 @if($userInGroup)
                                 <br>
                                 <div class="discussion bg-light p-2 vivify fadeIn" style="animation-delay: 0.8s; border-radius:15px!important;"><br>
-                                    <h5><i class="fas fa-comments"></i>&nbsp; Discussão</h5>
+                                    <h5><i class="fas fa-comments"></i>&nbsp; Postar um artigo</h5>
 
                                     <form name="article" method="post" action="{{route('dashboard.groups.post', [$title, $id])}}">
                                         @csrf
