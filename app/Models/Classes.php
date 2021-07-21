@@ -33,7 +33,7 @@ class Classes extends Model
                             ->get();
         }else{
             return Classes::join('category', 'class.id_categoria', '=', 'category.id')
-                            ->select('*', 'category.nome as category_name')
+                            ->select('class.*', 'category.nome as category_name', 'category.id as category_id')
                             ->where('category.nome', $name)
                             ->get();
         }
