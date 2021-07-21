@@ -1,42 +1,15 @@
 @extends('layouts.painel')
 @section('conteudo')
-
+    @component('painel.class.Categoryheader') @endcomponent
     <h4>Procurar aulas</h4>
+    <hr>
+    <br>
 
-    {{-------------------------------------------- {{BUSCA}} --}}
-
-    <table align="right">
-        <form method="post">
-            <tr>
-                <td>
-                    <input type="text" class="form-control" placeholder="Digite o nome da aula" autofocus>
-                </td>
-                <td>
-                    <button class="btn btn-danger">procurar</button>
-                </td>
-            </tr>
-        </form>
-    </table>
-
-    {{-------------------------------------------- {{CATEGORIAS}} --}}
-
-    <div style="clear:both; height:20px;"></div>
-    @php $categories = Auth::user()->getAllCategories(); @endphp
-    @if($categories->count() > 0)
-        <center class="bg-light rounded p-3">
-            @foreach ($categories as $category)
-                <a href="{{route('dashboard.class.category', strtolower(urlencode($category->nome)))}}">{{$category->nome}}</a>&nbsp;&nbsp;
-            @endforeach
-        </center><br>
-    @else
-        <h4>Nenhuma categoria foi cadastrada ainda.</h4>
-    @endif
 
     {{-------------------------------------------- {{AULAS}} --}}
     @php $classes = Auth::user()->getClass('no-group'); @endphp
 
     @forelse($classes as $class)
-        @php $classMembers = Auth::user()->getClassUsers($class->id); @endphp
         <table class="group-list rounded" width="100%">
             <tr>
                 <td width="15rem">
@@ -45,7 +18,7 @@
                 <td valign="top">
                     <br>
                     <h5 style="position:absolute;">
-                        <a href="#">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
+                        <a href="javascript:void(0);">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
                     </h5>
                     <br>
                     <div style="display: block; min-height: 88px;">
@@ -54,12 +27,13 @@
                             ...
                         @endif
                     </div>
-                    @php $date = new DateTime($class->timestamp); $date = $date->format('d/m/Y'); @endphp
-                     <b>Categoria:</b> <a href="#">{{ $class->category_name }}</a>
+                    @php $date = new DateTime($class->timestamp); $date = $date->format('d/m/Y H:i'); @endphp
+                     <b>Categoria:</b> <a href="{{route('dashboard.class.category', strtolower(urlencode($class->category_name)))}}">{{ $class->category_name }}</a>
                      <br>
-                     <b>Criado em:</b> {{ $date }}
+                     <b>Iniciado em</b> {{ $date }}
                      <br>
-                     {{ ($classMembers->count() == 0) ? 'Nenhum aluno ingressou ainda.' : $classMembers->count() }}
+                    @php $classMembers = Auth::user()->getClassUsers($class->id); @endphp
+                     {{ ($classMembers->count() == 0) ? 'nenhum aluno ingressou ainda.' : $classMembers->count().' alunos participam.' }}
                      <br><br>
                 </td>
             </tr>

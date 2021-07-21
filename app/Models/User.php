@@ -37,20 +37,26 @@ class User extends Authenticatable {
 
     public function getClass($type = null){
 
+        $classes =  Classes::getClasses();
+
         if($type == null){
 
-            return Classes::getClasses();
+            return $classes;
 
         }else if($type == 'no-group'){
 
-            return Classes::getClasses()->where('tipo_restricao', '<>', 'group');
+            return $classes->where('tipo_restricao', '<>', 'group');
 
         }else if($type == 'no-password'){
 
-            return Classes::getClasses()->where('tipo_restricao', '<>', 'group')->where('tipo_restricao', '<>', 'password');
+            return $classes->where('tipo_restricao', '<>', 'group')->where('tipo_restricao', '<>', 'password');
 
         }
 
+    }
+
+    public function getClassByName($name){
+        return Classes::getClasses($name);
     }
 
     public function getClassUsers($id){

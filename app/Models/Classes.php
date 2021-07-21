@@ -26,16 +26,16 @@ class Classes extends Model
         'password'
     ];
 
-    public static function getClasses($id = null){
-
-        if($id == null){
+    public static function getClasses($name = null){
+        if($name == null){
             return Classes::join('category', 'class.id_categoria', '=', 'category.id')
-                            ->select('*', 'category.nome as category_name')
+                            ->select('class.*', 'category.nome as category_name')
                             ->get();
         }else{
             return Classes::join('category', 'class.id_categoria', '=', 'category.id')
                             ->select('*', 'category.nome as category_name')
-                            ->where('id', $id);
+                            ->where('category.nome', $name)
+                            ->get();
         }
 
     }
