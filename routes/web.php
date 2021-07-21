@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Register\RegisterController;
+
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ClassController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +42,6 @@ Route::group(['prefix' => '/register'], function(){
 Route::prefix('dashboard')->middleware('auth')->group(function(){
     $controller = UserController::class;
     Route::get('/', [$controller, 'dashboard'])->name('dashboard');
-    Route::get('my/groups', [$controller, 'groups'])->name('dashboard.groups');
-    Route::get('my/groups/management', [$controller, 'groups_admin'])->name('dashboard.groups.admin');
-    Route::get('my/class', [$controller, 'class'])->name('dashboard.class');
     Route::get('my/articles', [$controller, 'articles'])->name('dashboard.articles');
     Route::get('my/content', [$controller, 'content'])->name('dashboard.content');
 });
@@ -54,10 +55,19 @@ Route::prefix('user')->middleware('auth')->group(function(){
     Route::put('/notify/{id}', [$controller, 'notifyToggle'])->name('user.notifyToggle');
 });
 
+//------------------------------- Dashboard class
+Route::prefix('dashboard')->middleware('auth')->group(function(){
+    $controller = ClassController::class;
+    Route::get('my/class', [$controller, 'class'])->name('dashboard.class');
+    Route::get('class/list', [$controller, 'class_public'])->name('dashboard.class.public');
+    Route::get('class/category/{category}', [$controller, 'class_category'])->name('dashboard.class.category');
+});
 
 //------------------------------- Dashboard group
 Route::prefix('dashboard')->middleware('auth')->group(function(){
-    $controller = UserController::class;
+    $controller = GroupController::class;
+    Route::get('my/groups', [$controller, 'groups'])->name('dashboard.groups');
+    Route::get('my/groups/management', [$controller, 'groups_admin'])->name('dashboard.groups.admin');
     Route::get('group/list', [$controller, 'group_public'])->name('dashboard.groups.public');
     Route::match(['post','get'],'group/new', [$controller, 'group_new'])->name('dashboard.groups.new');
     Route::match(['get','post'],'group/{title?}/{id}/article/{article}', [$controller, 'group_comment'])->name('dashboard.groups.comment');

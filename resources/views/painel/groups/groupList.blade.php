@@ -7,7 +7,7 @@
     <br>
     <table class="group-list rounded" width="100%">
         @php $groups = Auth::user()->get_all_groups() @endphp
-        @foreach ($groups as $group)
+        @forelse ($groups as $group)
             @php
                 // verifica se nao participa do grupo
                 $verify = !Auth::user()->get_all_group_users($group->id)->where('id_user', '=', Auth::user()->id)->first();
@@ -49,19 +49,19 @@
                         @if($group->admin == 'true')
                             <button class="btn btn-danger">Administrador</button> &nbsp;
                         @endif
-                        {{-- <a href="" class="btn btn-primary">Acessar grupo</a> --}}
                     </div>
                     <br><br>
                 </td>
             </tr>
             @endif
-        @endforeach
+            @empty
+            <center>
+                <h5>Nenhum grupo disponível.</h5>
+            </center>
+
+        @endforelse
     </table>
-    @if(!$groups)
-        <center>
-            <h5>Nenhum grupo disponível.</h5>
-        </center>
-    @endif
+
     <div class="pagination">
         {{ Auth::user()->get_all_groups()->links() }}
     </div>

@@ -30,7 +30,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link link-dark">
+            <a href="{{route('dashboard.class.public')}}" class="nav-link link-dark">
               Procurar <b>aulas</b>
             </a>
           </li>

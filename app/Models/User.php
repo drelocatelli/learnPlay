@@ -4,13 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\User\UserAlert;
-use App\Models\Group;
-use App\Models\GroupArticles;
-use App\Models\GroupArticleComment;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\GroupUse;
+
+use App\Models\User\UserAlert;
+use App\Models\Group;
+use App\Models\GroupArticles;
+use App\Models\Classes;
+use App\Models\GroupArticleComment;
+use App\Models\Category;
 
 class User extends Authenticatable {
     use HasFactory;
@@ -25,6 +29,37 @@ class User extends Authenticatable {
         return $this->hasMany(UserAlert::class, 'id_user')->limit(10);
 
     }
+    // ---------------------------------------------- CLASS
+
+    public function getAllCategories(){
+        return Category::all();
+    }
+
+    public function getClass($type = null){
+
+        if($type == null){
+
+            return Classes::getClasses();
+
+        }else if($type == 'no-group'){
+
+            return Classes::getClasses()->where('tipo_restricao', '<>', 'group');
+
+        }else if($type == 'no-password'){
+
+            return Classes::getClasses()->where('tipo_restricao', '<>', 'group')->where('tipo_restricao', '<>', 'password');
+
+        }
+
+    }
+
+    public function getClassUsers($id){
+        return Classusers::getClassUsers($id);
+    }
+
+
+
+    // ---------------------------------------------- GROUP
 
     public function get_Comment($idGroup, $article){
 
