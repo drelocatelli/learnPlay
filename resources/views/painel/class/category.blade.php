@@ -23,7 +23,7 @@
             </td>
             <td valign="top">
                 <br>
-                <h5 style="position:absolute;">
+                <h5 style="position:relative;">
                     <a href="javascript:void(0);">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
                 </h5>
                 <br>
