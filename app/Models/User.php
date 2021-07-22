@@ -40,7 +40,7 @@ class User extends Authenticatable {
 
         $classes = Classes::join('user', 'class.id_admin', '=', 'user.id')
                             ->join('category', 'category.id', '=', 'class.id_categoria')
-                            ->select('*', 'category.nome AS category_name', 'class.id AS class_id');
+                            ->select('*', 'class.id as id', 'category.nome AS category_name', 'user.id AS user_id');
 
         $filter = $classes->where('class.titulo', 'LIKE', "%$name%")
                         ->orWhere('user.nome', 'LIKE', "%$name%")
