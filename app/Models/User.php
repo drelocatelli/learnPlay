@@ -44,9 +44,20 @@ class User extends Authenticatable {
 
         $filter = $classes->where('class.titulo', 'LIKE', "%$name%")
                         ->orWhere('user.nome', 'LIKE', "%$name%")
+                        ->orderByRaw('CASE
+                                    WHEN class.titulo LIKE "'.$name.'" THEN 1
+                                    WHEN class.titulo LIKE "'.$name.'%" THEN 2
+                                    WHEN class.titulo LIKE "%'.$name.'%" THEN 3
+                                    WHEN class.titulo LIKE "%'.$name.'" THEN 4
+                                    ELSE 5
+                                    END')
                         ->get();
 
         $filter = $filter->where('tipo_restricao', '<>', 'group');
+
+        // ordering by best result
+
+        // $filter = $filter->orderBy('class.titulo', 'DESC');
 
         return $filter;
     }
