@@ -21,5 +21,11 @@ class ClassController extends Controller {
 
     }
 
+    public function class_search(Request $request){
+
+        return view('painel.class.search', ['query' => $_GET['query']]);
+
+    }
+
 
 }

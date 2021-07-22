@@ -36,13 +36,24 @@ class User extends Authenticatable {
 
     // ---------------------------------------------- CLASS
 
+    public function searchClass($name){
+        $classes = Classes::join('user', 'class.id_admin', '=', 'user.id')
+                            ->join('category', 'category.id', 'id_categoria')
+                            ->select(['category.*','class.*', 'user.nome'])
+                            ->where('tipo_restricao', null)
+                            ->orWhere('tipo_restricao', '=', 'password');
+
+        return $classes->where('titulo', 'LIKE', "%".$name."%")
+                            ->get();
+    }
+
     public function getAllCategories(){
         return Category::all();
     }
 
     public function getClass($type = null){
 
-        $classes =  Classes::getClasses();
+        $classes =  Classes::getClasses()->orderBy('id', 'DESC')->get();
 
         if($type == null){
 
@@ -61,7 +72,7 @@ class User extends Authenticatable {
     }
 
     public function getClassByName($name){
-        return Classes::getClasses($name);
+        return Classes::getClasses($name)->orderBy('id', 'DESC')->get();
     }
 
     public function getClassUsers($id){

@@ -3,21 +3,14 @@
 <div class="position-relative mb-5 d-flex flex-row-reverse float-right">
     <a href="{{route('dashboard.class.public')}}" class="btn btn-primary"><i class="fas fa-chevron-left"></i> Todas as categorias</a>
 </div>
-    @php $title = ucfirst(urldecode($category)); @endphp
-    @component('painel.class.components.Categoryheader') @endcomponent
+@component('painel.class.components.Categoryheader') @endcomponent
 
-    <h4>{{ $title }}</h4>
+    <h4>Procurando por: {{$query}}</h4>
     <hr>
-
-    <br>
-
     {{-------------------------------------------- {{AULAS}} --}}
-
-    @php $classes = Auth::user()->getClassByName($title)->where('tipo_restricao', '<>', 'group'); @endphp
-
+    @php $classes = Auth::user()->searchClass($query); @endphp
     @forelse($classes as $class)
     <table class="group-list rounded" width="100%">
-        {{$class}}
         <tr>
             <td width="15rem">
                 <img src="{{ ($class->thumbnail == null) ? asset('img/class.svg') : asset("img/classes/$class->thumbnail") }}" style="width: 15rem; height: 15rem;">
@@ -35,25 +28,25 @@
                     @endif
                 </div>
                 @php $date = new DateTime($class->timestamp); $date = $date->format('d/m/Y H:i'); @endphp
-                 <b>Categoria:</b> <a href="{{route('dashboard.class.category', strtolower(urlencode($class->category_name)))}}">{{ $class->category_name }}</a>
-                 <br>
-                 <b>Iniciado em</b> {{ $date }} &nbsp;|&nbsp;
-                 <b>Ministrado por</b>
-                 @php $classAdmin = Auth::user()->getUser($class->id_admin); @endphp
-                 <a href="{{route('user.profile', [$classAdmin->nome, $classAdmin->id])}}">
+                <b>Categoria:</b> <a href="{{route('dashboard.class.category', strtolower(urlencode($class->category_name)))}}">{{ $class->category_name }}</a>
+                <br>
+                <b>Iniciado em</b> {{ $date }} &nbsp;|&nbsp;
+                <b>Ministrado por</b>
+                @php $classAdmin = Auth::user()->getUser($class->id_admin); @endphp
+                <a href="{{route('user.profile', [$classAdmin->nome, $classAdmin->id])}}">
                     <img src="{{ ($classAdmin->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $classAdmin->photo)}}" height="50px" width="50px">
                     {{$classAdmin->nome}}
                 </a>
-                 <br>
+                <br>
                 @php $classMembers = Auth::user()->getClassUsers($class->id); @endphp
-                 {{ ($classMembers->count() == 0) ? 'nenhum aluno ingressou ainda.' : $classMembers->count().' alunos participam.' }}
-                 <br><br>
+                {{ ($classMembers->count() == 0) ? 'nenhum aluno ingressou ainda.' : $classMembers->count().' alunos participam.' }}
+                <br><br>
             </td>
         </tr>
 
     </table>
 
     @empty
-        <b>Nenhuma aula foi cadastrada</b>
+        <b>Não foi retornado nada.</b>
     @endforelse
 @endsection

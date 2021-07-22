@@ -1,6 +1,6 @@
 @extends('layouts.painel')
 @section('conteudo')
-    @component('painel.class.Categoryheader') @endcomponent
+    @component('painel.class.components.Categoryheader') @endcomponent
     <h4>Procurar aulas</h4>
     <hr>
     <br>
@@ -47,10 +47,7 @@
         </table>
 
         @empty
-            <h3>Nenhuma aula foi cadastrada</h3>
+            <b>Nenhuma aula foi cadastrada</b>
     @endforelse
-
-
-
 
 @endsection

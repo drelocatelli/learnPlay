@@ -29,13 +29,13 @@ class Classes extends Model
     public static function getClasses($name = null){
         if($name == null){
             return Classes::join('category', 'class.id_categoria', '=', 'category.id')
-                            ->select('class.*', 'category.nome as category_name')
-                            ->get();
+                            ->select('class.*', 'category.nome as category_name');
+
         }else{
             return Classes::join('category', 'class.id_categoria', '=', 'category.id')
                             ->select('class.*', 'category.nome as category_name', 'category.id as category_id')
-                            ->where('category.nome', $name)
-                            ->get();
+                            ->where('category.nome', $name);
+
         }
 
     }

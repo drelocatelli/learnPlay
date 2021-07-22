@@ -15,11 +15,10 @@
 {{-------------------------------------------- {{BUSCA}} --}}
 <div style="float:right;">
     <table>
-        <form method="post">
-            @csrf
+        <form method="get" action="{{route('dashboard.class.search')}}">
             <tr>
                 <td>
-                    <input type="text" class="form-control" placeholder="Digite o nome da aula" autofocus>
+                    <input type="search" name="query" class="form-control" placeholder="Digite o nome da aula" autofocus>
                 </td>
                 <td>
                     <button class="btn btn-danger">procurar</button>
