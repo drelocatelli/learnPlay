@@ -38,7 +38,7 @@
                     {{$classAdmin->nome}}
                 </a>
                 <br>
-                @php $classMembers = Auth::user()->getClassUsers($class->id); @endphp
+                @php $classMembers = Auth::user()->getClassUsers($class->class_id); @endphp
                 {{ ($classMembers->count() == 0) ? 'nenhum aluno ingressou ainda.' : $classMembers->count().' alunos participam.' }}
                 <br><br>
             </td>

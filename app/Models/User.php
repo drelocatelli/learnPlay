@@ -37,16 +37,17 @@ class User extends Authenticatable {
     // ---------------------------------------------- CLASS
 
     public function searchClass($name){
+
         $classes = Classes::join('user', 'class.id_admin', '=', 'user.id')
                             ->join('category', 'category.id', '=', 'class.id_categoria')
-                            ->select('*', 'category.nome AS category_name');
-
+                            ->select('*', 'category.nome AS category_name', 'class.id AS class_id');
 
         $filter = $classes->where('class.titulo', 'LIKE', "%$name%")
                         ->orWhere('user.nome', 'LIKE', "%$name%")
                         ->get();
 
         $filter = $filter->where('tipo_restricao', '<>', 'group');
+
         return $filter;
     }
 
