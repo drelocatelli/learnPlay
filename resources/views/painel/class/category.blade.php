@@ -17,7 +17,6 @@
 
     @forelse($classes as $class)
     <table class="group-list rounded" width="100%">
-        {{$class}}
         <tr>
             <td width="15rem">
                 <img src="{{ ($class->thumbnail == null) ? asset('img/class.svg') : asset("img/classes/$class->thumbnail") }}" style="width: 15rem; height: 15rem;">
