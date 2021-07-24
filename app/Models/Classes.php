@@ -51,15 +51,24 @@ class Classes extends Model
 
     }
 
-    public static function getClassById($id){
+    public static function getClassById($id, $restricao = null){
 
         $classes = Classes::join('category', 'class.id_categoria', '=', 'category.id')
-                        ->join('user', 'class.id_admin', 'user.id')
-                        ->select('class.*', 'user.nome', 'user.photo', 'category.nome as category_name')
-                        ->where('class.id', $id)
-                        ->first();
+        ->join('user', 'class.id_admin', 'user.id')
+        ->select('class.*', 'user.nome', 'user.photo', 'category.nome as category_name');
 
-        return $classes;
+        if($restricao == 'group'){
+            $classes = $classes->where('class.tipo_restricao', 'group');
+        }else{
+            $classes = $classes->where(function($query){
+                                $query->where('class.tipo_restricao', 'password')
+                                ->orWhere('class.tipo_restricao', null);
+                        });
+        }
+
+        $classes = $classes->where('class.id', $id);
+
+        return $classes->first();
 
     }
 

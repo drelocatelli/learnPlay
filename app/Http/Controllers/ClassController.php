@@ -12,12 +12,16 @@ class ClassController extends Controller {
         return view('painel.class.my');
     }
 
-    public function class_page($id, $className){
+    public function class_page($id, $className = null){
 
         $class = new \StdClass();
-        $class->title = urldecode($className);
-        $class->all = Classes::getClassById($id);
-        $class->users = Classes::getClassUsers($id);
+        if((bool) Classes::getClassById($id)){
+            $class->title = Classes::getClassById($id)->titulo;
+            $class->all = Classes::getClassById($id);
+            $class->users = Classes::getClassUsers($id);
+        }else{
+            $class = false;
+        }
 
         return view('painel.class.page', compact('id', 'class'));
 
