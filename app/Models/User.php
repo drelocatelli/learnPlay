@@ -36,58 +36,9 @@ class User extends Authenticatable {
 
     // ---------------------------------------------- CLASS
 
-    public function searchClass($name){
-
-        $classes = Classes::join('user', 'class.id_admin', '=', 'user.id')
-                            ->join('category', 'category.id', '=', 'class.id_categoria')
-                            ->select('*', 'class.id as id', 'category.nome AS category_name', 'user.id AS user_id');
-
-        $filter = $classes->where('class.titulo', 'LIKE', "%$name%")
-                        ->orWhere('user.nome', 'LIKE', "%$name%")
-                        ->orderByRaw('CASE
-                                    WHEN class.titulo LIKE "'.$name.'" THEN 1
-                                    WHEN class.titulo LIKE "'.$name.'%" THEN 2
-                                    WHEN class.titulo LIKE "%'.$name.'%" THEN 3
-                                    WHEN class.titulo LIKE "%'.$name.'" THEN 4
-                                    ELSE 5
-                                    END')
-                        ->get();
-
-        $filter = $filter->where('tipo_restricao', '<>', 'group');
-
-        // ordering by best result
-
-        // $filter = $filter->orderBy('class.titulo', 'DESC');
-
-        return $filter;
-    }
 
     public function getAllCategories(){
         return Category::all();
-    }
-
-    public function getClass($type = null){
-
-        $classes =  Classes::getClasses()->orderBy('id', 'DESC')->get();
-
-        if($type == null){
-
-            return $classes;
-
-        }else if($type == 'no-group'){
-
-            return $classes->where('tipo_restricao', '<>', 'group');
-
-        }else if($type == 'no-password'){
-
-            return $classes->where('tipo_restricao', '<>', 'group')->where('tipo_restricao', '<>', 'password');
-
-        }
-
-    }
-
-    public function getClassByName($name){
-        return Classes::getClasses($name)->orderBy('id', 'DESC')->get();
     }
 
     public function getClassUsers($id){

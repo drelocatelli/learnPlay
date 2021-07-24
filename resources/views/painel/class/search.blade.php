@@ -8,12 +8,11 @@
     <h4>Procurando por: {{$query}}</h4>
     <hr>
     {{-------------------------------------------- {{AULAS}} --}}
-    @php $classes = Auth::user()->searchClass($query); @endphp
+
     @forelse($classes as $class)
         @include('painel.class.components.classes')
 
     @empty
         <b>Não foi retornado nada.</b>
     @endforelse
-
 @endsection
