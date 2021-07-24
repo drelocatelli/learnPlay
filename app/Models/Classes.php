@@ -43,7 +43,7 @@ class Classes extends Model
                             });
         }
 
-        return $classes->paginate(3);
+        return $classes->orderBy('class.id', 'desc')->paginate(3);
 
     }
 

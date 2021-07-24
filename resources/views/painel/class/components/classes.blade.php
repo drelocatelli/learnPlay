@@ -22,7 +22,7 @@
              <b>Ministrado por</b>
              @php $classAdmin = Auth::user()->getUser($class->id_admin); @endphp
              <a href="{{route('user.profile', [$classAdmin->nome, $classAdmin->id])}}">
-                <img src="{{ ($classAdmin->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $classAdmin->photo)}}" height="50px" width="50px">
+                <img src="{{ ($classAdmin->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $classAdmin->photo)}}" height="50px" width="50px" class="rounded-circle">
                 {{$classAdmin->nome}}
             </a>
              <br>
