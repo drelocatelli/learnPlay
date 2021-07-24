@@ -12,6 +12,17 @@ class ClassController extends Controller {
         return view('painel.class.my');
     }
 
+    public function class_page($id, $className){
+
+        $class = new \StdClass();
+        $class->title = urldecode($className);
+        $class->all = Classes::getClassById($id);
+        $class->users = Classes::getClassUsers($id);
+
+        return view('painel.class.page', compact('id', 'class'));
+
+    }
+
     public function class_public(){
         $classes = Classes::getClasses();
 

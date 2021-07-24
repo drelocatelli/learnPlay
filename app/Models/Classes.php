@@ -26,13 +26,9 @@ class Classes extends Model
         'password'
     ];
 
-    public static function getClasses($name = null, $restricao = null){
+    public static function getClasses($category = null, $restricao = null){
         $classes = Classes::join('category', 'class.id_categoria', '=', 'category.id')
                             ->select('class.*', 'category.nome as category_name');
-
-        if($name != null){
-            $classes = $classes->where('category.nome', $name);
-        }
 
         if($restricao == 'group'){
             $classes = $classes->where('class.tipo_restricao', 'group');
@@ -43,7 +39,35 @@ class Classes extends Model
                             });
         }
 
-        return $classes->orderBy('class.id', 'desc')->paginate(3);
+        $classes = $classes->orderBy('class.id', 'desc');
+
+        if($category != null){
+            $classes = $classes->where('category.nome', $category)->get();
+        }else{
+            $classes = $classes->paginate(3);
+        }
+
+        return $classes;
+
+    }
+
+    public static function getClassById($id){
+
+        $classes = Classes::join('category', 'class.id_categoria', '=', 'category.id')
+                        ->join('user', 'class.id_admin', 'user.id')
+                        ->select('class.*', 'user.nome', 'user.photo', 'category.nome as category_name')
+                        ->where('class.id', $id)
+                        ->first();
+
+        return $classes;
+
+    }
+
+    public static function getClassUsers($id){
+
+        return Classusers::where('class_users.id_class', $id)
+                        ->join('user', 'user.id', '=', 'class_users.id_user')
+                        ->get();
 
     }
 

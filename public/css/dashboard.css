@@ -79,6 +79,24 @@ discuss {
     color:#3a3a3a;
 }
 
+.user-ls{
+    background: #ffffffa8;
+    border-radius: 12px;
+    padding: 6px 7px;
+    min-height: 36px;
+    font-size: 14px;
+    margin-bottom:3px;
+    display: inline-block;
+    color:#3a3a3a;
+    margin-right:8px;
+    margin-top:3px;
+}
+
+.user-ls img{
+    height:25px;
+    width:25px;
+}
+
 .photo {
     height: 44px;
     border: 2px solid #9db1b7;

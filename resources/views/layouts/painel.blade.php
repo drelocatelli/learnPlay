@@ -31,7 +31,7 @@
           </li>
           <li>
             <a href="{{route('dashboard.class.public')}}" class="nav-link link-dark">
-              Procurar <b>aulas</b>
+              Procurar <b>aulas online</b>
             </a>
           </li>
           <li>
@@ -50,12 +50,12 @@
     <div class="container vivify swoopInBottom" style="animation-duration: 0.3s; animation-delay:0.3s;">
         <nav class="">
             <ul class="nav justify-content-start " style="float:left;">
-                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.85s; "><b>LearnPlay</b></a></li>
+                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.85s; " title="Dashboard"><b>LearnPlay</b></a></li>
 
             </ul>
             <ul id="notification" class="nav justify-content-end">
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link" title="Meu perfil">
+                    <a href="{{route('dashboard')}}" class="nav-link" title="Minhas coisas">
                         <img src="
                             @if(Auth::user()->photo === null)
                                 {{ asset('img/userimg/default.png')}}

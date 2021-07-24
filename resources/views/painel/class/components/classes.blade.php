@@ -6,7 +6,7 @@
         <td valign="top">
             <br>
             <h5 style="position:relative;">
-                <a href="javascript:void(0);">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
+                <a href="{{route('dashboard.class.page', [$class->id, urlencode($class->titulo)])}}">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
             </h5>
             <br>
             <div style="display: block; min-height: 88px; word-wrap:break-word;">
