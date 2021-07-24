@@ -62,6 +62,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::get('class/list', [$controller, 'class_public'])->name('dashboard.class.public');
     Route::get('class/category/{category}', [$controller, 'class_category'])->name('dashboard.class.category');
     Route::get('class/{id}/{class?}', [$controller, 'class_page'])->name('dashboard.class.page');
+    Route::get('class/{id}/{class?}/enroll', [$controller, 'class_matricula'])->name('dashboard.class.matricula');
     Route::get('class/search', [$controller, 'class_search'])->name('dashboard.class.search');
 });
 

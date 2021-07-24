@@ -74,7 +74,8 @@ class Classes extends Model
 
     public static function getClassUsers($id){
 
-        return Classusers::where('class_users.id_class', $id)
+        return Classusers::select('user.id', 'user.nome', 'user.photo')
+                        ->where('class_users.id_class', $id)
                         ->join('user', 'user.id', '=', 'class_users.id_user')
                         ->get();
 

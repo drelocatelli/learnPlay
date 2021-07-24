@@ -15,15 +15,23 @@ class ClassController extends Controller {
     public function class_page($id, $className = null){
 
         $class = new \StdClass();
-        if((bool) Classes::getClassById($id)){
+        if(!(bool) Classes::getClassById($id)){
+            $class = false;
+
+        }else{
             $class->title = Classes::getClassById($id)->titulo;
             $class->all = Classes::getClassById($id);
+            if($class->all->tipo_restricao == 'password'){ $class->all->tipo_restricao = 'senha'; }
+            $class->all->timestamp = new \DateTime($class->all->timestamp);
+            $class->all->timestamp = $class->all->timestamp->format('d/m/Y à\s H:i');
             $class->users = Classes::getClassUsers($id);
-        }else{
-            $class = false;
         }
 
         return view('painel.class.page', compact('id', 'class'));
+
+    }
+
+    public function class_matricula(Request $request){
 
     }
 
