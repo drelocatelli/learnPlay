@@ -42,7 +42,7 @@ class Classes extends Model
         $classes = $classes->orderBy('class.id', 'desc');
 
         if($category != null){
-            $classes = $classes->where('category.nome', $category)->get();
+            $classes = $classes->where('category.nome', $category)->paginate(3);
         }else{
             $classes = $classes->paginate(3);
         }
