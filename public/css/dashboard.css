@@ -92,6 +92,11 @@ discuss {
     margin-top:3px;
 }
 
+.footer a{
+    font-weight: bold;
+    color:black;
+}
+
 .user-ls img{
     height:25px;
     width:25px;

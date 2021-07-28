@@ -50,7 +50,9 @@
     <div class="container vivify swoopInBottom" style="animation-duration: 0.3s; animation-delay:0.3s;">
         <nav class="">
             <ul class="nav justify-content-start " style="float:left;">
-                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.85s; " title="Dashboard"><b>LearnPlay</b></a></li>
+                <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.85s; " title="Dashboard">
+                    LearnPlay
+                </a></li>
 
             </ul>
             <ul id="notification" class="nav justify-content-end">
@@ -97,7 +99,14 @@
           </div>
     </div>
 
-
+    <div class="footer" style="margin:25px 0;">
+        <center>
+            <a href="/dashboard">
+                <img src="{{asset('img/Logo.png')}}" style="height: 45px;">
+                &nbsp;&nbsp; LearnPlay
+            </a> todos os direitos reservados - contribua com o projeto no <a href="https://github.com/drelocatelli/learnPlay">github</a>.
+        </center>
+    </div>
     </div>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

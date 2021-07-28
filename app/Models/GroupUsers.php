@@ -14,6 +14,7 @@ class GroupUsers extends Model
 
     protected $fillable = ['id_grupo', 'id_user', 'admin'];
 
+
     public static function addMembers($data = [], $groupId, $userAuth){
 
         foreach($data as $member){

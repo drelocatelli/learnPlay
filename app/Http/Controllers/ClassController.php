@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Models\ClassUsers;
 use App\Models\Classes;
 
 class ClassController extends Controller {
 
     public function class(){
-        return view('painel.class.my');
+
+        $classes = ClassUsers::getClassByUser(Auth::user()->id);
+
+        return view('painel.class.my', compact('classes'));
     }
 
     public function class_page($id, $className = null){
@@ -31,7 +35,23 @@ class ClassController extends Controller {
 
     }
 
+    public function class_leave(Request $request){
+        ClassUsers::leave([
+            'id_class' => $request->id,
+            'id_user' => Auth::user()->id
+        ]);
+
+        return back();
+    }
+
     public function class_matricula(Request $request){
+
+        ClassUsers::matricular([
+            'id_class' => $request->id,
+            'id_user' => Auth::user()->id
+        ]);
+
+        return back();
 
     }
 

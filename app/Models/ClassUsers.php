@@ -15,6 +15,26 @@ class ClassUsers extends Model
 
     protected $fillable = ['id_class', 'id_user'];
 
+    public static function getClassByUser($user){
+
+        return ClassUsers::where('id_user', $user)
+                        ->join('class', 'class_users.id_class', '=', 'class.id')
+                        ->get();
+
+    }
+
+    public static function leave($data){
+
+        return ClassUsers::where($data)->delete();
+
+    }
+
+    public static function matricular($data){
+
+        return ClassUsers::firstOrCreate($data);
+
+    }
+
     public static function getClassUsers($id){
 
         return ClassUsers::where('id_class', $id)->get();
