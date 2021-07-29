@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\ClassUsers;
 use App\Models\Classes;
+use App\Models\User\UserAlert;
 
 class ClassController extends Controller {
 
@@ -36,6 +37,11 @@ class ClassController extends Controller {
     }
 
     public function class_leave(Request $request){
+
+        $className = Classes::getClassById($request->id)->titulo;
+
+        UserAlert::newAlert("Você saiu da aula $className", Auth::user()->id);
+
         ClassUsers::leave([
             'id_class' => $request->id,
             'id_user' => Auth::user()->id
@@ -45,6 +51,10 @@ class ClassController extends Controller {
     }
 
     public function class_matricula(Request $request){
+
+        $className = Classes::getClassById($request->id)->titulo;
+
+        UserAlert::newAlert("Você ingressou na aula $className", Auth::user()->id);
 
         ClassUsers::matricular([
             'id_class' => $request->id,

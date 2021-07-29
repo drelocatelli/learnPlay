@@ -15,4 +15,13 @@ class UserAlert extends Model
 
     protected $fillable = ['id_user', 'alert', 'status'];
 
+    public static function newAlert($msg, $user){
+
+        UserAlert::firstOrCreate([
+            'id_user' => $user,
+            'alert' => $msg
+        ]);
+
+    }
+
 }
