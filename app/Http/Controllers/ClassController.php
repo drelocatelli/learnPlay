@@ -17,8 +17,44 @@ class ClassController extends Controller {
         return view('painel.class.my', compact('classes'));
     }
 
-    public function class_page($id, $className = null){
+    public function class_learn(Request $request){
 
+        $class = $this->check_class($request->id);
+
+        if(!$class){
+            return redirect()->route('dashboard.notfound');
+
+        }
+
+        return view('painel.class.learn', compact('class'));
+
+    }
+
+
+    public function class_page(Request $request, $className = null){
+
+        $class = $this->check_class($request->id);
+        if(!$class){
+            return redirect()->route('dashboard.notfound');
+        }
+
+        // verifica a senha da aula
+        if($request->post() && $class->all->tipo_restricao == 'senha'){
+            if($class->all->password != $request->post('password')){
+                return back()->withErrors('password');
+            }else{
+                // acertou a senha matricula o estudante
+                return $this->class_matricula($request);
+            }
+        }
+
+        return view('painel.class.page', compact('class'));
+
+
+
+    }
+
+    public function check_class($id){
         $class = new \StdClass();
         if(!(bool) Classes::getClassById($id)){
             $class = false;
@@ -32,8 +68,7 @@ class ClassController extends Controller {
             $class->users = Classes::getClassUsers($id);
         }
 
-        return view('painel.class.page', compact('id', 'class'));
-
+        return $class;
     }
 
     public function class_leave(Request $request){

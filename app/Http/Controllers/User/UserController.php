@@ -26,6 +26,11 @@ class UserController extends Controller
 
     }
 
+    public function notfound(){
+
+        return view('painel.notfound');
+    }
+
 
     public function changePhoto(Request $request){
         // trocar imagem

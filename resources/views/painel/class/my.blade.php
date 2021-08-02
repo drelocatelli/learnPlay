@@ -1,18 +1,6 @@
 @extends('layouts.painel')
 @section('conteudo')
 
-
-    <section>
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-            <a class="nav-link" href="{{route('dashboard.class')}}">Minhas aulas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Aulas que gerencio.</a>
-            </li>
-        </ul>
-    </section>
-    <br>
     <h3>Minhas aulas</h3>
     <hr>
     @if($classes->count() >= 1)
@@ -22,7 +10,7 @@
                 @foreach($classes as $class)
 
                 <div class="card rounded" style="width: 14rem;">
-                    <a href="#">
+                    <a href="{{route('dashboard.class.learn', [$class->id, $class->titulo])}}">
                         <img src="{{($class->thumbnail == '') ? asset('img/class.svg') : asset("img/classes/$class->thumbnail") }}" class="card-img-top">
                         <div class="card-body">
                         <center>

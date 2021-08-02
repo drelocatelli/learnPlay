@@ -54,10 +54,22 @@
                     @else
                         @php $enrollName = 'inscrever-se na aula' @endphp
                     @endif
-                    <a href="{{route('dashboard.class.matricula', [$class->all->id, $class->all->titulo])}}" class="btn btn-success">{{$enrollName}}</a>
+                    @if($class->all->tipo_restricao == 'senha')
+                        <b>Essa aula está restrita com uma senha de acesso</b><br><br>
+                        @if($errors->any())
+                            <div class="alert alert-warning" style="width:auto;"><b>Não foi possível acessar a aula, tente novamente.</b></div>
+                        @endif
+                        <form method="post">
+                            @csrf
+                            <input class="form-control" style="width:auto; display:inline;" name="password" type="password" placeholder="senha de acesso" required>
+                            <button class="btn btn-success" type="submit">ingressar</button>
+                        </form>
+                    @else
+                        <a href="{{route('dashboard.class.matricula', [$class->all->id, $class->all->titulo])}}" class="btn btn-success">{{$enrollName}}</a>
+                    @endif
                 @else
                     {{-- Participando da aula. --}}
-                    <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo])}}" class="btn btn-danger"><i class="fas fa-times"></i> meter o pé da aula</a>
+                    <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo])}}" class="btn btn-danger"><i class="fas fa-times"></i> sair da aula</a>
                 @endif
             @else
                 Você não pode participar da aula que você mesmo criou.
