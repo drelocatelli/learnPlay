@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ClassUsers;
 use App\Models\Classes;
 use App\Models\User\UserAlert;
+use Illuminate\Support\Facades\Crypt;
 
 class ClassController extends Controller {
 
@@ -50,8 +51,6 @@ class ClassController extends Controller {
 
         return view('painel.class.page', compact('class'));
 
-
-
     }
 
     public function check_class($id){
@@ -81,6 +80,18 @@ class ClassController extends Controller {
             'id_class' => $request->id,
             'id_user' => Auth::user()->id
         ]);
+
+
+        if($request->redirect){
+            $path = Crypt::decrypt($request->redirect);
+
+
+            if($path != 'dashboard.class.leave'){
+                return redirect()->route('dashboard.class');
+            }
+
+        }
+
 
         return back();
     }
