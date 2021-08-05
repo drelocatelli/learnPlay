@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Classes;
 
 class ClassUsers extends Model
 {
@@ -17,9 +18,11 @@ class ClassUsers extends Model
 
     public static function getClassByUser($user){
 
-        return ClassUsers::where('id_user', $user)
-                        ->join('class', 'class_users.id_class', '=', 'class.id')
-                        ->get();
+        $class = Classes::where('class.id_admin', $user)
+                        ->join('class_users', 'class_users.id_class', '=', 'class.id')
+                        ->orWhere('class_users.id_user', $user);
+
+        return $class->get();
 
     }
 

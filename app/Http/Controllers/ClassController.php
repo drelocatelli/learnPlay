@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\ClassUsers;
 use App\Models\Classes;
 use App\Models\User\UserAlert;
+use App\Models\Category;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Support\Facades\Crypt;
 
 class ClassController extends Controller {
@@ -16,6 +19,29 @@ class ClassController extends Controller {
         $classes = ClassUsers::getClassByUser(Auth::user()->id);
 
         return view('painel.class.my', compact('classes'));
+    }
+
+    public function class_create(Request $request){
+
+        if($request->POST()){
+
+
+
+            if($newClass = Classes::newClass($request->all(), Auth::user()->id)){
+                ClassUsers::matricular([
+                    'id_class' => $newClass->id,
+                    'id_user' => Auth::user()->id
+                ]);
+                UserAlert::newAlert("Você gerencia a aula $request->title", Auth::user()->id);
+                return redirect()->route('dashboard.class');
+            }
+
+        }
+
+        $category = Category::get();
+
+        return view('painel.class.new', compact('category'));
+
     }
 
     public function class_learn(Request $request){
@@ -50,8 +76,9 @@ class ClassController extends Controller {
         }
 
         // verifica a senha da aula
+
         if($request->post() && $class->all->tipo_restricao == 'senha'){
-            if($class->all->password != $request->post('password')){
+            if(!(Hash::check($request->password, $class->all->password))){
                 return back()->withErrors('password');
             }else{
                 // acertou a senha matricula o estudante

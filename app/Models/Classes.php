@@ -27,6 +27,24 @@ class Classes extends Model
         'password'
     ];
 
+    public static function newClass($data = [], $userLoggedIn){
+
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+
+        if($data['password'] == ''){ $data['visibility'] = 'none'; }
+        if($data['visibility'] == 'none'){$data['visibility'] = '';}
+
+        return Classes::create([
+            'id_admin' => $userLoggedIn,
+            'titulo' => $data['title'],
+            'descricao' => $data['description'],
+            'id_categoria' => $data['category'],
+            'tipo_restricao' => $data['visibility'],
+            'password' => $data['password']
+        ]);
+
+    }
+
     public static function getModules($id){
 
         $modules = ClassChapter::join('class_module', function($query){

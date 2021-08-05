@@ -51,7 +51,7 @@
         <nav class="">
             <ul class="nav justify-content-start " style="float:left;">
                 <li class="nav-item"><a href="/" class="nav-link vivify popIn" style="animation-delay: 0.85s; " title="Dashboard">
-                    LearnPlay
+                    <b>LearnPlay</b>
                 </a></li>
 
             </ul>

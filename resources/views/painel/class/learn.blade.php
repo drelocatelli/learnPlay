@@ -1,6 +1,6 @@
 @extends('layouts.painel')
 @section('conteudo')
-<div class="position-relative mb-5 d-flex flex-row-reverse float-right">
+<div class="position-relative mb-2 d-flex flex-row-reverse float-right">
     <a href="{{route('dashboard.class')}}" class="btn btn-primary"><i class="fas fa-chevron-left"></i> aulas que participo</a>
 </div>
     <h4>{{ $class->title }}</h4>
