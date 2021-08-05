@@ -6,7 +6,10 @@
     <h4>{{ $class->title }}</h4>
     <hr>
 
-    <b>{{($class->users->count() > 1) ? $class->users->count() . ' alunos' : $class->users->count() . ' aluno'}} </b> participando.
+    @php
+        $totalMembers = $class->users->count()-1;
+    @endphp
+    <b>{{($totalMembers > 1) ? $totalMembers . ' alunos' : $totalMembers . ' aluno'}} </b> participando.
 
     <br>
 

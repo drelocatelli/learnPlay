@@ -25,8 +25,6 @@ class ClassController extends Controller {
 
         if($request->POST()){
 
-
-
             if($newClass = Classes::newClass($request->all(), Auth::user()->id)){
                 ClassUsers::matricular([
                     'id_class' => $newClass->id,
@@ -48,9 +46,9 @@ class ClassController extends Controller {
 
         $class = $this->check_class($request->id);
 
+
         if(!$class){
             return redirect()->route('dashboard.notfound');
-
         }
 
         $module = $this->class_module($class);

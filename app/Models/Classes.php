@@ -32,7 +32,7 @@ class Classes extends Model
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
         if($data['password'] == ''){ $data['visibility'] = 'none'; }
-        if($data['visibility'] == 'none'){$data['visibility'] = '';}
+        if($data['visibility'] == 'none'){$data['visibility'] = null;}
 
         return Classes::create([
             'id_admin' => $userLoggedIn,

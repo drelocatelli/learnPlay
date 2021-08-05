@@ -32,15 +32,24 @@
 
     <br>
             @php $users = []; @endphp
-            @if($class->users->count() >= 1)
-                <b>{{$class->users->count()}} Alunos participantes:</b>
+            {{-- membros --}}
+            @php
+                $membersCount = $class->users->count()-1;
+            @endphp
+            @if($membersCount >= 1)
+                <b>{{$membersCount}} Alunos participantes:</b>
                 <br>
+
+                {{-- {{$class->users}} --}}
                 @foreach($class->users as $user)
+                    @if(!in_array($class->all->nome, $user->toArray()))
                     <a href="{{route('user.profile', [$user->nome, $user->id])}}" class="user-ls" title="{{$user->nome}}">
                         <img src="{{ ($user->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $user->photo)}}" height="50px" width="50px" class="rounded-circle">
                             {{$user->nome}}
                     </a>
                     @php array_push($users, $user->nome); @endphp
+                    @endif
+
                 @endforeach
             @else
                 <b>Nenhum aluno participando ainda.</b>

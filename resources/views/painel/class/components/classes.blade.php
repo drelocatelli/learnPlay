@@ -26,8 +26,11 @@
                 {{$classAdmin->nome}}
             </a>
              <br>
-            @php $classMembers = Auth::user()->getClassUsers($class->id); @endphp
-             {{ ($classMembers->count() == 0) ? 'nenhum aluno ingressou ainda.' : $classMembers->count().' alunos participam.' }}
+                @php
+                    $classMembers = Auth::user()->getClassUsers($class->id);
+                    $countMembers = $classMembers->count()-1;
+                @endphp
+             {{ ($countMembers == 0) ? 'nenhum aluno ingressou ainda.' : $countMembers.' alunos participam.' }}
              <br><br>
         </td>
     </tr>
