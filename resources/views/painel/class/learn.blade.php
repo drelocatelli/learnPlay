@@ -33,10 +33,10 @@
                     </button>
                 </h2>
                 <div id="collapse_{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="card">
+                <div class="card card-chapter">
                     <ul class="list-group list-group-flush">
                     @for($i = 0; $i < $model->count(); $i++)
-                        <a href="#" style="witdh:max-content;"><li class="list-group-item">{{$module[$loop->iteration][$i]->class_chapter_title}}</li></a>
+                        <a href="#" style="witdh:max-content;"><li class="list-group-item">{{ucfirst($module[$loop->iteration][$i]->class_chapter_title)}}</li></a>
                     @endfor
 
                     </ul>

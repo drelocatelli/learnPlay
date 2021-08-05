@@ -79,6 +79,23 @@ discuss {
     color:#3a3a3a;
 }
 
+.card-chapter .list-group-item:hover{
+    background:rgb(228, 228, 228);
+}
+
+.accordion-button {
+    background: #9dc1b6!important;
+    box-shadow: none!important;
+    outline: none!important;
+    color: white;
+}
+
+.accordion-button:focus,.accordion-button:active, .accordion-button:not(.collapsed){
+    color:#f9f9f9;
+    box-shadow:none!important;
+    outline:none!important;
+}
+
 .user-ls{
     background: #ffffffa8;
     border-radius: 12px;
