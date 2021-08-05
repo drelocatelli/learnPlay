@@ -25,7 +25,7 @@
         @foreach($module as $model)
 
 
-            <div class="accordion" id="accordionExample">
+            <div class="accordion accordion-flush" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$loop->iteration}}" aria-expanded="true" aria-controls="collapseOne">
@@ -52,7 +52,7 @@
 
     <hr>
     <center>
-        <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo, 'redirect' => Crypt::encrypt(Route::currentRouteName())])}}" class="btn btn-danger"><i class="fas fa-times"></i>&nbsp; desistir da aula</a>
+        <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo, 'redirect' => Crypt::encrypt(Route::currentRouteName())])}}" class="btn btn-danger"><i class="fas fa-times"></i>&nbsp; abandonar aula</a>
     </center>
 
 @endsection
