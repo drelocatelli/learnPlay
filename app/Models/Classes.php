@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\ClassUsers;
+use App\Models\ClassModule;
 
 class Classes extends Model
 {
@@ -25,6 +26,22 @@ class Classes extends Model
         'id_group',
         'password'
     ];
+
+    public static function getModules($id){
+
+        $modules = ClassChapter::join('class_module', function($query){
+                    $query->on('class_module.id_class', '=', 'class_chapter.id_class');
+                    $query->on('class_module.id', '=', 'class_chapter.id_module');
+                })
+                ->select('*', 'class_chapter.title as class_chapter_title')
+                ->where('class_module.id_class', $id)
+                ->get();
+
+        $modules = $modules->groupBy('id_module');
+
+        return $modules;
+
+    }
 
     public static function getClasses($category = null, $restricao = null){
         $classes = Classes::join('category', 'class.id_categoria', '=', 'category.id')

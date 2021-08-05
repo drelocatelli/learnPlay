@@ -15,10 +15,6 @@
                         <div class="card-body">
                         <center>
                         <h5 class="card-title">{{$class->titulo}}</h5>
-                            {{ substr($class->descricao, 0, 400) }}
-                            @if(strlen($class->descricao) >= 400)
-                                ...
-                            @endif
                         </center>
                         </div>
                     </a>

@@ -27,7 +27,17 @@ class ClassController extends Controller {
 
         }
 
-        return view('painel.class.learn', compact('class'));
+        $module = $this->class_module($class);
+
+        return view('painel.class.learn', compact('class', 'module'));
+
+    }
+
+    public function class_module($class){
+
+        $module = Classes::getModules($class->all->id);
+
+        return $module;
 
     }
 

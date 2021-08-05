@@ -99,12 +99,12 @@
           </div>
     </div>
 
-    <div class="footer" style="margin:25px 0;">
+    <div class="footer" style="margin:65px 0;">
         <center>
             <a href="/dashboard">
                 <img src="{{asset('img/Logo.png')}}" style="height: 45px;">
                 &nbsp;&nbsp; LearnPlay
-            </a> todos os direitos reservados - contribua com o projeto no <a href="https://github.com/drelocatelli/learnPlay">github</a>.
+            </a> conhecimento para todos - contribua com o projeto no <a href="https://github.com/drelocatelli/learnPlay">github</a>.
         </center>
     </div>
     </div>
@@ -220,6 +220,8 @@
 
             }
         }
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
