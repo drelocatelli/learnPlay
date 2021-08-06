@@ -26,20 +26,21 @@
 
 
         @foreach($module as $model)
-
-
             <div class="accordion accordion-flush" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$loop->iteration}}" aria-expanded="true" aria-controls="collapseOne">
-                        {{ucfirst($module[$loop->iteration][0]->title)}}
+                        @for($i = 0; $i < $model->count(); $i++)
+                            {{ucfirst($model[$i]->title)}}
+                            @break
+                        @endfor
                     </button>
                 </h2>
                 <div id="collapse_{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="card card-chapter">
                     <ul class="list-group list-group-flush">
                     @for($i = 0; $i < $model->count(); $i++)
-                        <a href="#" style="witdh:max-content;"><li class="list-group-item">{{ucfirst($module[$loop->iteration][$i]->class_chapter_title)}}</li></a>
+                        <a href="#" style="witdh:max-content;"><li class="list-group-item">{{ucfirst($model[$i]->class_chapter_title)}}</li></a>
                     @endfor
 
                     </ul>
@@ -48,7 +49,7 @@
             </div>
 
             </div>
-        @endforeach
+            @endforeach
     @else
         <center><b>Nenhum módulo foi criado.</b></center>
     @endif

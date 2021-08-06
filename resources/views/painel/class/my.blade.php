@@ -12,7 +12,7 @@
             <br><br>
             <div class=" d-flex flex-wrap">
                 @foreach($classes as $class)
-                <div class="card rounded" style="width: 14rem;">
+                <div class="card rounded mb-4" style="width: 14rem;">
 
                     <a href="{{route('dashboard.class.learn', [$class->id_class, $class->titulo])}}">
                         <img src="{{($class->thumbnail == '') ? asset('img/class.svg') : asset("img/classes/$class->thumbnail") }}" class="card-img-top">

@@ -42,12 +42,21 @@ class ClassController extends Controller {
 
     }
 
+    public function userInClass($classUsers, $user){
+
+        $userInClass = in_array($user, array_column($classUsers, 'id'));
+
+        return !$userInClass;
+
+    }
+
     public function class_learn(Request $request){
 
         $class = $this->check_class($request->id);
 
+        $verify_userInClass = $this->userInClass($class->users->toArray(), Auth::user()->id);
 
-        if(!$class){
+        if(!$class || $verify_userInClass){
             return redirect()->route('dashboard.notfound');
         }
 
