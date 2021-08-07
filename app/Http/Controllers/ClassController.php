@@ -78,6 +78,7 @@ class ClassController extends Controller {
     public function class_page(Request $request, $className = null){
 
         $class = $this->check_class($request->id);
+
         if(!$class){
             return redirect()->route('dashboard.notfound');
         }
@@ -156,7 +157,7 @@ class ClassController extends Controller {
     }
 
     public function class_public(){
-        $classes = Classes::getClasses();
+        $classes = Classes::getClasses(Auth::user()->id);
 
         return view('painel.class.public', compact('classes'));
     }

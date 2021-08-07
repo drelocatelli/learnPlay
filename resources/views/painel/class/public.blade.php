@@ -10,7 +10,6 @@
 
     @forelse($classes as $class)
         @include('painel.class.components.classes')
-
         @empty
             <b>Nenhuma aula foi cadastrada</b>
     @endforelse

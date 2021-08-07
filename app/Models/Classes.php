@@ -61,7 +61,7 @@ class Classes extends Model
 
     }
 
-    public static function getClasses($category = null, $restricao = null){
+    public static function getClasses($auth = null, $category = null, $restricao = null){
         $classes = Classes::join('category', 'class.id_categoria', '=', 'category.id')
                             ->select('class.*', 'category.nome as category_name');
 
@@ -75,6 +75,13 @@ class Classes extends Model
         }
 
         $classes = $classes->orderBy('class.id', 'desc');
+
+        if($auth != null){
+            $classes = $classes->where(function($query) use ($auth){
+                                    $query->where('class.id_admin', '!=', $auth);
+                                });
+
+        }
 
         if($category != null){
             $classes = $classes->where('category.nome', $category)->paginate(3);
