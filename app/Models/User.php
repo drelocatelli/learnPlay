@@ -46,7 +46,6 @@ class User extends Authenticatable {
     }
 
 
-
     // ---------------------------------------------- GROUP
 
     public function get_Comment($idGroup, $article){

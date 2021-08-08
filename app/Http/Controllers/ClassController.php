@@ -16,7 +16,9 @@ class ClassController extends Controller {
 
     public function class(){
 
-        $classes = ClassUsers::getClassByUser(Auth::user()->id);
+        $classes = ClassUsers::with(['classes'])
+                            ->where('id_user', Auth::id())
+                            ->get();
 
         return view('painel.class.my', compact('classes'));
     }

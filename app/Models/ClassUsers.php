@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Classes;
+use App\Models\User;
 
 class ClassUsers extends Model
 {
@@ -16,13 +17,11 @@ class ClassUsers extends Model
 
     protected $fillable = ['id_class', 'id_user'];
 
-    public static function getClassByUser($user){
+    public function classes(){
 
-        $class = Classes::where('class.id_admin', $user)
-                        ->join('class_users', 'class_users.id_class', '=', 'class.id')
-                        ->orWhere('class_users.id_user', $user);
+        $class = $this->belongsTo(Classes::class, 'id_class');
 
-        return $class->get();
+        return $class;
 
     }
 

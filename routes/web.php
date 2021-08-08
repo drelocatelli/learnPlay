@@ -64,10 +64,11 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::match(['post', 'get'] ,'class/new', [$controller, 'class_create'])->name('dashboard.class.create');
     Route::get('class/category/{category}', [$controller, 'class_category'])->name('dashboard.class.category');
     Route::get('class/search', [$controller, 'class_search'])->name('dashboard.class.search');
+    Route::get('class/{id}/learn/{class?}', [$controller, 'class_learn'])->name('dashboard.class.learn');
     Route::match(['get', 'post'], 'class/{id}/{class?}', [$controller, 'class_page'])->name('dashboard.class.page');
     Route::get('class/{id}/{class?}/enroll', [$controller, 'class_matricula'])->name('dashboard.class.matricula');
     Route::get('class/{id}/{class?}/leave', [$controller, 'class_leave'])->name('dashboard.class.leave');
-    Route::get('class/{id}/learn/{class?}', [$controller, 'class_learn'])->name('dashboard.class.learn');
+
 
 });
 
