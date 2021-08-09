@@ -8,6 +8,7 @@ use App\Models\ClassUsers;
 use App\Models\Classes;
 use App\Models\User\UserAlert;
 use App\Models\Category;
+use App\Models\ClassModule;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Crypt;
@@ -62,9 +63,12 @@ class ClassController extends Controller {
             return redirect()->route('dashboard.notfound');
         }
 
-        $module = $this->class_module($class);
+        $module = new ClassModule();
+        $grade = $module->with('chapters')
+        ->where('id_class', $request->id)
+        ->get();
 
-        return view('painel.class.learn', compact('class', 'module'));
+        return view('painel.class.learn', compact('class', 'grade'));
 
     }
 

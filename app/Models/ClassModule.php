@@ -17,4 +17,12 @@ class ClassModule extends Model
         'id_class',
         'title'
     ];
+
+
+    public function chapters(){
+        $chapters = $this->hasMany(ClassChapter::class, 'id_module');
+
+        return $chapters;
+    }
+
 }

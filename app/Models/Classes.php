@@ -45,22 +45,6 @@ class Classes extends Model
 
     }
 
-    public static function getModules($id){
-
-        $modules = ClassChapter::join('class_module', function($query){
-                    $query->on('class_module.id_class', '=', 'class_chapter.id_class');
-                    $query->on('class_module.id', '=', 'class_chapter.id_module');
-                })
-                ->select('*', 'class_chapter.title as class_chapter_title')
-                ->where('class_module.id_class', $id)
-                ->get();
-
-        $modules = $modules->groupBy('id_module');
-
-        return $modules;
-
-    }
-
     public static function getClasses($auth = null, $category = null, $restricao = null){
         $classes = Classes::join('category', 'class.id_categoria', '=', 'category.id')
                             ->select('class.*', 'category.nome as category_name');
