@@ -12,6 +12,10 @@
     <b>{{($totalMembers > 1) ? $totalMembers . ' alunos' : $totalMembers . ' aluno'}} </b> participando.
 
     <br>
+    <b>Instrutor: </b>&nbsp; <a href="{{route('user.profile', [$class->all->nome, $class->all->id])}}" class="user-ls" title="{{$class->all->nome}}">
+        <img style="padding:0!important;" src="{{ ($class->all->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $class->all->photo)}}" height="50px" width="50px" class="rounded-circle"> {{$class->all->nome}} </a>
+
+    <br>
 
     <b>Descrição: </b>{{ $class->all->descricao }}
     @include('painel.class.components.modules')

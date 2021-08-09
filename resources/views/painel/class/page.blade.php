@@ -16,7 +16,7 @@
                         height: 400px;">
                     </td>
                     <td>
-                        <b>Criador: </b>&nbsp; <a href="{{route('user.profile', [$class->all->nome, $class->all->id])}}" class="user-ls" title="{{$class->all->nome}}">
+                        <b>Instrutor: </b>&nbsp; <a href="{{route('user.profile', [$class->all->nome, $class->all->id])}}" class="user-ls" title="{{$class->all->nome}}">
                             <img style="padding:0!important;" src="{{ ($class->all->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $class->all->photo)}}" height="50px" width="50px" class="rounded-circle"> {{$class->all->nome}} </a>
                         <br>
                         <br>

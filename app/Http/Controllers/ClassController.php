@@ -24,6 +24,15 @@ class ClassController extends Controller {
         return view('painel.class.my', compact('classes'));
     }
 
+    public function class_manage(){
+
+        $classes = ClassUsers::with(['classes'])
+                            ->where('id_user', Auth::id())
+                            ->get();
+
+        return view('painel.class.manage', compact('classes'));
+    }
+
     public function class_create(Request $request){
 
         if($request->POST()){
