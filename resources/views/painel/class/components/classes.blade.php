@@ -2,7 +2,7 @@
     $classMembers = Auth::user()->getClassUsers($class->id);
     $userInclass = in_array(Auth::user()->id, array_column($classMembers->toArray(), 'id_user'));
 @endphp
-@if(!$userInclass)
+
     <table class="group-list rounded" width="100%">
         <tr>
             <td width="15rem">
@@ -10,17 +10,25 @@
             </td>
             <td valign="top">
                 <br>
+                @if(!$userInclass)
 
-                <h5 style="position:relative;">
-                    <a href="{{route('dashboard.class.page', [$class->id, urlencode($class->titulo)])}}">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
-                </h5>
+                    <h5 style="position:relative;">
+                            <a href="{{route('dashboard.class.page', [$class->id, urlencode($class->titulo)])}}">{{ $class->titulo }}</a> {!! ($class->tipo_restricao == 'password') ? "<span title='requer senha de acesso' style='    font-size: 80px; position: absolute; color: red; top: -15px; cursor: pointer; user-select: none;'>*</span>" : '' !!}
+                    </h5>
+                @else
+                    <h5 style="position:relative;">
+                        <a href="{{route('dashboard.class.learn', [$class->id, urlencode($class->titulo)])}}">{{$class->titulo}} </a>
+                        &nbsp;
+                        <button class="btn btn-warning btn-sm">matriculado</button></h5>
+
+                @endif
                 <br>
-                {{-- <div style="display: block; min-height: 88px; word-wrap:break-word;">
+                <div style="display: block; min-height: 88px; word-wrap:break-word;">
                     {{ substr($class->descricao, 0, 400) }}
                     @if(strlen($class->descricao) >= 400)
                         ...
                     @endif
-                </div> --}}
+                </div>
                 @php $date = new DateTime($class->timestamp); $date = $date->format('d/m/Y H:i'); @endphp
                 <b>Categoria:</b> <a href="{{route('dashboard.class.category', strtolower(urlencode($class->category_name)))}}">{{ $class->category_name }}</a>
                 <br>
@@ -41,6 +49,6 @@
         </tr>
 
     </table>
-@endif
+
 
 

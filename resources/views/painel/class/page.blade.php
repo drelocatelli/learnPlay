@@ -31,52 +31,53 @@
             </table>
 
     <br>
-            @php $users = []; @endphp
-            {{-- membros --}}
             @php
-                $membersCount = $class->users->count()-1;
+                $users = [];
+                foreach($class->users as $user){
+                    if($user->nome != $class->all->nome){
+                        array_push($users, $user);
+                    }
+                }
+                $membersCount = count($users);
             @endphp
             @if($membersCount >= 1)
-                <b>{{$membersCount}} Alunos participantes:</b>
+                <b>{{$membersCount}} Alunos participantes.</b>
                 <br>
-
-                {{-- {{$class->users}} --}}
-                @foreach($class->users as $user)
-                    @if(!in_array($class->all->nome, $user->toArray()))
+                @foreach($users as $user)
                     <a href="{{route('user.profile', [$user->nome, $user->id])}}" class="user-ls" title="{{$user->nome}}">
                         <img src="{{ ($user->photo === null) ? asset('img/userimg/default.png') : asset("img/userimg/". $user->photo)}}" height="50px" width="50px" class="rounded-circle">
                             {{$user->nome}}
                     </a>
-                    @php array_push($users, $user->nome); @endphp
-                    @endif
-
                 @endforeach
+
             @else
                 <b>Nenhum aluno participando ainda.</b>
             @endif
             <hr>
             @if (Auth::user()->nome != $class->all->nome)
             {{-- {{Usuarios}} --}}
+
                 @if(!in_array(Auth::user()->nome, $users))
                     @if(empty($users))
                         @php $enrollName = 'seja o primeiro aluno' @endphp
                     @else
                         @php $enrollName = 'inscrever-se na aula' @endphp
                     @endif
-                    @if($class->all->tipo_restricao == 'senha')
-                        <b>Essa aula está restrita com uma senha de acesso</b><br><br>
-                        @if($errors->any())
-                            <div class="alert alert-warning" style="width:auto;"><b>Não foi possível acessar a aula, tente novamente.</b></div>
+                        @if($class->all->tipo_restricao == 'senha')
+                            <b>Essa aula está restrita com uma senha de acesso</b><br><br>
+                            @if($errors->any())
+                                <div class="alert alert-warning" style="width:auto;"><b>Não foi possível acessar a aula, tente novamente.</b></div>
+                            @endif
+                            <form method="post">
+                                @csrf
+                                <input class="form-control" style="width:auto; display:inline;" name="password" type="password" placeholder="senha de acesso" required>
+                                <button class="btn btn-success" type="submit">ingressar</button>
+                            </form>
+                        @else
+                            <a href="{{route('dashboard.class.matricula', [$class->all->id, $class->all->titulo])}}" class="btn btn-success">{{$enrollName}}</a>
                         @endif
-                        <form method="post">
-                            @csrf
-                            <input class="form-control" style="width:auto; display:inline;" name="password" type="password" placeholder="senha de acesso" required>
-                            <button class="btn btn-success" type="submit">ingressar</button>
-                        </form>
-                    @else
-                        <a href="{{route('dashboard.class.matricula', [$class->all->id, $class->all->titulo])}}" class="btn btn-success">{{$enrollName}}</a>
-                    @endif
                 @else
+
                     {{-- Participando da aula. --}}
                     <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo])}}" class="btn btn-danger"><i class="fas fa-times"></i> sair da aula</a>
                 @endif

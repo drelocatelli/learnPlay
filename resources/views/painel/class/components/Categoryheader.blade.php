@@ -1,5 +1,6 @@
 {{-------------------------------------------- {{CATEGORIAS}} --}}
 
+
 @php $categories = Auth::user()->getAllCategories(); @endphp
 @if($categories->count() > 0)
     <center class="bg-light rounded p-3">
@@ -13,6 +14,7 @@
 
 
 {{-------------------------------------------- {{BUSCA}} --}}
+
 <div style="float:right;">
     <table>
         <form method="get" action="{{route('dashboard.class.search')}}">
@@ -29,3 +31,6 @@
 </div>
 <div style="clear:both; margin-bottom:20px;"></div>
 
+<div class="position-relative mb-1 d-flex flex-row-reverse float-right">
+    <a href="{{route('dashboard.class.create')}}" class="btn btn-danger"><i class="fas fa-plus"></i>&nbsp; criar nova aula</a>
+</div>
