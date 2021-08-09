@@ -82,7 +82,7 @@
                 let class_count = document.querySelectorAll('b#class_count')
                 let count_aulas = document.querySelector('count-chapters')
 
-                count_aulas.innerText = `, ${class_count.length} aulas no total`
+                count_aulas.innerText = `, ${class_count.length} capítulos no total`
 
                 function giveContent(type, content){
                     // types: text, link, video
