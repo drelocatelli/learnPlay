@@ -36,6 +36,18 @@ a {
     padding: 0 !important;
 }
 
+.content-class{
+    word-spacing: 2px;
+    text-align: justify;
+    background: #f9f9f9;
+    font-size: 17px;
+    padding: 25px 60px;
+    line-height: 1.9em;
+    position:relative;
+    top: 10px;
+    text-transform:capitalize;
+}
+
 .profile-photo.setting {
     height: 150px;
     background: white;

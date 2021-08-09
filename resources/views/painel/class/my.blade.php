@@ -1,11 +1,11 @@
 @extends('layouts.painel')
 @section('conteudo')
 @include('dashboardLink')
-<div class="position-relative mb-3 d-flex flex-row-reverse float-right">
+<div class="position-relative mb-2 d-flex flex-row-reverse float-right">
     <a href="{{route('dashboard.class.create')}}" class="btn btn-danger"><i class="fas fa-plus"></i>&nbsp; criar nova aula</a>
 </div>
 <div class="position-relative mb-1 d-flex flex-row-reverse float-right">
-    <a href="{{route('dashboard.class.public')}}" class="btn btn-primary"><i class="fas fa-chalkboard-teacher"></i>&nbsp; matricular-se em alguma aula</a>
+    <a href="{{route('dashboard.class.public')}}" class="btn btn-primary"><i class="fas fa-chalkboard-teacher"></i>&nbsp; procurar por aulas</a>
 </div>
 
     <h3>Minhas aulas</h3>
