@@ -108,24 +108,26 @@ class Classes extends Model
     }
 
 
-    public static function searchClass($name){
+    public static function searchClass($name, $auth = null){
 
         $classes = Classes::join('user', 'class.id_admin', '=', 'user.id')
                             ->join('category', 'category.id', '=', 'class.id_categoria')
                             ->select('*', 'class.id as id', 'category.nome AS category_name', 'user.id AS user_id');
-
         // ordering by best result
 
-        $filter = $classes->where('class.titulo', 'LIKE', "%$name%")
-                        ->orWhere('user.nome', 'LIKE', "%$name%")
-                        ->orderByRaw('CASE
-                                    WHEN class.titulo LIKE "'.$name.'" THEN 1
-                                    WHEN class.titulo LIKE "'.$name.'%" THEN 2
-                                    WHEN class.titulo LIKE "%'.$name.'%" THEN 3
-                                    WHEN class.titulo LIKE "%'.$name.'" THEN 4
-                                    ELSE 5
-                                    END')
-                        ->get();
+        $filter = $classes->where(function($query) use($name){
+            $query->where('class.titulo', 'LIKE', "%$name%")
+            ->orWhere('user.nome', 'LIKE', "%$name%");
+        })
+        ->orderByRaw('CASE
+                    WHEN class.titulo LIKE "'.$name.'" THEN 1
+                    WHEN class.titulo LIKE "'.$name.'%" THEN 2
+                    WHEN class.titulo LIKE "%'.$name.'%" THEN 3
+                    WHEN class.titulo LIKE "%'.$name.'" THEN 4
+                    ELSE 5
+                    END')
+        ->where('class.id_admin', '<>', $auth)
+        ->get();
 
         $filter = $filter->where('tipo_restricao', '<>', 'group');
 

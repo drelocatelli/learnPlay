@@ -43,7 +43,7 @@ class ClassController extends Controller {
                     'id_user' => Auth::user()->id
                 ]);
                 UserAlert::newAlert("Você gerencia a aula $request->title", Auth::user()->id);
-                return redirect()->route('dashboard.class');
+                return redirect()->route('dashboard.class.manage');
             }
 
         }
@@ -186,7 +186,7 @@ class ClassController extends Controller {
 
         $category = ucfirst(urldecode($category));
 
-        $classes = Classes::getClasses($category);
+        $classes = Classes::getClasses(Auth::id(), $category);
 
         return view('painel.class.category', compact('category', 'classes'));
 
@@ -195,7 +195,7 @@ class ClassController extends Controller {
     public function class_search(Request $request){
         $name = ucfirst(urldecode($_GET['query']));
 
-        $classes = Classes::searchClass($name);
+        $classes = Classes::searchClass($name, Auth::id());
 
         return view('painel.class.search', ['query' => $name, 'classes'=>$classes]);
 
