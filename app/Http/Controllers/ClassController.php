@@ -65,8 +65,11 @@ class ClassController extends Controller {
 
         $module = new ClassModule();
         $grade = $module->with('chapters')
-        ->where('id_class', $request->id)
-        ->get();
+        ->where('id_class', $request->id);
+        // nao mostrar modulo sem aula
+        $grade = $grade->whereHas('chapters', function($query){
+            $query->whereNotNull('id');
+        })->get();
 
         return view('painel.class.learn', compact('class', 'grade'));
 

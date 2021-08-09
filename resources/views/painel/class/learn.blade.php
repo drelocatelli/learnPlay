@@ -43,8 +43,6 @@
                                 </li>
                             </a>
                         @endfor
-
-
                     </ul>
                 </div>
                 </div>
@@ -55,7 +53,7 @@
 
             <style>
                 .model_number {
-                    background: #5a8299;
+                    background: #668477;
                     padding: 4px 7px;
                     box-sizing: border-box;
                     margin-right: 15px;
@@ -64,7 +62,7 @@
                 }
 
                 .chapter_number{
-                    background:#ccc;
+                    background:#e4e4e4;
                 }
             </style>
 
@@ -72,13 +70,13 @@
                 let class_count = document.querySelectorAll('b#class_count')
 
                 for(i = 0; i < class_count.length; i++){
-                    class_count[i].innerText = '( '+(i+1)+' )'
+                    class_count[i].innerText = (i+1)
                 }
             </script>
     @else
         <center><b>Nenhum módulo foi criado.</b></center>
     @endif
-
+        <br>
     <hr>
     <center>
         <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo, 'redirect' => Crypt::encrypt(Route::currentRouteName())])}}" class="btn btn-danger"><i class="fas fa-times"></i>&nbsp; abandonar aula</a>
