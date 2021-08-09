@@ -57,7 +57,7 @@
             @if (Auth::user()->nome != $class->all->nome)
             {{-- {{Usuarios}} --}}
 
-                @if(!in_array(Auth::user()->nome, $users))
+                @if(!$subscribed)
                     @if(empty($users))
                         @php $enrollName = 'seja o primeiro aluno' @endphp
                     @else
@@ -77,7 +77,6 @@
                             <a href="{{route('dashboard.class.matricula', [$class->all->id, $class->all->titulo])}}" class="btn btn-success">{{$enrollName}}</a>
                         @endif
                 @else
-
                     {{-- Participando da aula. --}}
                     <a href="{{route('dashboard.class.leave', [$class->all->id, $class->all->titulo])}}" class="btn btn-danger"><i class="fas fa-times"></i> sair da aula</a>
                 @endif

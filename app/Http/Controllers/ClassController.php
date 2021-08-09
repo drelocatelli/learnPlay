@@ -103,7 +103,9 @@ class ClassController extends Controller {
             }
         }
 
-        return view('painel.class.page', compact('class'));
+        $subscribed = $class->users->pluck('nome')->contains(Auth::user()->nome);
+
+        return view('painel.class.page', compact('class', 'subscribed'));
 
     }
 
