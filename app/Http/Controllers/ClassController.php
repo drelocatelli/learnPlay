@@ -80,6 +80,11 @@ class ClassController extends Controller {
             $query->whereNotNull('id');
         })->get();
 
+
+        if($class->all->id_admin == Auth::id()){
+            return redirect()->route('dashboard.notfound');
+        }
+
         return view('painel.class.learn', compact('class', 'grade'));
 
     }
