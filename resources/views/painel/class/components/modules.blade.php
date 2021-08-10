@@ -40,7 +40,7 @@
                             @if($link != '')
                                 <a href="{{$link}}" target="_blank" style="witdh:max-content;">
                                 @else
-                                <a href="javascript:void(0);" style="witdh:max-content;" onclick="giveContent('{{$model->chapters[$i]->content_type}}', `{{$model->chapters[$i]->content}}`)">
+                                <a href="javascript:void(0);" style="witdh:max-content;" onclick="giveContent('{{$model->chapters[$i]->content_type}}', `{{$model->chapters[$i]->title}}`, `{{$model->chapters[$i]->content}}`)">
                             @endif
                                 <li class="list-group-item" title="Capítulo {{$i+1}} do Módulo {{$loop->iteration}}">
                                     <b id="class_count" class="model_number chapter_number">{{$loop->iteration}} . {{$i+1}}</b>
@@ -60,8 +60,6 @@
             @endforeach
 
             </div>
-
-
 
             <style>
                 .model_number {
@@ -84,17 +82,17 @@
 
                 count_aulas.innerText = `, ${class_count.length} capítulos no total`
 
-                function giveContent(type, content){
+                function giveContent(type, title, content){
                     // types: text, link, video
 
                     let panel = document.querySelector('panel')
                     switch(type){
                         case 'text':
-                            panel.innerHTML = `<div class="content-class">${content}</div>`;
-                            document.querySelector('panel').scrollIntoView({ behavior: 'smooth', block: 'top' })
+                            panel.innerHTML = `<div class="content-class"><center><h4>${title}</h4></center><hr>${content}</div>`;
+                            document.querySelector('panel').scrollIntoView({ behavior: 'smooth' })
                         break;
                         case 'video':
-                            panel.innerHTML = `<div class="content-class" style="background:#000; padding:0;"><video id="aula" src="${content}" controls autoplay width="100%"></video></div>`
+                            panel.innerHTML = `<div class="content-class" style="background:#000; color:white; padding:0;"><br><center><h4>${title}</h4></center><hr><video id="aula" src="${content}" controls autoplay width="100%"></video></div>`
                             document.querySelector('panel').scrollIntoView({ behavior: 'smooth', block: 'center' })
                         break;
                         default:

@@ -97,16 +97,22 @@ discuss {
 
 .accordion-button {
     border:0;
-    background: #8ca49a!important;
+    background: #78988b!important;
     box-shadow: none!important;
     outline: none!important;
     color: #000;
+    font-weight: bold;
+
 }
 
 .accordion-button:focus,.accordion-button:active, .accordion-button:not(.collapsed){
     color:#000;
     box-shadow:none!important;
     outline:none!important;
+}
+
+.accordion-button:hover{
+    background:#8ca49a!important;
 }
 
 .user-ls{
