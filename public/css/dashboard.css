@@ -92,12 +92,13 @@ discuss {
 }
 
 .card-chapter .list-group-item:hover{
-    background:rgb(228, 228, 228);
+    background: rgb(241 241 241);
 }
 
 .accordion-button {
     border:0;
     background: #78988b!important;
+    border-bottom:1px solid rgb(65, 65, 65);
     box-shadow: none!important;
     outline: none!important;
     color: #000;

@@ -67,9 +67,9 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::get('class/search', [$controller, 'class_search'])->name('dashboard.class.search');
     Route::get('class/{id}/learn/{class?}', [$controller, 'class_learn'])->name('dashboard.class.learn');
     Route::match(['get', 'post'], 'class/{id}/{class?}', [$controller, 'class_page'])->name('dashboard.class.page');
+    Route::match(['get', 'post'], 'class/{id}/savevideo/{videoId}/{userId}', [$controller, 'class_leave'])->name('dashboard.class.saveVideo');
     Route::get('class/{id}/{class?}/enroll', [$controller, 'class_matricula'])->name('dashboard.class.matricula');
     Route::get('class/{id}/{class?}/leave', [$controller, 'class_leave'])->name('dashboard.class.leave');
-
 
 });
 
