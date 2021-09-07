@@ -25,7 +25,7 @@ class ClassController extends Controller {
     }
 
     
-    public function class_manage(Request $request){
+    public function class_manageList(Request $request){
 
         $classes = ClassUsers::with(['classes'])
                             ->where('id_user', Auth::id())
@@ -35,7 +35,7 @@ class ClassController extends Controller {
         return view('painel.class.manage', compact('classes'));
     }
 
-    public function class_manageClass(Request $request){
+    public function class_manage(Request $request){
 
         $classes = ClassUsers::with(['classes'])
                             ->where('id_user', Auth::id())
@@ -43,8 +43,16 @@ class ClassController extends Controller {
 
         $class = $this->check_class($request->id);
 
+        $module = new ClassModule();
+        $grade = $module->with('chapters')
+        ->where('id_class', $request->id);
+        // nao mostrar modulo sem aula
+        $grade = $grade->whereHas('chapters', function($query){
+            $query->whereNotNull('id');
+        })->get();
+
         if($class->all->id_admin == Auth::id()){
-            return view('painel.class.manageClass', compact('classes', 'class'));
+            return view('painel.class.manageClass', compact('classes', 'class', 'grade'));
         }else{
             return redirect()->route('dashboard.notfound');
         }

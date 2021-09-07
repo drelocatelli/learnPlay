@@ -5,15 +5,23 @@
 </div>
 <h3>{{ucfirst($class->title)}}</h3>
 <hr>
+<h5>Detalhes:</h5>
 <b>Descrição:</b> {{$class->all->descricao}}
 <br>
 <b>Privilégios: </b> {{($class->all->tipo_restricao == '') ? 'nenhum privilégio' : $class->all->tipo_restricao}}
 <br>
 <b>Categoria:</b> <a href="{{route('dashboard.class.category', [$class->all->category_name])}}">{{$class->all->category_name}}</a>
 <br>
-<b>Alunos:</b> {{$class->users}}
+<b>Alunos:</b>
+@php
+    $totalMembers = $class->users->count()-1;
+@endphp
+{{($totalMembers > 1) ? $totalMembers . ' alunos' : $totalMembers . ' aluno'}} participando.
 <br>
-{{$class->all}}
-
+@include('painel.class.components.modulesManage')
+<br><br>
+<center>
+    <a href="#" class="btn btn-warning"><i class="fas fa-asterisk"></i> Gerenciar módulos</a>
+</center>
 
 @endsection
