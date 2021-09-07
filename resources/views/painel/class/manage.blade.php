@@ -15,10 +15,8 @@
                 @foreach($classes as $class)
 
                     @if($class->classes->id_admin == Auth::id())
-
                         <div class="card rounded mb-4" style="width: 14rem;">
-
-                            <a href="{{route('dashboard.class.learn', [$class->id_class, $class->titulo])}}">
+                            <a href="{{route('dashboard.class.manageClass', [$class->classes->titulo, $class->id_class])}}">
                                 <img src="{{($class->thumbnail == '') ? asset('img/class.svg') : asset("img/classes/$class->thumbnail") }}" class="card-img-top">
                                 <div class="card-body">
                                 <center>

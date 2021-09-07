@@ -24,13 +24,32 @@ class ClassController extends Controller {
         return view('painel.class.my', compact('classes'));
     }
 
-    public function class_manage(){
+    
+    public function class_manage(Request $request){
 
         $classes = ClassUsers::with(['classes'])
                             ->where('id_user', Auth::id())
                             ->get();
 
+
         return view('painel.class.manage', compact('classes'));
+    }
+
+    public function class_manageClass(Request $request){
+
+        $classes = ClassUsers::with(['classes'])
+                            ->where('id_user', Auth::id())
+                            ->get();
+
+        $class = $this->check_class($request->id);
+
+        if($class->all->id_admin == Auth::id()){
+            return view('painel.class.manageClass', compact('classes', 'class'));
+        }else{
+            return redirect()->route('dashboard.notfound');
+        }
+
+
     }
 
     public function class_create(Request $request){

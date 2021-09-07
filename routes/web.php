@@ -61,6 +61,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     $controller = ClassController::class;
     Route::get('my/class', [$controller, 'class'])->name('dashboard.class');
     Route::get('class/manage', [$controller, 'class_manage'])->name('dashboard.class.manage');
+    Route::get('class/{class}/{id}/manage', [$controller, 'class_manageClass'])->name('dashboard.class.manageClass');
     Route::get('class/list', [$controller, 'class_public'])->name('dashboard.class.public');
     Route::match(['post', 'get'] ,'class/new', [$controller, 'class_create'])->name('dashboard.class.create');
     Route::get('class/category/{category}', [$controller, 'class_category'])->name('dashboard.class.category');
@@ -70,7 +71,6 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::match(['get', 'post'], 'class/{id}/savevideo/{videoId}/{userId}', [$controller, 'class_leave'])->name('dashboard.class.saveVideo');
     Route::get('class/{id}/{class?}/enroll', [$controller, 'class_matricula'])->name('dashboard.class.matricula');
     Route::get('class/{id}/{class?}/leave', [$controller, 'class_leave'])->name('dashboard.class.leave');
-
 });
 
 //------------------------------- Dashboard group
