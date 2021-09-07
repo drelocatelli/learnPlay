@@ -13,6 +13,7 @@ use App\Models\User\UserAlert;
 use App\Models\Group;
 use App\Models\GroupArticles;
 use App\Models\Classes;
+use App\Models\ClassUsers;
 use App\Models\GroupArticleComment;
 use App\Models\Category;
 

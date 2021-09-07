@@ -122,10 +122,13 @@
                                 @foreach (Auth::user()->group_article() as $group_article)
                                     <br>
                                     <div class="discussion-post bg-light p-2 rounded">
+                                            @php
+                                                $body = Auth::user()->emoticon($group_article->body);
+                                                $body = nl2br($body);
+                                                $body = strip_tags($body, '<br><br />');
+                                            @endphp
                                         <discuss>
                                             @php
-                                                $body = nl2br(Auth::user()->emoticon($group_article->body));
-                                                $body = strip_tags(($body),'<br><b>');
                                                 print $body;
                                             @endphp
                                         </discuss>
