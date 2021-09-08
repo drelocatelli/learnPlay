@@ -37,19 +37,14 @@
                                     break;
                                 }
                             @endphp
-                            @if($link != '')
-                                <a href="{{$link}}" target="_blank" style="witdh:max-content;">
-                                @else
-                                <a href="javascript:void(0);" style="witdh:max-content;" onclick="giveContent('{{$model->chapters[$i]->content_type}}', `{{$model->chapters[$i]->title}}`, `{{$model->chapters[$i]->content}}`, `{{$model->chapters[$i]->id}}`, `{{$class->all->id}}`, `{{Auth::id()}}`)">
-                            @endif
-                                <li class="list-group-item" title="Capítulo {{$i+1}} do Módulo {{$loop->iteration}}">
-                                    <b id="class_count" class="model_number chapter_number">{{$loop->iteration}} . {{$i+1}}</b>
-
-                                    <i class="fas fa-{{($content_type)}}"></i>&nbsp;&nbsp;
-                                    {{ucfirst($model->chapters[$i]->title)}}
-                                </li>
-                            </a>
-                            <li class="list-group-item btn-warning">
+                           
+                                <li class="list-group-item" onclick="giveContent('{{$model->chapters[$i]->content_type}}', `{{$model->chapters[$i]->title}}`, `{{$model->chapters[$i]->content}}`, `{{$model->chapters[$i]->id}}`, `{{$class->all->id}}`, `{{Auth::id()}}`)" title="Capítulo {{$i+1}} do Módulo {{$loop->iteration}}">
+                                    
+                                    <div class="title-class" style="float:left;">
+                                        <b id="class_count" class="model_number chapter_number">{{$loop->iteration}} . {{$i+1}}</b>
+                                        <i class="fas fa-{{($content_type)}}"></i>&nbsp;&nbsp;
+                                        {{ucfirst($model->chapters[$i]->title)}}
+                                    </div>
                                     <div style="float:right;">
                                         <a href="#" class="btn btn-danger" title="Apagar conteúdo: {{$model->chapters[$i]->id}}"><i class="fas fa-trash-alt"></i> Apagar conteúdo</a>
                                     </div>
@@ -67,6 +62,17 @@
             </div>
 
             <style>
+
+                .list-group-item{
+                    cursor:pointer;
+                }
+
+                .title-class{
+                    color:initial;
+                    color: initial;
+                    transform: translate(10px, 10px);
+                }
+
                 .model_number {
                     background: #668477;
                     padding: 4px 7px;
@@ -92,6 +98,7 @@
                     let panel = document.querySelector('panel')
                     switch(type){
                         case 'text':
+                            content = content.replaceAll('\n', '<br>')
                             panel.innerHTML = `<div class="content-class"><center><h4>${title}</h4></center><hr>${content}</div>`;
                             document.querySelector('panel').scrollIntoView({ behavior: 'smooth' })
                         break;
@@ -99,6 +106,9 @@
                             panel.innerHTML = `<div class="content-class" style="background:#000; color:white; padding:0;"><br><center><h4>${title}</h4></center><hr><video id="aula" src="${content}" controls autoplay width="100%"></video></div>`
                             document.querySelector('panel').scrollIntoView({ behavior: 'smooth', block: 'center' })
                             registraTime(panel, id, classId , userId)
+                        break;
+                        case 'link':
+                            alert(`LINK: \n${content}`);
                         break;
                         default:
                             panel.innerHTML = ''

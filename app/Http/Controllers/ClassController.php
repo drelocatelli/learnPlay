@@ -35,8 +35,37 @@ class ClassController extends Controller {
         return view('painel.class.manage', compact('classes'));
     }
 
-    public function class_manage(Request $request){
+    public function class_manage_grade(Request $request){
 
+        $classInfo = $this->get_items_class($request);
+        $classes = $classInfo[0];
+        $class = $classInfo[1];
+        $grade = $classInfo[2];
+
+        if($this->check_admin_class($class)){
+            return view('painel.class.panel', compact('classes', 'class', 'grade'));
+        }else{
+            return redirect()->route('dashboard.notfound');
+        }
+    }
+
+    public function class_manage(Request $request){
+        
+        $classInfo = $this->get_items_class($request);
+        $classes = $classInfo[0];
+        $class = $classInfo[1];
+        $grade = $classInfo[2];
+
+        if($this->check_admin_class($class)){
+            return view('painel.class.manageClass', compact('classes', 'class', 'grade'));
+        }else{
+            return redirect()->route('dashboard.notfound');
+        }
+
+    }
+
+    public function get_items_class(Request $request){
+        // obtem os itens da classe no modo editor
         $classes = ClassUsers::with(['classes'])
                             ->where('id_user', Auth::id())
                             ->get();
@@ -51,12 +80,19 @@ class ClassController extends Controller {
             $query->whereNotNull('id');
         })->get();
 
-        if($class->all->id_admin == Auth::id()){
-            return view('painel.class.manageClass', compact('classes', 'class', 'grade'));
-        }else{
-            return redirect()->route('dashboard.notfound');
-        }
+        return [$classes, $class, $grade];
 
+    }
+
+    public function check_admin_class($class){
+
+        // checa se é administrador da aula
+
+        if($class->all->id_admin == Auth::id()){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
