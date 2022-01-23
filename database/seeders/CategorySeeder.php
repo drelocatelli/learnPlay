@@ -13,10 +13,20 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        foreach(range(1, 10) as $index) {
-            \App\Models\Category::create([
-                'nome' => "Category {$index}" . \Str::random(4),
-            ]);
+        $categories = [
+            ['nome' => 'Categoria 1'],
+            ['nome' => 'Categoria 2'],
+            ['nome' => 'Categoria 3'],
+            ['nome' => 'Categoria 4'],
+            ['nome' => 'Categoria 5'],
+        ];
+
+        foreach($categories as $category)
+        {
+            \App\Models\Category::updateOrCreate(
+                ['nome' => $category['nome']],
+                $category
+            );
         }
     }
 }
