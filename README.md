@@ -13,5 +13,4 @@ Também disponível em versão mobile.
 
 [Video](https://www.youtube.com/embed/t7Qw5_3GLPk)
 
-[LearnPlay.sql](https://drive.google.com/drive/folders/15AquuA67SBJrJE-H11rWwds76vpiCKas?usp=sharing)
-
+php artisan migrate --step --seed
