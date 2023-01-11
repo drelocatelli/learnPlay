@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
-use App\Models\User\UserAlert;
-use App\Models\Group;
-use App\Models\GroupUsers;
-use App\Models\GroupArticleComment;
-use App\Models\GroupArticles;
 
 class UserController extends Controller
 {
@@ -46,25 +41,23 @@ class UserController extends Controller
 
             // muda foto de perfil no banco
             User::where('id', Auth::user()->id)->update(['photo' => $name]);
-            return back();
+    
         }
 
 
     }
 
-
-
-    public function settings(){
+    public function settings() {
         return view('painel.user.settings');
 
     }
 
-    public function dashboard(){
+    public function dashboard() {
         return view('painel.dashboard');
     }
 
 
-    public function notifyToggle($id){
+    public function notifyToggle($id) {
 
         User::notifyToggle($id);
 

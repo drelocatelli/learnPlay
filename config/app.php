@@ -41,6 +41,8 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+
     /*
     |--------------------------------------------------------------------------
     | Application URL

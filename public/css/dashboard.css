@@ -50,9 +50,11 @@ a {
 
 .profile-photo.setting {
     height: 150px;
+    width: 150px;
     background: white;
     border-radius: 50%;
     padding: 8px;
+    object-fit: cover;
 }
 
 .group-card {
@@ -141,6 +143,8 @@ discuss {
 
 .photo {
     height: 44px;
+    width: 44px;
+    object-fit: cover;
     border: 2px solid #9db1b7;
     border-radius: 35px;
     padding: 3px;
