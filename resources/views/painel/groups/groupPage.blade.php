@@ -94,7 +94,7 @@
                                 <div class="discussion bg-light p-2 vivify fadeIn" style="animation-delay: 0.8s; border-radius:15px!important;"><br>
                                     <h5><i class="fas fa-comments"></i>&nbsp; Postar um artigo</h5>
 
-                                    <form name="article" method="post" action="{{route('dashboard.groups.post', [$title, $id])}}">
+                                    <form name="article">
                                         @csrf
                                         <input type="hidden" name="id_group" value="{{$id}}">
                                         <div class="form-group">
@@ -109,6 +109,25 @@
 
                                 </div>
                                 <script>
+                                    const form = $('form[name=article]');
+                                    form.submit(function(e) {
+                                        e.preventDefault();
+                                        $.ajax({
+                                            url: '{{route('dashboard.groups.post', [$title, $id])}}',
+                                            method: 'POST',
+                                            data: new FormData(this),
+                                            processData: false,
+                                            contentType: false,
+                                            cache: false,
+                                            success: function(response) {
+                                                window.location.reload();
+                                            },
+                                            error: function(e) {
+                                                console.log('error', e);
+                                            }
+                                        });
+                                    });
+                                    
                                     $('form[name=article] textarea').focus(function(e){
                                         e.currentTarget.onkeypress = function(ev){
                                             if(ev.ctrlKey && ev.code == 'Enter'){
@@ -220,7 +239,7 @@
                                     @else
                                         {!! asset('img/groups/'. $group_page->thumbnail) !!}
                                     @endif
-                                    " class="img-thumbnail bg-transparent">
+                                    " class="img-thumbnail bg-transparent" style="width: 250px; height: 250px; object-fit: cover; border-radius: 10px;">
                                 </div>
                                 <br>
                                 <span name="group_description">
@@ -239,8 +258,6 @@
 
 
                                     @endif
-                                <br><br>
-                                <a class="btn btn-info"><i class="fas fa-photo-video"></i>&nbsp; Verificar aulas</a>
                                 <br>
                                 @if($authIsAdmin)
                                     <br>

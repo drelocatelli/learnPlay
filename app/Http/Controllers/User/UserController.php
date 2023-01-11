@@ -35,7 +35,6 @@ class UserController extends Controller
                 'photo' => 'required|image|mimes:jpeg,png,jpg,svg,bmp,webp,jfif',
             ]);
 
-            $extension = $request->photo->extension();
             $name = Auth::user()->nome.'_'.Auth::user()->id.'.'.'png';
             $request->photo->move(public_path('img/userimg'), $name);
 
@@ -43,8 +42,6 @@ class UserController extends Controller
             User::where('id', Auth::user()->id)->update(['photo' => $name]);
     
         }
-
-
     }
 
     public function settings() {

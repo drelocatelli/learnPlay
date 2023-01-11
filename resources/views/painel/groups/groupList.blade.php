@@ -23,7 +23,7 @@
                     @else
                         {!! asset('img/groups/'. $group->thumbnail) !!}
                     @endif
-                    " style="width: 15rem; height: 15rem;">
+                    " style="width: 15rem; height: 15rem; object-fit: cover;">
                 </td>
                 <td valign="top" align="left">
                     <br><br>
