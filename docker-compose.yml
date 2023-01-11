@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  database:
+    image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+  app:
+    image: docker.io/bitnami/laravel:9
+    ports:
+      - '${WEB_PORT:-0}:8000'
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=3306
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - '.:/app'
+    depends_on:
+      - database
+volumes:
+  mysql-data:
+  cache:
