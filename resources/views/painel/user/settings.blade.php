@@ -18,7 +18,8 @@
                     </td>
                     <td valign="top" style="padding-left:50px;">
                         <h4>{{ Auth::user()->nome }}</h4>
-                        {{ Auth::user()->email }}
+                        {{-- {{ Auth::user()->email }} --}}
+                        Configurações de usuário.
                         <br><br><br>
                         <form name="userconfig" method="post" enctype="multipart/form-data" action="{{route('user.changePhoto')}}">
                             {{ csrf_field() }}
